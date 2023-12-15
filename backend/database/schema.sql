@@ -4,13 +4,13 @@ CREATE TABLE `success` (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE `roles`(
+CREATE TABLE `role`(
   `id` INT AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   PRIMARY KEY(id)
 );
 
-CREATE TABLE `ingredients` (
+CREATE TABLE `ingredient` (
   `id` INT AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `nutritional_value` VARCHAR(255) NOT NULL,
@@ -19,13 +19,13 @@ CREATE TABLE `ingredients` (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE `comments`(
+CREATE TABLE `comment`(
   `id` INT AUTO_INCREMENT,
   `content` TEXT NOT NULL,
   PRIMARY KEY(id)
 );
 
-CREATE TABLE `recipes` (
+CREATE TABLE `recipe` (
   `id` INT AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,
   `publication_date` DATE NOT NULL,
@@ -45,11 +45,11 @@ CREATE TABLE `ingredient_recipe` (
   recipe_id INT, 
   ingredient_id INT,
   PRIMARY KEY(id),
-  FOREIGN KEY(ingredient_id) REFERENCES ingredients(id),
-  FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+  FOREIGN KEY(ingredient_id) REFERENCES ingredient(id),
+  FOREIGN KEY(recipe_id) REFERENCES recipe(id)
 );
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` INT AUTO_INCREMENT,
   `firstname` VARCHAR(150) NOT NULL,
   `lastname` VARCHAR(255) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE `users` (
   `creation_date` DATE,
   role_id INT,
   PRIMARY KEY(id),
-  FOREIGN KEY(role_id) REFERENCES roles(id)
+  FOREIGN KEY(role_id) REFERENCES role(id)
 );
 
 CREATE TABLE `recipe_comment` (
@@ -72,9 +72,9 @@ CREATE TABLE `recipe_comment` (
   user_id INT,
   recipe_id INT,
   PRIMARY KEY(id),
-  FOREIGN KEY(user_id) REFERENCES users(id),
-  FOREIGN KEY(recipe_id) REFERENCES recipes(id),
-  FOREIGN KEY(comment_id) REFERENCES comments(id)
+  FOREIGN KEY(user_id) REFERENCES user(id),
+  FOREIGN KEY(recipe_id) REFERENCES recipe(id),
+  FOREIGN KEY(comment_id) REFERENCES comment(id)
 );
 
 CREATE TABLE `favorite_recipe_user` (
@@ -82,8 +82,8 @@ CREATE TABLE `favorite_recipe_user` (
   user_id INT,
   recipe_id INT,
   PRIMARY KEY(id),
-  FOREIGN KEY(user_id) REFERENCES users(id),
-  FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+  FOREIGN KEY(user_id) REFERENCES user(id),
+  FOREIGN KEY(recipe_id) REFERENCES recipe(id)
 );
 
 CREATE TABLE `recipe_user` (
@@ -91,8 +91,8 @@ CREATE TABLE `recipe_user` (
   user_id INT,
   recipe_id INT,
   PRIMARY KEY(id),
-  FOREIGN KEY(user_id) REFERENCES users(id),
-  FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+  FOREIGN KEY(user_id) REFERENCES user(id),
+  FOREIGN KEY(recipe_id) REFERENCES recipe(id)
   );
 
 CREATE TABLE `user_success` (
@@ -100,6 +100,6 @@ CREATE TABLE `user_success` (
   user_id INT,
   success_id INT,
   PRIMARY KEY(id),
-  FOREIGN KEY(user_id) REFERENCES users(id),
+  FOREIGN KEY(user_id) REFERENCES user(id),
   FOREIGN KEY(success_id) REFERENCES success(id)
 );
