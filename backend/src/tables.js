@@ -8,6 +8,7 @@ const IngredientManager = require("./models/IngredientManager");
 const RecipeManager = require("./models/RecipeManager");
 const SuccessManager = require("./models/SuccessManager");
 const UserManager = require("./models/UserManager");
+const RoleManager = require("./models/RoleManager");
 
 const managers = [
   CommentManager,
@@ -15,6 +16,7 @@ const managers = [
   RecipeManager,
   SuccessManager,
   UserManager,
+  RoleManager,
 ];
 
 // Create an empty object to hold data managers for different tables

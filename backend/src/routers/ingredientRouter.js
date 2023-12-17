@@ -12,7 +12,18 @@ const {
 
 router.get("/", browse);
 
-router.post("/", add);
+router.post(
+  "/",
+  (req, res, next) => {
+    const { name } = req.body;
+    if (name !== "") {
+      next();
+    } else {
+      res.status(404).json({ message: "name must be not null" });
+    }
+  },
+  add
+);
 
 router.get("/:id", read);
 

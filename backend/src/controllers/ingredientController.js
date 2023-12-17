@@ -1,31 +1,85 @@
+// BREAD
+
 // Import access to database tables
-// const tables = require("../tables");
+const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
+const browse = async (req, res) => {
+  try {
+    const ingredients = await tables.ingredient.readAll();
 
-// const browse = async (req, res) => {};
+    if (ingredients == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(ingredients);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// The R of BREAD - Read operation
+const read = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const ingredient = await tables.ingredient.read(id);
 
-// const read = async (req, res) => {};
+    if (ingredient == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(ingredient);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// The E of BREAD - Edit (Update) operation
+const edit = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    // const updatedIngredient = req.body;
+    const ingredient = await tables.ingredient.update(
+      parseInt(req.params.id, 10),
+      req.body
+    );
 
-// const edit = async (req, res) => {};
+    if (ingredient == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json({ message: `Ingredient #${id} modified` });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// The A of BREAD - Add (Create) operation
+const add = async (req, res) => {
+  try {
+    const newIngredient = req.body;
+    const ingredient = await tables.ingredient.create(newIngredient);
 
-// const add = async (req, res) => {};
+    if (ingredient == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(201).json({ message: "Ingredient created successfully!" });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// The D of BREAD - Destroy (Delete) operation
+const destroy = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const ingredient = await tables.ingredient.delete(id);
 
-// const destroy = async (req, res) => {};
+    if (ingredient == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json({ message: `Ingredient #${id} deleted` });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-// Ready to export the controller functions
-// module.exports = {
-//   browse,
-//   read,
-//   edit,
-//   add,
-//   destroy,
-// };
+module.exports = { browse, read, edit, add, destroy };
