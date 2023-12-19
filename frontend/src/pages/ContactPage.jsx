@@ -34,7 +34,7 @@ function ContactPage() {
               name="email"
               id="email_field"
               required
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              pattern="/[\w.%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}/"
               title="Merci d'entrer une adresse email valide comme nom@exemple.com"
             />
           </div>
