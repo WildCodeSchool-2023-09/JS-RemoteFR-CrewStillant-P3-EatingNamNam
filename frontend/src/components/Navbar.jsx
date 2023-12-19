@@ -14,13 +14,13 @@ function Navbar() {
       </NavLink>
       <div className="text-beigep m-4 flex gap-2">
         <NavLink
-          className="hover:text-vertp text-xl h-fit my-auto"
+          className="hover:text-greenp text-xl h-fit my-auto"
           to="/recettes"
         >
           Mes recettes
         </NavLink>
         <NavLink
-          className="hover:text-vertp text-xl h-fit my-auto"
+          className="hover:text-greenp text-xl h-fit my-auto"
           to="/compte"
         >
           Mon compte

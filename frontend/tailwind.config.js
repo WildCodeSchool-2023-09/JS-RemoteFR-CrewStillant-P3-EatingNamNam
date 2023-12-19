@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         orangep: "#D56C06",
-        vertp: "#97BF0D",
+        greenp: "#97BF0D",
         beigep: "#ECE8DA",
       },
     },
