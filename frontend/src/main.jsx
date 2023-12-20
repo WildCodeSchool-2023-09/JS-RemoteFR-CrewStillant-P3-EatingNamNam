@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Contact from "./pages/ContactPage";
+import CreateReceipe from "./pages/CreateReceipePage";
 
 import App from "./App";
 
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/createreceipe",
+        element: <CreateReceipe />,
+      },
       {
         path: "/contact",
         element: <Contact />,
