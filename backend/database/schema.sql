@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2023-12-19 13:55:33.684
+-- Last modification date: 2023-12-20 13:22:36.059
 
 -- tables
 -- Table: comment
@@ -40,12 +40,12 @@ CREATE TABLE ingredient_recipe (
 -- Table: recipe
 CREATE TABLE recipe (
     id int  NOT NULL AUTO_INCREMENT,
-    title int  NOT NULL,
-    cookingTime int  NOT NULL,
-    preaprationTime int  NOT NULL,
+    title varchar(150)  NOT NULL,
+    cooking_time int  NOT NULL,
+    preparation_time int  NOT NULL,
     difficulty int  NOT NULL,
     ingredient_list_id int  NOT NULL,
-    step_recette_id int  NOT NULL,
+    image varchar(255)  NOT NULL,
     CONSTRAINT recipe_pk PRIMARY KEY (id)
 );
 
@@ -73,12 +73,12 @@ CREATE TABLE role (
     CONSTRAINT role_pk PRIMARY KEY (id)
 );
 
--- Table: step_recette
-CREATE TABLE step_recette (
+-- Table: step
+CREATE TABLE step (
     id int  NOT NULL AUTO_INCREMENT,
-    step int  NOT NULL,
+    text varchar(255)  NOT NULL,
     recipe_id int  NOT NULL,
-    CONSTRAINT step_recette_pk PRIMARY KEY (id)
+    CONSTRAINT step_pk PRIMARY KEY (id)
 );
 
 -- Table: success
@@ -100,7 +100,7 @@ CREATE TABLE success_user (
 CREATE TABLE unit (
     id int  NOT NULL AUTO_INCREMENT,
     name varchar(50)  NOT NULL,
-    mesureUnit json  NOT NULL,
+    mesure_unit varchar(255)  NOT NULL,
     CONSTRAINT unit_pk PRIMARY KEY (id)
 );
 
@@ -121,10 +121,10 @@ CREATE TABLE user (
     pseudo varchar(50)  NOT NULL,
     mail varchar(255)  NOT NULL,
     password varchar(255)  NOT NULL,
-    kitchenTime int  NOT NULL,
+    week_time_kitchen int  NOT NULL,
     sexe bool  NOT NULL,
     weight int  NOT NULL,
-    registrationDate date  NOT NULL,
+    registration_date date  NOT NULL,
     role_id int  NOT NULL DEFAULT 1,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
@@ -133,10 +133,6 @@ CREATE TABLE user (
 -- Reference: Recipe_ingredient_list (table: recipe)
 ALTER TABLE recipe ADD CONSTRAINT Recipe_ingredient_list FOREIGN KEY Recipe_ingredient_list (ingredient_list_id)
     REFERENCES ingredient_recipe (id);
-
--- Reference: Recipe_step_recette (table: recipe)
-ALTER TABLE recipe ADD CONSTRAINT Recipe_step_recette FOREIGN KEY Recipe_step_recette (step_recette_id)
-    REFERENCES step_recette (id);
 
 -- Reference: Table_13_Success (table: success_user)
 ALTER TABLE success_user ADD CONSTRAINT Table_13_Success FOREIGN KEY Table_13_Success (Success_id)
@@ -181,6 +177,10 @@ ALTER TABLE recipe_user ADD CONSTRAINT recipe_user_Recipe FOREIGN KEY recipe_use
 -- Reference: recipe_user_User (table: recipe_user)
 ALTER TABLE recipe_user ADD CONSTRAINT recipe_user_User FOREIGN KEY recipe_user_User (User_id)
     REFERENCES user (id);
+
+-- Reference: step_recipe (table: step)
+ALTER TABLE step ADD CONSTRAINT step_recipe FOREIGN KEY step_recipe (recipe_id)
+    REFERENCES recipe (id);
 
 -- Reference: unit_ingredient_ingredient (table: unit_ingredient)
 ALTER TABLE unit_ingredient ADD CONSTRAINT unit_ingredient_ingredient FOREIGN KEY unit_ingredient_ingredient (ingredient_id)
