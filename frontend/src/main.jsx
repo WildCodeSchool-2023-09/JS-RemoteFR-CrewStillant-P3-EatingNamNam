@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
+import Contact from "./pages/ContactPage";
 
 import App from "./App";
 import RecipePage from "./pages/RecipePage";
@@ -18,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: "/recettes",
         element: <RecipePage />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "*",
+        element: <div>Not Found</div>,
       },
     ],
   },
