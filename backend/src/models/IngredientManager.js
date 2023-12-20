@@ -8,12 +8,13 @@ class IngredientManager extends AbstractManager {
 
   async create(ingredient) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, nutritional_value, international_unit, imperial_unit) VALUE(?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (name, calories, fat, sugar, protein) VALUE(?, ?, ?, ?, ?)`,
       [
         ingredient.name,
-        ingredient.nutritional_value,
-        ingredient.international_unit,
-        ingredient.imperial_unit,
+        ingredient.calories,
+        ingredient.fat,
+        ingredient.sugar,
+        ingredient.protein,
       ]
     );
     return result.insertId;
@@ -34,12 +35,13 @@ class IngredientManager extends AbstractManager {
 
   async update(id, ingredient) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name=?, nutritional_value=?, international_unit=?, imperial_unit=?  WHERE id = ?`,
+      `UPDATE ${this.table} SET name=?, calories=?, fat=?, sugar=?, protein=?  WHERE id = ?`,
       [
         ingredient.name,
-        ingredient.nutritional_value,
-        ingredient.international_unit,
-        ingredient.imperial_unit,
+        ingredient.calories,
+        ingredient.fat,
+        ingredient.sugar,
+        ingredient.protein,
         id,
       ]
     );

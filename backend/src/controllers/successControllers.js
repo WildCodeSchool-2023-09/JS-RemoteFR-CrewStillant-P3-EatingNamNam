@@ -3,7 +3,7 @@ const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
 
-const browse = async (req, res) => {
+const browse = async (req, res, next) => {
   try {
     const success = await tables.success.readAll();
 
@@ -13,13 +13,13 @@ const browse = async (req, res) => {
       res.send(200).json(success);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The R of BREAD - Read operation
 
-const read = async (req, res) => {
+const read = async (req, res, next) => {
   try {
     const success = await tables.success.read(parseInt(req.params.id, 10));
 
@@ -29,13 +29,13 @@ const read = async (req, res) => {
       res.send(200).json(success);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The E of BREAD - Edit (Update) operation
 
-const edit = async (req, res) => {
+const edit = async (req, res, next) => {
   try {
     const updateSuccess = req.body;
     const success = await tables.success.update(
@@ -49,13 +49,13 @@ const edit = async (req, res) => {
       res.send(200).json({ message: "success edited successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The A of BREAD - Add (Create) operation
 
-const add = async (req, res) => {
+const add = async (req, res, next) => {
   try {
     const newSuccess = req.body;
     const success = await tables.success.create(newSuccess);
@@ -66,13 +66,13 @@ const add = async (req, res) => {
       res.send(201).json({ message: "success created successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The D of BREAD - Destroy (Delete) operation
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const deletedSuccess = await tables.success.delete(
       parseInt(req.params.id, 10)
@@ -84,7 +84,7 @@ const destroy = async (req, res) => {
       res.send(200).json({ message: "success deleted successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 

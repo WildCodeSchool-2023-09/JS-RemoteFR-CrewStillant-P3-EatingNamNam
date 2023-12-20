@@ -8,7 +8,7 @@ const {
   edit,
   add,
   destroy,
-} = require("../controllers/commentController");
+} = require("../controllers/commentControllers");
 
 router.get("/", browse);
 

@@ -8,7 +8,7 @@ const {
   edit,
   add,
   destroy,
-} = require("../controllers/userController");
+} = require("../controllers/userControllers");
 
 router.get("/", browse);
 

@@ -3,7 +3,7 @@ const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
 
-const browse = async (req, res) => {
+const browse = async (req, res, next) => {
   try {
     const users = await tables.user.readAll();
 
@@ -13,13 +13,13 @@ const browse = async (req, res) => {
       res.status(200).json(users);
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
 // The R of BREAD - Read operation
 
-const read = async (req, res) => {
+const read = async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await tables.user.read(parseInt(id, 10));
@@ -30,13 +30,13 @@ const read = async (req, res) => {
       res.status(200).json(user);
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
 // The E of BREAD - Edit (Update) operation
 
-const edit = async (req, res) => {
+const edit = async (req, res, next) => {
   try {
     const updatedUser = req.body;
     const user = await tables.user.update(updatedUser);
@@ -47,13 +47,13 @@ const edit = async (req, res) => {
       res.status(200).json({ message: "User updated" });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
 // The A of BREAD - Add (Create) operation
 
-const add = async (req, res) => {
+const add = async (req, res, next) => {
   try {
     const newUser = req.body;
     const user = await tables.user.update(newUser);
@@ -63,13 +63,13 @@ const add = async (req, res) => {
       res.status(200).json({ message: "User created" });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
 // The D of BREAD - Destroy (Delete) operation
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await tables.user.delete(parseInt(id, 10));
@@ -80,7 +80,7 @@ const destroy = async (req, res) => {
       res.status(200).json({ message: "User deleted" });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 

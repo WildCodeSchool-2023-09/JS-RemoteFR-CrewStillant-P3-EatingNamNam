@@ -2,7 +2,7 @@
 const tables = require("../tables");
 
 // BREAD
-const browse = async (req, res) => {
+const browse = async (req, res, next) => {
   try {
     const roles = await tables.role.readAll();
 
@@ -12,11 +12,11 @@ const browse = async (req, res) => {
       res.status(200).json(roles);
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const read = async (req, res) => {
+const read = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     const role = await tables.role.read(id);
@@ -27,11 +27,11 @@ const read = async (req, res) => {
       res.status(200).json(role);
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const edit = async (req, res) => {
+const edit = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     const { name } = req.body;
@@ -43,11 +43,11 @@ const edit = async (req, res) => {
       res.status(200).json({ message: `Role #${id} updated` });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const add = async (req, res) => {
+const add = async (req, res, next) => {
   try {
     const { name } = req.body;
     const role = await tables.role.create(name);
@@ -58,11 +58,11 @@ const add = async (req, res) => {
       res.status(201).json({ message: `Role created` });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     const role = await tables.role.delete(id);
@@ -73,7 +73,7 @@ const destroy = async (req, res) => {
       res.status(200).json({ message: `Role #${id} deleted` });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 

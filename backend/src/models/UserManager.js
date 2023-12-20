@@ -64,7 +64,7 @@ class UserManager extends AbstractManager {
 
   async delete(id) {
     const [result] = await this.database.query(
-      `DELETE * FROM ${this.table} WHERE id=?`,
+      `DELETE FROM ${this.table} WHERE id=?`,
       [id]
     );
     return result.affectedRows;

@@ -8,22 +8,11 @@ const {
   edit,
   add,
   destroy,
-} = require("../controllers/ingredientController");
+} = require("../controllers/ingredientControllers");
 
 router.get("/", browse);
 
-router.post(
-  "/",
-  (req, res, next) => {
-    const { name } = req.body;
-    if (name !== "") {
-      next();
-    } else {
-      res.status(404).json({ message: "name must be not null" });
-    }
-  },
-  add
-);
+router.post("/", add);
 
 router.get("/:id", read);
 

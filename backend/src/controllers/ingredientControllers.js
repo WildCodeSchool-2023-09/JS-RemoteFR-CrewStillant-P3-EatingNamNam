@@ -4,7 +4,7 @@
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
-const browse = async (req, res) => {
+const browse = async (req, res, next) => {
   try {
     const ingredients = await tables.ingredient.readAll();
 
@@ -14,11 +14,11 @@ const browse = async (req, res) => {
       res.status(200).json(ingredients);
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const read = async (req, res) => {
+const read = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     const ingredient = await tables.ingredient.read(id);
@@ -29,11 +29,11 @@ const read = async (req, res) => {
       res.status(200).json(ingredient);
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const edit = async (req, res) => {
+const edit = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     // const updatedIngredient = req.body;
@@ -48,11 +48,11 @@ const edit = async (req, res) => {
       res.status(200).json({ message: `Ingredient #${id} modified` });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const add = async (req, res) => {
+const add = async (req, res, next) => {
   try {
     const newIngredient = req.body;
     const ingredient = await tables.ingredient.create(newIngredient);
@@ -63,11 +63,11 @@ const add = async (req, res) => {
       res.status(201).json({ message: "Ingredient created successfully!" });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
     const ingredient = await tables.ingredient.delete(id);
@@ -78,7 +78,7 @@ const destroy = async (req, res) => {
       res.status(200).json({ message: `Ingredient #${id} deleted` });
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 

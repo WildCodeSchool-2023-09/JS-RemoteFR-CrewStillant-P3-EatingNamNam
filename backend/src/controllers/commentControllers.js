@@ -3,7 +3,7 @@ const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
 
-const browse = async (req, res) => {
+const browse = async (req, res, next) => {
   try {
     const comments = await tables.comment.readAll();
     if (comments == null) {
@@ -12,13 +12,13 @@ const browse = async (req, res) => {
       res.status(200).json(comments);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The R of BREAD - Read operation
 
-const read = async (req, res) => {
+const read = async (req, res, next) => {
   try {
     const comment = await tables.comment.read(parseInt(req.params.id, 10));
 
@@ -28,13 +28,13 @@ const read = async (req, res) => {
       res.status(200).json(comment);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The E of BREAD - Edit (Update) operation
 
-const edit = async (req, res) => {
+const edit = async (req, res, next) => {
   try {
     const comment = req.body;
     const updatedComment = await tables.comment.update(
@@ -48,13 +48,13 @@ const edit = async (req, res) => {
       res.status(200).json({ message: "comment updated successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The A of BREAD - Add (Create) operation
 
-const add = async (req, res) => {
+const add = async (req, res, next) => {
   try {
     const comment = req.body;
     const newComment = await tables.comment.create(comment);
@@ -65,13 +65,13 @@ const add = async (req, res) => {
       res.status(201).json({ message: "comment created successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The D of BREAD - Destroy (Delete) operation
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const comment = await tables.comment.destroy(parseInt(req.params.id, 10));
 
@@ -81,7 +81,7 @@ const destroy = async (req, res) => {
       res.status(200).json({ message: "comment deleted successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
