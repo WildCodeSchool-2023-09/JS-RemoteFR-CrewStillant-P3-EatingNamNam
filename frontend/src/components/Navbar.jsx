@@ -1,15 +1,11 @@
 import { NavLink } from "react-router-dom";
 
-// import logo
-
 import logo from "../assets/logo_et_icones/logo1.png";
-
-// my function nav
 
 function Navbar() {
   return (
     <div className="bg-orangep flex flex-row justify-between">
-      <NavLink className="m-2" to="/home">
+      <NavLink className="m-2" to="/">
         <img className="h-32 rounded-full" src={logo} alt="logo" />
       </NavLink>
       <div className="text-beigep m-4 flex gap-2">
