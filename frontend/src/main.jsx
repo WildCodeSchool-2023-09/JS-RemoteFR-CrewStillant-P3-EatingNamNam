@@ -1,11 +1,11 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-import Contact from "./pages/ContactPage";
 
 import App from "./App";
 import RecipePage from "./pages/RecipePage";
 import UserAccountPage from "./pages/UserAccountPage";
+import Contact from "./pages/ContactPage";
 
 const router = createBrowserRouter([
   {
