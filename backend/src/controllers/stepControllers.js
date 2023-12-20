@@ -52,7 +52,7 @@ const edit = async (req, res, next) => {
 
 // The A of BREAD - Add (Create) operation
 
-const add = async (req, res) => {
+const add = async (req, res, next) => {
   try {
     const newStep = req.body;
     const step = await tables.step.create(newStep);
@@ -63,13 +63,13 @@ const add = async (req, res) => {
       res.send(201).json({ message: "step created successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // The D of BREAD - Destroy (Delete) operation
 
-const destroy = async (req, res) => {
+const destroy = async (req, res, next) => {
   try {
     const deletedStep = await tables.step.delete(parseInt(req.params.id, 10));
 
@@ -79,7 +79,7 @@ const destroy = async (req, res) => {
       res.send(200).json({ message: "step deleted successfully" });
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
