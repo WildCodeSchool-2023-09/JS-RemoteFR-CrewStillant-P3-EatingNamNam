@@ -33,7 +33,7 @@ function Footer() {
           </NavLink>
         </div>
       </div>
-      <div className="bg-orange flex inline justify-center p-2">
+      <div className="bg-orange flex flex-row justify-center p-2">
         <NavLink to="/">
           <img className="h-10" src={pictureYoutube} alt="youtube" />
         </NavLink>
