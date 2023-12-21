@@ -42,7 +42,6 @@ function Footer() {
         </NavLink>
         <NavLink to="/">
           <img className="h-10" src={pictureTwitch} alt="twitch" />
-        </NavLink>
       </div>
     </div>
   );

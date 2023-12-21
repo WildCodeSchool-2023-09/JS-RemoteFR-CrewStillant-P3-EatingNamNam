@@ -9,6 +9,7 @@ function App() {
   return (
     <div>
       <Navbar />
+      <h1>HELLO WORLD</h1>
       <Outlet />
       <Footer />
     </div>
