@@ -6,7 +6,6 @@ import Contact from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 
 import App from "./App";
-import NewRecipePage from "./pages/NewRecipePage";
 
 const router = createBrowserRouter([
   {
@@ -17,14 +16,11 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: async () => {
-          const response = await fetch("http://localhost:3310/api/recipe");
-          const recipes = await response.json();
-          return { recipes };
+          const recipes = await fetch("http://localhost:3310/api/recipe").then(
+            (res) => res.json()
+          );
+          return recipes;
         },
-      },
-      {
-        path: "/new-recipe",
-        element: <NewRecipePage />,
       },
       {
         path: "/contact",
