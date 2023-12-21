@@ -13,7 +13,7 @@ function HomePage() {
               <div className="flex flex-col items-center justify-center mt-16">
                 <button
                   type="button"
-                  className="rounded-full bg-beige p-10 text-green font-bold text-5xl"
+                  className="rounded-full bg-beige p-10 text-green font-bold text-4xl"
                 >
                   +
                 </button>
