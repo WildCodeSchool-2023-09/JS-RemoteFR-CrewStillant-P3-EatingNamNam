@@ -117,14 +117,14 @@ CREATE TABLE user (
     id int  NOT NULL AUTO_INCREMENT,
     firstname varchar(150)  NOT NULL,
     lastname varchar(150)  NOT NULL,
-    birthdate date  NOT NULL,
+    birthdate TIMESTAMP  NOT NULL,
     pseudo varchar(50)  NOT NULL,
     mail varchar(255)  NOT NULL,
     password varchar(255)  NOT NULL,
     week_time_kitchen int  NOT NULL,
-    sexe bool  NOT NULL,
+    gender VARCHAR(50)  NOT NULL,
     weight int  NOT NULL,
-    registration_date date  NOT NULL,
+    registration_date TIMESTAMP NOT NULL,
     role_id int  NOT NULL DEFAULT 1,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
