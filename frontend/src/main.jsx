@@ -1,12 +1,11 @@
 import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
 import Contact from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
-
-import App from "./App";
-import NewRecipePage from "./pages/NewRecipePage";
+import RecipesPage from "./pages/RecipesPage";
 
 const router = createBrowserRouter([
   {
@@ -23,9 +22,16 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/new-recipe",
-        element: <NewRecipePage />,
+        path: "/recipe/:id",
+        element: <RecipesPage />,
+        loader: async ({ params }) => {
+          const recipe = await fetch(
+            `http://localhost:3310/api/recipe/${params.id}`
+          );
+          return { recipe };
+        },
       },
+
       {
         path: "/contact",
         element: <Contact />,

@@ -1,6 +1,6 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 
-function HomePage() {
+function HomePage(id) {
   const { recipes } = useLoaderData();
 
   return (
@@ -9,7 +9,7 @@ function HomePage() {
         <ul className="flex flex-row justify-center flex-wrap gap-16">
           <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
             <h1 className="text-beige text-xl">Crée ma recette</h1>
-            <Link to="/new-recipe">
+            <NavLink to="/new-recipe">
               <div className="flex flex-col items-center justify-center mt-16">
                 <button
                   type="button"
@@ -18,7 +18,7 @@ function HomePage() {
                   +
                 </button>
               </div>
-            </Link>
+            </NavLink>
           </div>
 
           {recipes &&
@@ -42,12 +42,14 @@ function HomePage() {
                   className="rounded-2xl relative self-end"
                 />
                 <div className="flex flex-col items-center justify-center">
-                  <button
-                    type="button"
-                    className="border bg-green text-beige p-1.5 absolute"
-                  >
-                    En savoir plus
-                  </button>
+                  <NavLink to={`/recipe/${id}`}>
+                    <button
+                      type="button"
+                      className="border bg-green text-beige p-1.5 absolute"
+                    >
+                      En savoir plus
+                    </button>
+                  </NavLink>
                 </div>
               </li>
             ))}
