@@ -1,10 +1,9 @@
 import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Contact from "./pages/ContactPage";
-import CreateRecipe from "./pages/CreateRecipePage";
-
+import CreateRecipePage from "./pages/CreateRecipePage";
 import App from "./App";
 
 const router = createBrowserRouter([
@@ -14,8 +13,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/createrecipe",
-        element: <CreateRecipe />,
-        loader: () => fetch("http://localhost:3000/api/get/ingredient"),
+        element: <CreateRecipePage />,
       },
       {
         path: "/contact",

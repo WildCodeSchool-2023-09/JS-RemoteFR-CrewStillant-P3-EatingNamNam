@@ -1,6 +1,6 @@
 import RecipeCreation from "../components/RecipeCreation";
 
-function CreateRecipe() {
+function CreateRecipePage() {
   return (
     <div className="">
       <h1 className="text-red-500">CreateRecipePage</h1>
@@ -9,4 +9,4 @@ function CreateRecipe() {
   );
 }
 
-export default CreateRecipe;
+export default CreateRecipePage;

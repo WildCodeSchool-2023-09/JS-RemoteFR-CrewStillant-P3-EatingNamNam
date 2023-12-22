@@ -1,18 +1,24 @@
 import React from "react";
-// import { useForm } from "react-hook-form";
-// import { useLoaderData } from "react-router-dom";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+/* eslint-disable react/jsx-props-no-spreading */
 
 function RecipeCreation() {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
-  // const onSubmit = (data) => console.info(data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.info(data);
+
+  const totoingredient = axios.get(
+    `${import.meta.env.VITE_BACKEND_URL}/api/ingredient`
+  );
+  console.info(totoingredient);
 
   return (
     <div className="flex gap-4 flex-col p-3 bg-orange justify-center">
-      {/* <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-4 mb-3">
           <label htmlFor="title">Titre de votre recette</label>
           <input
@@ -145,7 +151,7 @@ function RecipeCreation() {
         <button className="bg-green" type="submit">
           J'envoie ma recette 🥕
         </button>
-      </form> */}
+      </form>
       <p>JE SUIS UNE DONNEE VIDE UWU</p>
     </div>
   );
