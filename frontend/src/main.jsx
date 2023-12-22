@@ -16,22 +16,24 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: async () => {
-          const response = await fetch("http://localhost:3310/api/recipe");
+          const response = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/recipe`
+          );
           const recipes = await response.json();
-          return { recipes };
+          return recipes;
         },
       },
       {
         path: "/recipe/:id",
         element: <RecipesPage />,
         loader: async ({ params }) => {
-          const recipe = await fetch(
-            `http://localhost:3310/api/recipe/${params.id}`
+          const id = parseInt(params.id, 10);
+          const recipes = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${id}`
           );
-          return { recipe };
+          return recipes;
         },
       },
-
       {
         path: "/contact",
         element: <Contact />,

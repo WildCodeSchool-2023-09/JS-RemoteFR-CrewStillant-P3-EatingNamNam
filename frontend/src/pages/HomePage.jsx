@@ -1,7 +1,7 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 
-function HomePage(id) {
-  const { recipes } = useLoaderData();
+function HomePage() {
+  const recipes = useLoaderData();
 
   return (
     <div className="m-20">
@@ -42,7 +42,7 @@ function HomePage(id) {
                   className="rounded-2xl relative self-end"
                 />
                 <div className="flex flex-col items-center justify-center">
-                  <NavLink to={`/recipe/${id}`}>
+                  <NavLink to={`/recipe/${r.id}`}>
                     <button
                       type="button"
                       className="border bg-green text-beige p-1.5 absolute"

@@ -6,13 +6,9 @@ function Recipes({ recipe }) {
     <div>
       <div>
         <img src={recipe.image} alt={recipe.image} />
-        <p>Cooking Time: {recipe.cooking_time}</p>
-        <p>Preparation Time: {recipe.preparation_time}</p>
-        <p>Difficulty: {recipe.difficulty}</p>
-        <p>ID: {recipe.id}</p>
-      </div>
-      <div>
-        <p>Quantity: {recipe.quantity}</p>
+        <p>Préparation: {recipe.preparation_time}</p>
+        <p>Cuisson: {recipe.cooking_time}</p>
+        <p>Difficulté: {recipe.difficulty}</p>
       </div>
     </div>
   );
@@ -24,8 +20,6 @@ Recipes.propTypes = {
     cooking_time: PropTypes.number.isRequired,
     preparation_time: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 

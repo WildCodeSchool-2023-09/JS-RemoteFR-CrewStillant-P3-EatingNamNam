@@ -20,7 +20,9 @@ const seed = async () => {
     // Generating Seed Data
 
     // Optional: Truncate tables (remove existing data)
-    await database.query("DELETE FROM recipe");
+    // await database.query("truncate recipe");
+    // await database.query("truncate ingredient");
+    // await database.query("truncate ingredient_recipe");
 
     // Insert fake data into the 'recipe' table
     for (let i = 0; i < 10; i += 1) {
@@ -33,6 +35,36 @@ const seed = async () => {
             faker.number.int({ min: 1, max: 120 }),
             faker.number.int({ min: 1, max: 5 }),
             faker.image.food(),
+          ]
+        )
+      );
+    }
+
+    // Insert fake data into the 'ingredient_recipe' table
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "INSERT INTO ingredient (name, calories, fat, sugar, protein) VALUES (?, ?, ?, ?, ?)",
+          [
+            faker.lorem.word(),
+            faker.number.int({ min: 1, max: 1000 }),
+            faker.number.int({ min: 1, max: 1000 }),
+            faker.number.int({ min: 1, max: 1000 }),
+            faker.number.int({ min: 1, max: 1000 }),
+          ]
+        )
+      );
+    }
+
+    // Insert fake data into the 'ingredient_recipe' table
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "INSERT INTO ingredient_recipe (quantity, recipe_id, Ingredient_id) VALUES (?, ?, ?)",
+          [
+            faker.number.int({ min: 1, max: 10 }),
+            faker.number.int({ min: 1, max: 10 }),
+            faker.number.int({ min: 1, max: 10 }),
           ]
         )
       );
