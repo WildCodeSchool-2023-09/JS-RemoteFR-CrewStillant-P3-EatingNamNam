@@ -16,9 +16,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: async () => {
-          const recipes = await fetch("http://localhost:3310/api/recipe").then(
-            (res) => res.json()
-          );
+          const recipes = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/recipe`
+          ).then((res) => res.json());
           return recipes;
         },
       },

@@ -20,7 +20,7 @@ const seed = async () => {
     // Generating Seed Data
 
     // Optional: Truncate tables (remove existing data)
-    await database.query("DELETE FROM recipe");
+    await database.query("truncate recipe");
 
     // Insert fake data into the 'recipe' table
     for (let i = 0; i < 10; i += 1) {
