@@ -56,7 +56,7 @@ const edit = async (req, res, next) => {
 const add = async (req, res, next) => {
   try {
     const newUser = req.body;
-    const user = await tables.user.update(newUser);
+    const user = await tables.user.create(newUser);
     if (user == null) {
       res.sendStatus(404);
     } else {

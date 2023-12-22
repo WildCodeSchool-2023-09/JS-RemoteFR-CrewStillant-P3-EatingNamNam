@@ -49,8 +49,8 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const role = await tables.role.create(name);
+    const { type } = req.body;
+    const role = await tables.role.create(type);
 
     if (role == null) {
       res.sendStatus(404);
