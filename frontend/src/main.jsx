@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Contact from "./pages/ContactPage";
-import CreateReceipe from "./pages/CreateReceipePage";
+import CreateRecipe from "./pages/CreateRecipePage";
 
 import App from "./App";
 
@@ -13,8 +13,9 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/createreceipe",
-        element: <CreateReceipe />,
+        path: "/createrecipe",
+        element: <CreateRecipe />,
+        loader: () => fetch("http://localhost:3000/api/get/ingredient"),
       },
       {
         path: "/contact",
