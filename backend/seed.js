@@ -20,9 +20,12 @@ const seed = async () => {
     // Generating Seed Data
 
     // Optional: Truncate tables (remove existing data)
+
     // await database.query("truncate recipe");
     // await database.query("truncate ingredient");
     // await database.query("truncate ingredient_recipe");
+
+    await database.query("truncate recipe");
 
     // Insert fake data into the 'recipe' table
     for (let i = 0; i < 10; i += 1) {
@@ -37,6 +40,7 @@ const seed = async () => {
             faker.image.food(),
           ]
         )
+
       );
     }
 
