@@ -4,7 +4,7 @@ class UserManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "users" as configuration
-    super({ table: "users" });
+    super({ table: "user" });
   }
 
   // The C of CRUD - Create operation

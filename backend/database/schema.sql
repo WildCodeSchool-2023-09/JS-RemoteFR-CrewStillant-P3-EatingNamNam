@@ -44,7 +44,6 @@ CREATE TABLE recipe (
     cooking_time int  NOT NULL,
     preparation_time int  NOT NULL,
     difficulty int  NOT NULL,
-    ingredient_list_id int  NOT NULL,
     image varchar(255)  NOT NULL,
     CONSTRAINT recipe_pk PRIMARY KEY (id)
 );
@@ -130,10 +129,6 @@ CREATE TABLE user (
 );
 
 -- foreign keys
--- Reference: Recipe_ingredient_list (table: recipe)
-ALTER TABLE recipe ADD CONSTRAINT Recipe_ingredient_list FOREIGN KEY Recipe_ingredient_list (ingredient_list_id)
-    REFERENCES ingredient_recipe (id);
-
 -- Reference: Table_13_Success (table: success_user)
 ALTER TABLE success_user ADD CONSTRAINT Table_13_Success FOREIGN KEY Table_13_Success (Success_id)
     REFERENCES success (id);
@@ -153,10 +148,6 @@ ALTER TABLE favoriteRecipe_user ADD CONSTRAINT favoriteRecipe_user_Recipe FOREIG
 -- Reference: favoriteRecipe_user_User (table: favoriteRecipe_user)
 ALTER TABLE favoriteRecipe_user ADD CONSTRAINT favoriteRecipe_user_User FOREIGN KEY favoriteRecipe_user_User (user_id)
     REFERENCES user (id);
-
--- Reference: ingredient_list_Ingredient (table: ingredient_recipe)
-ALTER TABLE ingredient_recipe ADD CONSTRAINT ingredient_list_Ingredient FOREIGN KEY ingredient_list_Ingredient (Ingredient_id)
-    REFERENCES ingredient (id);
 
 -- Reference: recipe_comment_Comment (table: recipe_comment)
 ALTER TABLE recipe_comment ADD CONSTRAINT recipe_comment_Comment FOREIGN KEY recipe_comment_Comment (comment_id)
