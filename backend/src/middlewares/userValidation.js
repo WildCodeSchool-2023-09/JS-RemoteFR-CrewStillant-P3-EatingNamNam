@@ -3,19 +3,22 @@ const { z } = require("zod");
 const userSchema = z.object({
   firstname: z
     .string()
-    .min(2, { message: "Firstname must contain at least 2 characters" })
+    .min({
+      value: 2,
+      message: "Firstname must contain at least 2 characters",
+    })
     .regex(/[A-Za-z]+$/, {
       message: "Firstname must contain only alphabetic",
     }),
   lastname: z
     .string()
-    .min(2, { message: "Lastname must contain at least 2 characters" })
+    .min({ value: 2, message: "Lastname must contain at least 2 characters" })
     .regex(/[A-Za-z]+$/, {
       message: "Lastname must contain only alphabetic",
     }),
   pseudo: z
     .string()
-    .min(4, { message: "Pseudo must contain at least 4 characters" }),
+    .min({ value: 4, message: "Pseudo must contain at least 4 characters" }),
   mail: z.string().email({ message: "Invalid email address" }),
   password: z
     .string()
@@ -24,9 +27,6 @@ const userSchema = z.object({
         "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
     }),
   week_time_kitchen: z.number().positive().int(),
-  gender: z
-    .string()
-    .includes("male" || "female", { message: "Gender must be male or female" }),
   weight: z.number().positive().int(),
   birthdate: z.string({ message: "Invalid datetime string" }),
 });

@@ -212,27 +212,7 @@ export default function RegistrationForm() {
             </p>
           )}
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <label htmlFor="gender" className="text-2xl">
-            Votre sexe
-          </label>
-          <select
-            className="bg-green text-beige rounded p-1 ps-3"
-            name="gender"
-            {...register("gender", {
-              required: "Ce champs est obligatoire",
-            })}
-          >
-            <option value="">--</option>
-            <option value="male">Homme</option>
-            <option value="female">Femme</option>
-          </select>
-          {errors.gender && (
-            <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-              {errors.gender?.message}
-            </p>
-          )}
-        </div>
+
         <div className="flex flex-col items-center gap-2">
           <label htmlFor="weight" className="text-2xl">
             Votre poids (en kg)

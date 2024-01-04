@@ -11,14 +11,13 @@ class UserManager extends AbstractManager {
 
   async create(user) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (firstname, lastname, mail, pseudo, password, gender, weight, week_time_kitchen, birthdate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (firstname, lastname, mail, pseudo, password, weight, week_time_kitchen, birthdate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         user.firstname,
         user.lastname,
         user.mail,
         user.pseudo,
         user.password,
-        user.gender,
         user.weight,
         user.week_time_kitchen,
         user.birthdate,
@@ -46,7 +45,7 @@ class UserManager extends AbstractManager {
 
   async update(user) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET firstname=?, lastname=?, mail=?, pseudo=?, password=?, gender=?, weight=?, week_time_kitchen=?, registration_date=? WHERE id = ?`,
+      `UPDATE ${this.table} SET firstname=?, lastname=?, mail=?, pseudo=?, password=?, weight=?, week_time_kitchen=?, registration_date=? WHERE id = ?`,
       [
         user.firstname,
         user.lastname,
@@ -54,7 +53,6 @@ class UserManager extends AbstractManager {
         user.pseudo,
         user.password,
         user.sexe,
-        user.gender,
         user.week_time_kitchen,
         user.registration_date,
       ]

@@ -121,7 +121,6 @@ CREATE TABLE user (
     mail varchar(255)  NOT NULL,
     password varchar(255)  NOT NULL,
     week_time_kitchen int  NOT NULL,
-    gender VARCHAR(50)  NOT NULL,
     weight int  NOT NULL,
     registration_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     role_id int  NOT NULL DEFAULT 1,
