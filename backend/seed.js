@@ -40,7 +40,6 @@ const seed = async () => {
             faker.image.food(),
           ]
         )
-
       );
     }
 
