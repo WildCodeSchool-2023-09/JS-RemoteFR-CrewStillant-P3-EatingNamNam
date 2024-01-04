@@ -44,7 +44,6 @@ CREATE TABLE recipe (
     cooking_time int  NOT NULL,
     preparation_time int  NOT NULL,
     difficulty int  NOT NULL,
-    ingredient_list_id int  NOT NULL,
     image varchar(255)  NOT NULL,
     CONSTRAINT recipe_pk PRIMARY KEY (id)
 );
@@ -131,8 +130,6 @@ CREATE TABLE user (
 
 -- foreign keys
 -- Reference: Recipe_ingredient_list (table: recipe)
-ALTER TABLE recipe ADD CONSTRAINT Recipe_ingredient_list FOREIGN KEY Recipe_ingredient_list (ingredient_list_id)
-    REFERENCES ingredient_recipe (id);
 
 -- Reference: Table_13_Success (table: success_user)
 ALTER TABLE success_user ADD CONSTRAINT Table_13_Success FOREIGN KEY Table_13_Success (Success_id)
