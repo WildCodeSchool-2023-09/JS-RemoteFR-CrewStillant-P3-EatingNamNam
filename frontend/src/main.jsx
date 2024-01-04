@@ -7,6 +7,8 @@ import Contact from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import RecipesPage from "./pages/RecipesPage";
 
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,9 +18,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: async () => {
-          const response = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/recipe`
-          );
+          const response = await fetch(`${apiUrl}/api/recipe`);
           const recipes = await response.json();
           return recipes;
         },
@@ -28,9 +28,7 @@ const router = createBrowserRouter([
         element: <RecipesPage />,
         loader: async ({ params }) => {
           const id = parseInt(params.id, 10);
-          const recipes = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${id}`
-          );
+          const recipes = await fetch(`${apiUrl}/api/recipe/${id}`);
           return recipes;
         },
       },

@@ -40,7 +40,7 @@ const seed = async () => {
       );
     }
 
-    // Insert fake data into the 'ingredient_recipe' table
+    // Insert fake data into the 'ingredient' table
     for (let i = 0; i < 10; i += 1) {
       queries.push(
         database.query(
@@ -67,6 +67,25 @@ const seed = async () => {
             faker.number.int({ min: 1, max: 10 }),
           ]
         )
+      );
+    }
+
+    // Insert fake data into the 'step' table
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query("INSERT INTO step (text, recipe_id) VALUES (?, ?)", [
+          faker.lorem.words(30),
+          faker.number.int({ min: 1, max: 10 }),
+        ])
+      );
+    }
+
+    // Insert fake data into the 'comment' table
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query("INSERT INTO comment (text) VALUES (?)", [
+          faker.lorem.words(20),
+        ])
       );
     }
 

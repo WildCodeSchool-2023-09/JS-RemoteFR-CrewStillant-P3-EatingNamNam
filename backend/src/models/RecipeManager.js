@@ -39,10 +39,16 @@ class RecipeManager extends AbstractManager {
         recipe.difficulty,
         recipe.image,
         ingredient_recipe.quantity,
-        ingredient.name 
+        ingredient.name,
+        ingredient.calories,
+        ingredient.fat,
+        ingredient.sugar,
+        ingredient.protein,
+        step.text
       FROM ${this.table}
       JOIN ingredient_recipe ON recipe.id = ingredient_recipe.recipe_id
       JOIN ingredient ON ingredient_recipe.ingredient_id = ingredient.id
+      JOIN step ON recipe.id = step.recipe_id
       WHERE recipe.id = ?`,
       [id]
     );
