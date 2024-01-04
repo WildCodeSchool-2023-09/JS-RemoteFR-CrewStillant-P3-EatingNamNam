@@ -20,10 +20,11 @@ const seed = async () => {
     // Generating Seed Data
 
     // Optional: Truncate tables (remove existing data)
+    await database.query("truncate recipe");
     await database.query("delete FROM recipe");
     await database.query("delete FROM ingredient");
 
-    // Insert fake data into the 'item' table
+    // Insert fake data into the 'recipe' table
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
@@ -38,6 +39,21 @@ const seed = async () => {
     //     )
     //   );
     // }
+
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "INSERT INTO recipe (title, cooking_time, preparation_time, difficulty, image) VALUES (?, ?, ?, ?, ?)",
+          [
+            faker.lorem.word(),
+            faker.number.int({ min: 1, max: 100 }),
+            faker.number.int({ min: 1, max: 120 }),
+            faker.number.int({ min: 1, max: 5 }),
+            faker.image.food(),
+          ]
+        )
+      );
+    }
 
     for (let i = 0; i < 10; i += 1) {
       queries.push(
