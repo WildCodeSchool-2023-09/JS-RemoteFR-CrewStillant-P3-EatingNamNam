@@ -43,18 +43,18 @@ class UserManager extends AbstractManager {
   }
   // The U of CRUD - Update operation
 
-  async update(user) {
+  async update(user, id) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET firstname=?, lastname=?, mail=?, pseudo=?, password=?, weight=?, week_time_kitchen=?, registration_date=? WHERE id = ?`,
+      `UPDATE ${this.table} SET firstname=?, lastname=?, mail=?, pseudo=?, password=?, weight=?, week_time_kitchen=? WHERE id = ?`,
       [
         user.firstname,
         user.lastname,
         user.mail,
         user.pseudo,
         user.password,
-        user.sexe,
+        user.weight,
         user.week_time_kitchen,
-        user.registration_date,
+        id,
       ]
     );
     return result.affectedRows;

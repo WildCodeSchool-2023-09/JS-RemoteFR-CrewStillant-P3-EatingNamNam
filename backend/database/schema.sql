@@ -122,7 +122,7 @@ CREATE TABLE user (
     password varchar(255)  NOT NULL,
     week_time_kitchen int  NOT NULL,
     weight int  NOT NULL,
-    registration_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    registration_date DATETIME NOT NULL DEFAULT NOW(),
     role_id int  NOT NULL DEFAULT 1,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );

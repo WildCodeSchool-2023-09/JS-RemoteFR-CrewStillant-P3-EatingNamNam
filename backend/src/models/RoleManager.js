@@ -29,10 +29,10 @@ class RoleManager extends AbstractManager {
     return rows[0];
   }
 
-  async update(name, id) {
+  async update(type, id) {
     const [result] = await this.database.query(
       `UPDATE ${this.table} SET type = ? WHERE id = ?`,
-      [name, id]
+      [type, id]
     );
     return result.affectedRows;
   }
