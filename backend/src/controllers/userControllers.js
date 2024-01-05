@@ -39,7 +39,8 @@ const read = async (req, res, next) => {
 const edit = async (req, res, next) => {
   try {
     const updatedUser = req.body;
-    const user = await tables.user.update(updatedUser);
+    const id = parseInt(req.params.id, 10);
+    const user = await tables.user.update(updatedUser, id);
 
     if (user === 0) {
       res.sendStatus(404);
@@ -56,7 +57,7 @@ const edit = async (req, res, next) => {
 const add = async (req, res, next) => {
   try {
     const newUser = req.body;
-    const user = await tables.user.update(newUser);
+    const user = await tables.user.create(newUser);
     if (user == null) {
       res.sendStatus(404);
     } else {
