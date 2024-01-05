@@ -42,13 +42,11 @@ function HomePage() {
                   className="rounded-2xl relative self-end"
                 />
                 <div className="flex flex-col items-center justify-center">
-                  <NavLink to={`/recipe/${r.id}`}>
-                    <button
-                      type="button"
-                      className="border bg-green text-beige p-1.5 absolute"
-                    >
-                      En savoir plus
-                    </button>
+                  <NavLink
+                    to={`/recipe/${r.id}`}
+                    className="border bg-green text-beige p-1.5 absolute"
+                  >
+                    En savoir plus
                   </NavLink>
                 </div>
               </li>
