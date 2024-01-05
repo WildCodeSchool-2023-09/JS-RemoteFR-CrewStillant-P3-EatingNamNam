@@ -34,8 +34,8 @@ const read = async (req, res, next) => {
 const edit = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id, 10);
-    const { name } = req.body;
-    const updateRole = await tables.role.update(name, id);
+    const { type } = req.body;
+    const updateRole = await tables.role.update(type, id);
 
     if (updateRole == null) {
       res.sendStatus(404);
@@ -49,8 +49,8 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const role = await tables.role.create(name);
+    const { type } = req.body;
+    const role = await tables.role.create(type);
 
     if (role == null) {
       res.sendStatus(404);

@@ -38,6 +38,8 @@ const seed = async () => {
       );
     }
 
+    await database.query("INSERT INTO role (type)VALUES ('member'), ('admin')");
+
     /* ************************************************************************* */
 
     // Wait for all the insertion queries to complete
