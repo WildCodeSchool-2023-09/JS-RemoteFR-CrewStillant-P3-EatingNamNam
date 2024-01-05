@@ -75,7 +75,7 @@ CREATE TABLE role (
 -- Table: step
 CREATE TABLE step (
     id int  NOT NULL AUTO_INCREMENT,
-    text varchar(255)  NOT NULL,
+    text TEXT  NOT NULL,
     recipe_id int  NOT NULL,
     CONSTRAINT step_pk PRIMARY KEY (id)
 );
