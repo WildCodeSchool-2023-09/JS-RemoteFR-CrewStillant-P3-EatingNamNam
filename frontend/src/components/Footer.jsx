@@ -9,7 +9,10 @@ function Footer() {
     <div>
       <div className="bg-orange grid grid-cols-2 gap-7">
         <div className="text-beige ml-2 grid grid-rows-3 p-2">
-          <NavLink className="hover:text-green text-l h-fit my-auto" to="/">
+          <NavLink
+            className="hover:text-green text-l h-fit my-auto"
+            to="/Conditions"
+          >
             Conditions générales
           </NavLink>
           <NavLink className="hover:text-green text-l h-fit my-auto" to="/">

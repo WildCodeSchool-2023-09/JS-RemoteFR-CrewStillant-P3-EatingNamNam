@@ -2,6 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 
+const { userValidation } = require("../middlewares/userValidation");
+const { hash } = require("../middlewares/hashPassword");
+
 const {
   browse,
   read,
@@ -12,7 +15,7 @@ const {
 
 router.get("/", browse);
 
-router.post("/", add);
+router.post("/", userValidation, hash, add);
 
 router.get("/:id", read);
 
