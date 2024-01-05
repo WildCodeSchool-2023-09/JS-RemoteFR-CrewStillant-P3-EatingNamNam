@@ -89,6 +89,8 @@ const seed = async () => {
         ])
       );
     }
+    
+    await database.query("INSERT INTO role (type)VALUES ('member'), ('admin')");
 
     /* ************************************************************************* */
 
