@@ -114,9 +114,8 @@ CREATE TABLE user (
     mail varchar(255)  NOT NULL,
     password varchar(255)  NOT NULL,
     week_time_kitchen int  NOT NULL,
-    sexe bool  NOT NULL,
     weight int  NOT NULL,
-    registration_date date  NOT NULL,
+    registration_date DATETIME NOT NULL DEFAULT NOW(),
     role_id int  NOT NULL DEFAULT 1,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );

@@ -75,6 +75,57 @@ const seed = async () => {
       );
     }
 
+    // Insert fake data into the 'ingredient' table
+    for (let i = 0; i < 50; i += 1) {
+      queries.push(
+        database.query(
+          "INSERT INTO ingredient (name, calories, fat, sugar, protein) VALUES (?, ?, ?, ?, ?)",
+          [
+            faker.lorem.word(),
+            faker.number.int({ min: 1, max: 1000 }),
+            faker.number.int({ min: 1, max: 1000 }),
+            faker.number.int({ min: 1, max: 1000 }),
+            faker.number.int({ min: 1, max: 1000 }),
+          ]
+        )
+      );
+    }
+
+    // Insert fake data into the 'ingredient_recipe' table
+    for (let i = 0; i < 50; i += 1) {
+      queries.push(
+        database.query(
+          "INSERT INTO ingredient_recipe (quantity, recipe_id, Ingredient_id) VALUES (?, ?, ?)",
+          [
+            faker.number.int({ min: 1, max: 50 }),
+            faker.number.int({ min: 1, max: 50 }),
+            faker.number.int({ min: 1, max: 50 }),
+          ]
+        )
+      );
+    }
+
+    // Insert fake data into the 'step' table
+    for (let i = 0; i < 50; i += 1) {
+      queries.push(
+        database.query("INSERT INTO step (text, recipe_id) VALUES (?, ?)", [
+          faker.lorem.words(30),
+          faker.number.int({ min: 1, max: 50 }),
+        ])
+      );
+    }
+
+    // Insert fake data into the 'comment' table
+    for (let i = 0; i < 50; i += 1) {
+      queries.push(
+        database.query("INSERT INTO comment (text) VALUES (?)", [
+          faker.lorem.words(20),
+        ])
+      );
+    }
+
+    await database.query("INSERT INTO role (type)VALUES ('member'), ('admin')");
+
     /* ************************************************************************* */
 
     // Wait for all the insertion queries to complete

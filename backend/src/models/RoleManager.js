@@ -8,7 +8,7 @@ class RoleManager extends AbstractManager {
   // CRUD
   async create(newRole) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name) VALUES(?)`,
+      `INSERT INTO ${this.table} (type) VALUES(?)`,
       [newRole]
     );
     return result.insertId;
@@ -29,10 +29,10 @@ class RoleManager extends AbstractManager {
     return rows[0];
   }
 
-  async update(name, id) {
+  async update(type, id) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name = ? WHERE id = ?`,
-      [name, id]
+      `UPDATE ${this.table} SET type = ? WHERE id = ?`,
+      [type, id]
     );
     return result.affectedRows;
   }
