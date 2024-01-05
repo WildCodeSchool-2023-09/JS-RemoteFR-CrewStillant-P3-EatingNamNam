@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import Contact from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
+import Conditions from "./pages/ConditionPage";
 import RecipesPage from "./pages/RecipesPage";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/Conditions",
+        element: <Conditions />,
       },
       {
         path: "*",

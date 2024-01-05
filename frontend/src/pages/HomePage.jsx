@@ -2,7 +2,6 @@ import { NavLink, useLoaderData } from "react-router-dom";
 
 function HomePage() {
   const recipes = useLoaderData();
-
   return (
     <div className="m-20">
       <div>
