@@ -25,10 +25,8 @@ const seed = async () => {
     // await database.query("truncate ingredient");
     // await database.query("truncate ingredient_recipe");
 
-    await database.query("truncate recipe");
-
     // Insert fake data into the 'recipe' table
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 50; i += 1) {
       queries.push(
         database.query(
           "INSERT INTO recipe (title, cooking_time, preparation_time, difficulty, image) VALUES (?, ?, ?, ?, ?)",
@@ -44,7 +42,7 @@ const seed = async () => {
     }
 
     // Insert fake data into the 'ingredient' table
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 50; i += 1) {
       queries.push(
         database.query(
           "INSERT INTO ingredient (name, calories, fat, sugar, protein) VALUES (?, ?, ?, ?, ?)",
@@ -60,31 +58,31 @@ const seed = async () => {
     }
 
     // Insert fake data into the 'ingredient_recipe' table
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 50; i += 1) {
       queries.push(
         database.query(
           "INSERT INTO ingredient_recipe (quantity, recipe_id, Ingredient_id) VALUES (?, ?, ?)",
           [
-            faker.number.int({ min: 1, max: 10 }),
-            faker.number.int({ min: 1, max: 10 }),
-            faker.number.int({ min: 1, max: 10 }),
+            faker.number.int({ min: 1, max: 50 }),
+            faker.number.int({ min: 1, max: 50 }),
+            faker.number.int({ min: 1, max: 50 }),
           ]
         )
       );
     }
 
     // Insert fake data into the 'step' table
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 50; i += 1) {
       queries.push(
         database.query("INSERT INTO step (text, recipe_id) VALUES (?, ?)", [
           faker.lorem.words(30),
-          faker.number.int({ min: 1, max: 10 }),
+          faker.number.int({ min: 1, max: 50 }),
         ])
       );
     }
 
     // Insert fake data into the 'comment' table
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 50; i += 1) {
       queries.push(
         database.query("INSERT INTO comment (text) VALUES (?)", [
           faker.lorem.words(20),
