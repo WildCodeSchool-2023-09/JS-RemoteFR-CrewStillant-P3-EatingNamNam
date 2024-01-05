@@ -5,6 +5,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import Contact from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
+import RecipesPage from "./pages/RecipesPage";
+
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const router = createBrowserRouter([
   {
@@ -15,9 +18,17 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: async () => {
-          const recipes = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/recipe`
-          ).then((res) => res.json());
+          const response = await fetch(`${apiUrl}/api/recipe`);
+          const recipes = await response.json();
+          return recipes;
+        },
+      },
+      {
+        path: "/recipe/:id",
+        element: <RecipesPage />,
+        loader: async ({ params }) => {
+          const id = parseInt(params.id, 10);
+          const recipes = await fetch(`${apiUrl}/api/recipe/${id}`);
           return recipes;
         },
       },
