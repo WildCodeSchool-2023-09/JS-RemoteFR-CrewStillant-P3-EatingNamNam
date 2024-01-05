@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import axios from "axios";
 import ReactDOM from "react-dom/client";
 
 import App from "./App";
@@ -25,6 +26,15 @@ const router = createBrowserRouter([
       {
         path: "/createrecipe",
         element: <CreateRecipePage />,
+        loader: async () => {
+          const ingredients = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/ingredient`
+          );
+          const unit = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/unit`
+          );
+          return { ingredients, unit };
+        },
       },
       {
         path: "/contact",

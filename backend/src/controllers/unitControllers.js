@@ -26,7 +26,7 @@ const read = async (req, res, next) => {
     if (unit == null) {
       res.sendStatus(404);
     } else {
-      res.send(200).json(unit);
+      res.status(200).json(unit);
     }
   } catch (err) {
     next(err);

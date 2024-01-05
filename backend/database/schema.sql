@@ -25,6 +25,7 @@ CREATE TABLE ingredient (
     fat int  NOT NULL,
     sugar int  NOT NULL,
     protein int  NOT NULL,
+    unit_id int NOT NULL,
     CONSTRAINT id PRIMARY KEY (id)
 );
 
@@ -75,7 +76,7 @@ CREATE TABLE role (
 -- Table: step
 CREATE TABLE step (
     id int  NOT NULL AUTO_INCREMENT,
-    text varchar(255)  NOT NULL,
+    text TEXT NOT NULL,
     recipe_id int  NOT NULL,
     CONSTRAINT step_pk PRIMARY KEY (id)
 );
@@ -101,14 +102,6 @@ CREATE TABLE unit (
     name varchar(50)  NOT NULL,
     mesure_unit varchar(255)  NOT NULL,
     CONSTRAINT unit_pk PRIMARY KEY (id)
-);
-
--- Table: unit_ingredient
-CREATE TABLE unit_ingredient (
-    id int  NOT NULL AUTO_INCREMENT,
-    ingredient_id int  NOT NULL,
-    unit_id int  NOT NULL,
-    CONSTRAINT unit_ingredient_pk PRIMARY KEY (id)
 );
 
 -- Table: user
@@ -173,12 +166,6 @@ ALTER TABLE recipe_user ADD CONSTRAINT recipe_user_User FOREIGN KEY recipe_user_
 ALTER TABLE step ADD CONSTRAINT step_recipe FOREIGN KEY step_recipe (recipe_id)
     REFERENCES recipe (id);
 
--- Reference: unit_ingredient_ingredient (table: unit_ingredient)
-ALTER TABLE unit_ingredient ADD CONSTRAINT unit_ingredient_ingredient FOREIGN KEY unit_ingredient_ingredient (ingredient_id)
-    REFERENCES ingredient (id);
-
--- Reference: unit_ingredient_unit (table: unit_ingredient)
-ALTER TABLE unit_ingredient ADD CONSTRAINT unit_ingredient_unit FOREIGN KEY unit_ingredient_unit (unit_id)
-    REFERENCES unit (id);
-
+-- Reference: unit_ingredient (table: ingredient)
+ALTER TABLE ingredient ADD CONSTRAINT ingredient_unit FOREIGN KEY (unit_id) REFERENCES unit (id);
 -- End of file.
