@@ -1,0 +1,42 @@
+import { NavLink, Outlet } from "react-router-dom";
+
+export default function UserPage() {
+  const navUser = [
+    {
+      id: 1,
+      path: "/user/info",
+      name: "Mon profil",
+    },
+    {
+      id: 2,
+      path: "/user/created",
+      name: "Mes recettes créées",
+    },
+    {
+      id: 3,
+      path: "/user/favorite",
+      name: "Mes recettes favorites",
+    },
+    {
+      id: 4,
+      path: "/user/comment",
+      name: "Mes commentaires",
+    },
+  ];
+  return (
+    <div>
+      <div className="flex flex-row flex-wrap rounded-md py-2 bg-orange mx-6 my-12 gap-2">
+        {navUser.map((n) => (
+          <NavLink
+            to={n.path}
+            key={n.id}
+            className="px-2 focus:text-green focus:font-bold"
+          >
+            {n.name}
+          </NavLink>
+        ))}
+      </div>
+      <Outlet />
+    </div>
+  );
+}

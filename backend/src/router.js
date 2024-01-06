@@ -18,6 +18,6 @@ router.use("/ingredient", ingredientRouter);
 router.use("/success", successRouter);
 router.use("/role", roleRouter);
 router.use("/unit", unitRouter);
-router.use("step", stepRouter);
+router.use("/step", stepRouter);
 
 module.exports = router;

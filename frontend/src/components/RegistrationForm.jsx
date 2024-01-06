@@ -15,7 +15,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="bg-orange text-beige p-6 rounded-xl m-2 w-auto border-2 border-green">
+    <div className="bg-orange text-beige p-6 rounded-xl m-2 w-fit border-2 border-green">
       <h1 className="text-center my-5 text-3xl font-bold">
         Renseignez les champs suivants
       </h1>

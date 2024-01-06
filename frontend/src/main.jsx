@@ -1,12 +1,15 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
+import axios from "axios";
 
 import App from "./App";
 import Contact from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import Conditions from "./pages/ConditionPage";
 import RecipesPage from "./pages/RecipesPage";
+import UserPage from "./pages/UserPage";
+import UserInformation from "./components/UserInformation";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,6 +35,20 @@ const router = createBrowserRouter([
           const recipes = await fetch(`${apiUrl}/api/recipe/${id}`);
           return recipes;
         },
+      },
+      {
+        path: "/user",
+        element: <UserPage />,
+        children: [
+          {
+            path: "/user/info",
+            element: <UserInformation />,
+            loader: async () => {
+              const user = await axios.get(`${apiUrl}/api/user/1`);
+              return user;
+            },
+          },
+        ],
       },
       {
         path: "/contact",
