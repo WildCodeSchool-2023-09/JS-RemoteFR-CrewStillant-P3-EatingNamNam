@@ -25,7 +25,7 @@ export default function UserPage() {
   ];
   return (
     <div>
-      <div className="flex flex-row flex-wrap rounded-md py-2 bg-orange mx-6 my-12 gap-2">
+      <div className="flex flex-row flex-wrap rounded-md py-2 bg-orange mx-6 my-12 gap-2 w-fit">
         {navUser.map((n) => (
           <NavLink
             to={n.path}

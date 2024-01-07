@@ -19,7 +19,7 @@ router.post("/", userValidation, hash, add);
 
 router.get("/:id", read);
 
-router.put("/:id", userValidation, edit);
+router.put("/:id", userValidation, hash, edit);
 
 router.delete("/:id", destroy);
 

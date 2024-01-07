@@ -3,22 +3,17 @@ const { z } = require("zod");
 const userSchema = z.object({
   firstname: z
     .string()
-    .min({
-      value: 2,
-      message: "Firstname must contain at least 2 characters",
-    })
+    .min(2)
     .regex(/[A-Za-z]+$/, {
       message: "Firstname must contain only alphabetic",
     }),
   lastname: z
     .string()
-    .min({ value: 2, message: "Lastname must contain at least 2 characters" })
+    .min(2)
     .regex(/[A-Za-z]+$/, {
       message: "Lastname must contain only alphabetic",
     }),
-  pseudo: z
-    .string()
-    .min({ value: 4, message: "Pseudo must contain at least 4 characters" }),
+  pseudo: z.string().min(4),
   mail: z.string().email({ message: "Invalid email address" }),
   password: z
     .string()
@@ -33,6 +28,8 @@ const userSchema = z.object({
 
 const userValidation = (req, res, next) => {
   try {
+    delete req.body.confirmEmail;
+    delete req.body.confirmPassword;
     userSchema.parse(req.body);
     next();
   } catch (error) {

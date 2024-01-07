@@ -110,6 +110,7 @@ export default function RegistrationForm() {
             type="email"
             placeholder="johndoe99@doe.fr"
             {...register("mail", {
+              required: "Ce champs est obligatoire",
               pattern: {
                 value: /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/,
                 message:
@@ -132,7 +133,7 @@ export default function RegistrationForm() {
             name="confirm-email"
             type="email"
             placeholder="johndoe99@doe.fr"
-            {...register("confirmemail", {
+            {...register("confirmEmail", {
               required: "Vous devez confirmer votre email",
               validate: (value) =>
                 value === watch("mail") || "Emails non identiques",
@@ -154,6 +155,7 @@ export default function RegistrationForm() {
             type="password"
             placeholder="**********"
             {...register("password", {
+              required: "Ce champs est obligatoire",
               pattern: {
                 value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
                 message:
@@ -176,7 +178,7 @@ export default function RegistrationForm() {
             name="confirm-password"
             type="password"
             placeholder="**********"
-            {...register("confirmpassword", {
+            {...register("confirmPassword", {
               required: "Vous devez confirmer votre mot de passe",
               validate: (value) =>
                 value === watch("password") || "Mots de passe non identiques",
