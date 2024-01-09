@@ -127,9 +127,9 @@ export default function UserInformation() {
                 <img src={cancel} alt="bouton annuler" className="w-6" />
               </button>
             </div>
-            {errors.e?.type && (
+            {errors.pseudo && (
               <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-                {errors.e.type?.message}
+                {errors.pseudo?.message}
               </p>
             )}
           </div>
@@ -216,9 +216,9 @@ export default function UserInformation() {
                 <img src={cancel} alt="bouton annuler" className="w-6" />
               </button>
             </div>
-            {errors.e?.type && (
+            {errors.lastname && (
               <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-                {errors.e.type?.message}
+                {errors.lastname?.message}
               </p>
             )}
           </div>
@@ -257,9 +257,9 @@ export default function UserInformation() {
                 <img src={cancel} alt="bouton annuler" className="w-6" />
               </button>
             </div>
-            {errors.e?.type && (
+            {errors.mail && (
               <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-                {errors.e.type?.message}
+                {errors.mail?.message}
               </p>
             )}
           </div>
@@ -277,9 +277,9 @@ export default function UserInformation() {
               <input
                 className="rounded-md pl-2"
                 type="date"
-                name="mail"
+                name="birthdate"
                 required
-                {...register("mail", {
+                {...register("birthdate", {
                   required: "Ce champs est obligatoire",
                   pattern: {
                     value:
@@ -293,15 +293,15 @@ export default function UserInformation() {
                 type="button"
                 onClick={() => {
                   handleCancelForm(5);
-                  resetField("mail");
+                  resetField("birthdate");
                 }}
               >
                 <img src={cancel} alt="bouton annuler" className="w-6" />
               </button>
             </div>
-            {errors.e?.type && (
+            {errors.birthdate && (
               <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-                {errors.e.type?.message}
+                {errors.birthdate?.message}
               </p>
             )}
           </div>
@@ -341,9 +341,9 @@ export default function UserInformation() {
                 <img src={cancel} alt="bouton annuler" className="w-6" />
               </button>
             </div>
-            {errors.e?.type && (
+            {errors.weight && (
               <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-                {errors.e.type?.message}
+                {errors.weight?.message}
               </p>
             )}
           </div>
@@ -381,9 +381,9 @@ export default function UserInformation() {
                 <img src={cancel} alt="bouton annuler" className="w-6" />
               </button>
             </div>
-            {errors.e?.type && (
+            {errors.week_time_kitchen && (
               <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-                {errors.e.type?.message}
+                {errors.week_time_kitchen?.message}
               </p>
             )}
           </div>
