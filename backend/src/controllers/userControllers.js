@@ -1,4 +1,5 @@
 // Import access to database tables
+const argon2 = require("argon2");
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -10,6 +11,9 @@ const browse = async (req, res, next) => {
     if (users == null) {
       res.sendStatus(404);
     } else {
+      users.forEach((e) => {
+        delete e.password;
+      });
       res.status(200).json(users);
     }
   } catch (error) {
@@ -27,6 +31,7 @@ const read = async (req, res, next) => {
     if (user == null) {
       res.sendStatus(404);
     } else {
+      delete user.password;
       res.status(200).json(user);
     }
   } catch (error) {
@@ -37,15 +42,46 @@ const read = async (req, res, next) => {
 // The E of BREAD - Edit (Update) operation
 
 const edit = async (req, res, next) => {
-  try {
-    const updatedUser = req.body;
-    const id = parseInt(req.params.id, 10);
-    const user = await tables.user.update(updatedUser, id);
+  const {
+    firstname,
+    lastname,
+    pseudo,
+    birthdate,
+    week_time_kitchen: weekTimeKitchen,
+    weight,
+    hashedPassword,
+    mail,
+  } = req.body;
 
-    if (user === 0) {
-      res.sendStatus(404);
+  try {
+    const user = await tables.user.readByEmail(req.body.mail);
+
+    if (user == null) {
+      res.sendStatus(422);
+      return;
+    }
+    const verified = await argon2.verify(user.password, req.body.password);
+    if (verified) {
+      delete req.body.password;
+      const id = parseInt(req.params.id, 10);
+      const userUpdated = await tables.user.update(
+        firstname,
+        lastname,
+        mail,
+        pseudo,
+        hashedPassword,
+        birthdate,
+        weight,
+        weekTimeKitchen,
+        id
+      );
+      if (userUpdated === 0) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json({ message: "User updated" });
+      }
     } else {
-      res.status(200).json({ message: "User updated" });
+      res.sendStatus(422);
     }
   } catch (error) {
     next(error);
@@ -56,8 +92,8 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const newUser = req.body;
-    const user = await tables.user.create(newUser);
+    delete req.body.password;
+    const user = await tables.user.create(req.body);
     if (user == null) {
       res.sendStatus(404);
     } else {

@@ -28,8 +28,8 @@ const userSchema = z.object({
 
 const userValidation = (req, res, next) => {
   try {
-    delete req.body.confirmEmail;
-    delete req.body.confirmPassword;
+    delete req.body?.confirmEmail;
+    delete req.body?.confirmPassword;
     userSchema.parse(req.body);
     next();
   } catch (error) {

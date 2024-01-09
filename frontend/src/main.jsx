@@ -41,10 +41,10 @@ const router = createBrowserRouter([
         element: <UserPage />,
         children: [
           {
-            path: "/user/info",
+            path: "/user/info/:id",
             element: <UserInformation />,
-            loader: async () => {
-              const user = await axios.get(`${apiUrl}/api/user/1`);
+            loader: async ({ params }) => {
+              const user = await axios.get(`${apiUrl}/api/user/${params.id}`);
               return user;
             },
           },
