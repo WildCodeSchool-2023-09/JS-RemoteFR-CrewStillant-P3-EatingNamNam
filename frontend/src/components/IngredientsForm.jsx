@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 /* eslint-disable react/jsx-props-no-spreading */
@@ -16,8 +15,6 @@ export default function IngredientsForm({
     formState: { errors },
     reset,
   } = useForm();
-
-  // SOUCI DE DECALAGE DANS LA PRISE EN COMPTE SUR LE ONCHANGE A VOIR MAIS PAS SUR LE PREMIER SELECTIONNE
 
   const [updatedData, setUpdatedData] = useState(ingredients);
   const [formVisible, setFormVisible] = useState(false);
@@ -38,28 +35,32 @@ export default function IngredientsForm({
     setFormVisible(true);
     setIngredient(ingredients.find((i) => i.name === ingredientname));
   };
-  const handlePost = () => {
-    axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/ingredient_recipe`,
-      selectedIngredients
-    );
-  };
 
+  const handlePost = () => {
+    // axios.post(
+    //   `${import.meta.env.VITE_BACKEND_URL}/api/ingredient_recipe`,
+    //   selectedIngredients
+    // );
+  };
   const handleDeleteIngredient = (element) => {
     const index = selectedIngredients.findIndex(
       (e) => e.ingredient === element.ingredient
     );
     setSelectedIngredients(selectedIngredients.toSpliced(index, 1));
   };
-
   const solid = unit[0].mesure_unit;
   const arraysolid = solid.split(" ");
   const liquid = unit[1].mesure_unit;
   const arrayliquid = liquid.split(" ");
   return (
-    <div className="flex flex-col gap-4 mb-3 bg-blue-400">
-      <input type="text" name="" onChange={handleInputIngredient} />
-      <select name="" id="" onChange={handleIngredient}>
+    <div className="flex flex-col border rounded-2xl items-center mb-3 p-3 text-black bg-orange">
+      <input
+        className="w-48"
+        type="text"
+        name=""
+        onChange={handleInputIngredient}
+      />
+      <select className="w-48" name="" onChange={handleIngredient}>
         <option value="">Liste des ingrédients</option>
         {updatedData.map((i) => (
           <option key={i.id} value={i.name} id={i.id}>
@@ -69,6 +70,12 @@ export default function IngredientsForm({
       </select>
       {formVisible ? (
         <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="hidden"
+            name="id"
+            value={ingredient.id}
+            {...register("id")}
+          />
           <input
             type="text"
             name="ingredient"
@@ -125,7 +132,7 @@ export default function IngredientsForm({
       ) : (
         ""
       )}
-      <div className="flex flex-col gap-4 mb-3 bg-blue-600">
+      <div className="flex flex-col gap-4 mb-">
         <ul>
           <li>JE SUIS UNE LISTE DINGREDIENTS</li>
           {selectedIngredients.map((s) => (

@@ -52,12 +52,23 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const newRecipe = await tables.recipe.create(req.body);
+    const { info, ingredients, steps } = req.body;
+    // const recipeInformations = req.body.info;
+    // const ingredients = req.body.ingredients;
+    // const recipeSteps = req.body.steps;
 
-    if (newRecipe == null) {
+    const newRecipeInformation = await tables.recipe.create(info);
+    if (newRecipeInformation == null) {
       res.sendStatus(404);
     } else {
-      res.status(200).json({ message: "Recipe created" });
+      res.status(200).json({ message: `Recipe created` });
+    }
+
+    for (let i = 0; i < ingredients.length; i += 1) {
+      tables.ingredient_recipe.create(newRecipeInformation, ingredients[i]);
+    }
+    for (let i = 0; i < steps.length; i += 1) {
+      tables.step.create(steps[i].step, newRecipeInformation);
     }
   } catch (error) {
     next(error);

@@ -8,7 +8,7 @@ const {
   edit,
   add,
   destroy,
-} = require("../controllers/recipeControlers");
+} = require("../controllers/recipeControllers");
 
 router.get("/", browse);
 

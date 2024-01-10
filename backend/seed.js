@@ -59,33 +59,17 @@ const seed = async () => {
       "INSERT INTO unit (name, mesure_unit) VALUES ('solid','g kg pinch'), ('liquid','cL dL L cac cas')"
     );
 
-    for (let i = 0; i < 40; i += 1) {
+    for (let i = 0; i < 20; i += 1) {
       queries.push(
         database.query(
           "INSERT INTO ingredient (name, calories, fat, sugar, protein, unit_id) VALUES (?, ?, ?, ?, ?, ?)",
           [
-            faker.lorem.word(),
+            faker.commerce.productName(),
             faker.number.int({ min: 1, max: 500 }),
             faker.number.int({ min: 1, max: 120 }),
             faker.number.int({ min: 1, max: 120 }),
             faker.number.int({ min: 1, max: 120 }),
             faker.number.int({ min: 1, max: 2 }),
-          ]
-        )
-      );
-    }
-
-    // Insert fake data into the 'ingredient' table
-    for (let i = 0; i < 50; i += 1) {
-      queries.push(
-        database.query(
-          "INSERT INTO ingredient (name, calories, fat, sugar, protein) VALUES (?, ?, ?, ?, ?)",
-          [
-            faker.lorem.word(),
-            faker.number.int({ min: 1, max: 1000 }),
-            faker.number.int({ min: 1, max: 1000 }),
-            faker.number.int({ min: 1, max: 1000 }),
-            faker.number.int({ min: 1, max: 1000 }),
           ]
         )
       );
@@ -102,25 +86,6 @@ const seed = async () => {
             faker.number.int({ min: 1, max: 50 }),
           ]
         )
-      );
-    }
-
-    // Insert fake data into the 'step' table
-    for (let i = 0; i < 50; i += 1) {
-      queries.push(
-        database.query("INSERT INTO step (text, recipe_id) VALUES (?, ?)", [
-          faker.lorem.words(30),
-          faker.number.int({ min: 1, max: 50 }),
-        ])
-      );
-    }
-
-    // Insert fake data into the 'comment' table
-    for (let i = 0; i < 50; i += 1) {
-      queries.push(
-        database.query("INSERT INTO comment (text) VALUES (?)", [
-          faker.lorem.words(20),
-        ])
       );
     }
 

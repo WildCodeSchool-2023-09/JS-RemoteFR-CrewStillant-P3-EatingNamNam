@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 /* eslint-disable react/jsx-props-no-spreading */
 
 export default function RecipeInformationForm({
-  selectedIngredients,
-  setSelectedIngredients,
+  selectedInformations,
+  setSelectedInformations,
 }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm();
+  } = useForm({ defaultValues: { image: "toto" } });
 
   const onSubmit = (data) => {
-    console.info(data);
-    setSelectedIngredients([...selectedIngredients, data]);
-    reset();
+    setSelectedInformations([...selectedInformations, data]);
+  };
+
+  const [formIsValidated, setFormIsValidated] = useState(false);
+  const handleClick = (event) => {
+    event.preventDefault();
+    setFormIsValidated(true);
   };
   return (
-    <div>
-      <h1>JE SUIS UN CAROUSEL</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex flex-col border rounded-2xl items-center mb-3 p-3 text-black bg-orange">
+      <form className="" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-4 mb-3">
           <label htmlFor="title">Titre de votre recette</label>
           <input
@@ -48,10 +50,11 @@ export default function RecipeInformationForm({
             Temps de cuisson en minutes de votre recette
           </label>
           <input
+            className="w-48"
             placeholder="ex : 40"
             type="number"
             {...register("cooking_time", {
-              required: "ce champ est obligatoire",
+              required: "Ce champ est obligatoire",
               min: {
                 value: 1,
                 message: "Votre recette doit au moins prendre 1 minute à cuire",
@@ -72,10 +75,11 @@ export default function RecipeInformationForm({
             Temps de préparation en minutes de votre recette{" "}
           </label>
           <input
+            className="w-48"
             placeholder="ex : 30"
             type="number"
             {...register("preparation_time", {
-              required: "ce champ est obligatoire",
+              required: "Ce champ est obligatoire",
               min: {
                 value: 1,
                 message:
@@ -94,12 +98,39 @@ export default function RecipeInformationForm({
             </span>
           )}
         </div>
+        <div>
+          <label htmlFor="difficulty"> Difficulté de votre recette </label>
+          <select
+            {...register("difficulty", {
+              required: "Ce champ est obligatoire ",
+            })}
+          >
+            <option value="1">Facile</option>
+            <option value="2">Moyen</option>
+            <option value="3">Diffile</option>
+          </select>
+          {errors.difficulty && (
+            <span className="bg-red-600 text-white py-1 px-4" role="alert">
+              {errors.difficulty?.message}
+            </span>
+          )}
+        </div>
+        {formIsValidated ? (
+          <p>
+            Bravo, vous venez de valider la première étape de votre recette
+            🥕🥕🥕
+          </p>
+        ) : (
+          <button className="" type="submit" onClick={handleClick}>
+            Validez les informations de votre recette ici ! 🥕🥕🥕
+          </button>
+        )}
       </form>
     </div>
   );
 }
 
 RecipeInformationForm.propTypes = {
-  selectedIngredients: PropTypes.arrayOf.isRequired,
-  setSelectedIngredients: PropTypes.func.isRequired,
+  selectedInformations: PropTypes.arrayOf.isRequired,
+  setSelectedInformations: PropTypes.func.isRequired,
 };

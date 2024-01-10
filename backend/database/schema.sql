@@ -20,7 +20,7 @@ CREATE TABLE favoriteRecipe_user (
 -- Table: ingredient
 CREATE TABLE ingredient (
     id int  NOT NULL AUTO_INCREMENT,
-    name varchar(150)  NOT NULL,
+    name varchar(150)  NOT NULL UNIQUE,
     calories int  NOT NULL,
     fat int  NOT NULL,
     sugar int  NOT NULL,
@@ -33,8 +33,9 @@ CREATE TABLE ingredient (
 CREATE TABLE ingredient_recipe (
     id int  NOT NULL AUTO_INCREMENT,
     quantity int  NOT NULL,
+    mesure_unit_recipe VARCHAR (10),
     recipe_id int  NOT NULL,
-    Ingredient_id int  NOT NULL,
+    ingredient_id int  NOT NULL,
     CONSTRAINT ingredient_recipe_pk PRIMARY KEY (id)
 );
 
@@ -61,8 +62,8 @@ CREATE TABLE recipe_comment (
 -- Table: recipe_user
 CREATE TABLE recipe_user (
     id int  NOT NULL AUTO_INCREMENT,
-    Recipe_id int  NOT NULL,
-    User_id int  NOT NULL,
+    recipe_id int  NOT NULL,
+    user_id int  NOT NULL,
     CONSTRAINT recipe_user_pk PRIMARY KEY (id)
 );
 
