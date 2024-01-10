@@ -17,7 +17,7 @@ export default function CommentForm({ recipeID }) {
   const onSubmit = async (data) => {
     try {
       console.info(data);
-      // await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, data);
+      // await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/comment`, data);
     } catch (error) {
       console.error(error);
     }
@@ -27,7 +27,16 @@ export default function CommentForm({ recipeID }) {
     <div className="bg-black">
       <h1>Nouveau commentaire :</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" name="comment" {...register("content")} />
+        <input
+          type="text"
+          name="comment"
+          {...register("content", {
+            maxLength: {
+              value: 1000,
+              message: "Votre commentaire est trop long, veuillez le réduire.",
+            },
+          })}
+        />
         {errors.content && (
           <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
             {errors.content?.message}
