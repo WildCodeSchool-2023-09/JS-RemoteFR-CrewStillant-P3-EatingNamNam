@@ -1,10 +1,13 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 
+import Carousel from "../components/carousel/Carousel";
+
 function HomePage() {
   const recipes = useLoaderData();
   return (
     <div className="m-20">
       <div>
+        <Carousel recipes={recipes} />
         <ul className="flex flex-row justify-center flex-wrap gap-16">
           <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
             <h1 className="text-beige text-xl">Crée ma recette</h1>
