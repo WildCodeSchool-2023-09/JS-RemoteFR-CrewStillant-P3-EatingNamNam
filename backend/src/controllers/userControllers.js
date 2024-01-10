@@ -1,5 +1,7 @@
 // Import access to database tables
 const argon2 = require("argon2");
+const Papa = require("papaparse");
+const fs = require("node:fs/promises");
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -18,6 +20,37 @@ const browse = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+  }
+};
+
+const download = async (req, res, next) => {
+  try {
+    const users = await tables.user.readAll();
+
+    if (users == null) {
+      res.sendStatus(404);
+    } else {
+      users.forEach((e) => {
+        delete e.password;
+      });
+      const test = [{ "sep=,": "" }];
+      const initFile = Papa.unparse(test);
+      const parsUsers = Papa.unparse(users);
+      await fs.writeFile("./public/assets/users_informations.csv", initFile);
+      await fs.writeFile("./public/assets/users_informations.csv", parsUsers, {
+        flag: "a",
+      });
+      // Download function provided by express
+      res
+        .status(200)
+        .download("./public/assets/users_informations.csv", (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
+    }
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -128,4 +161,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  download,
 };

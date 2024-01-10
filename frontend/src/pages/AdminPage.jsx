@@ -1,27 +1,36 @@
-import axios from "axios";
-import Papa from "papaparse";
-import { useState } from "react";
-
 export default function AdminPage() {
-  const [usersInfo, setUsersInfo] = useState(null);
-
   const handleClick = async () => {
     try {
-      await axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/api/user/`)
-        .then((res) => setUsersInfo(Papa.unparse(res.data)));
+      const csv = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/dl`
+      ).then((res) => res.blob());
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(csv);
+      link.download = "users_informations.csv";
+      link.click();
+      // const url = URL.createObjectURL(csv);
+      // console.log(csv);
+      // window.location = url;
+
+      URL.revokeObjectURL(link.href);
     } catch (error) {
       console.error(error);
     }
   };
-  console.info(usersInfo);
 
   return (
-    <>
-      <h1>Je suis une page d'administrateur</h1>
-      <button type="button" onClick={handleClick}>
+    <div className="m-2">
+      <h1 className="text-3xl text-green border-2 border-orange p-2 rounded-md m-1 text-center">
+        Bienvenue sur votre page administrateur
+      </h1>
+
+      <button
+        type="button"
+        onClick={handleClick}
+        className="rounded-md  px-2 hover:text-beige hover:bg-orange active:bg-green"
+      >
         Télécharger les informations des utilisateurs
       </button>
-    </>
+    </div>
   );
 }

@@ -25,6 +25,15 @@ class UnitManager extends AbstractManager {
     return result;
   }
 
+  async read(id) {
+    const [rows] = await this.database.query(
+      `SELECT * from ${this.table} WHERE id= ?`,
+      [id]
+    );
+
+    return rows[0];
+  }
+
   // The U of CRUD - Update operation
 
   async update(unit, id) {

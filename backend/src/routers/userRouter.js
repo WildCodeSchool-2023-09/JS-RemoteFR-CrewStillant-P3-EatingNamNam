@@ -11,11 +11,14 @@ const {
   edit,
   add,
   destroy,
+  download,
 } = require("../controllers/userControllers");
 
 router.get("/", browse);
 
 router.post("/", userValidation, hash, add);
+
+router.get("/dl", download);
 
 router.get("/:id", read);
 
