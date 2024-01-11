@@ -64,11 +64,11 @@ function Recipes({ recipe }) {
       </div>
       <p className="text-orange mb-3">Etapes de préparation:</p>
       <div className="border-green border-4 rounded-2xl p-3 bg-slate-200 mb-4">
-        {recipe.text}
+        {recipe.steps}
       </div>
       <p className="text-orange  mb-3">Commentaires:</p>
       <div className="border-green border-4 rounded-2xl p-3 bg-slate-200">
-        {recipe.text}
+        {recipe.comments}
       </div>
     </div>
   );
@@ -78,7 +78,8 @@ Recipes.propTypes = {
   recipe: PropTypes.shape({
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    steps: PropTypes.string.isRequired,
+    comments: PropTypes.string.isRequired,
     cooking_time: PropTypes.number.isRequired,
     preparation_time: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
