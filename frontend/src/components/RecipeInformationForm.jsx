@@ -3,25 +3,23 @@ import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 /* eslint-disable react/jsx-props-no-spreading */
 
-export default function RecipeInformationForm({
-  selectedInformations,
-  setSelectedInformations,
-}) {
+export default function RecipeInformationForm({ setSelectedInformations }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ defaultValues: { image: "toto" } });
-
-  const onSubmit = (data) => {
-    setSelectedInformations([...selectedInformations, data]);
-  };
+  } = useForm({
+    defaultValues: {
+      image: "https://loremflickr.com/640/480/cat?lock=7759580905865216",
+    },
+  });
 
   const [formIsValidated, setFormIsValidated] = useState(false);
-  const handleClick = (event) => {
-    event.preventDefault();
+  const onSubmit = (data) => {
+    setSelectedInformations(data);
     setFormIsValidated(true);
   };
+
   return (
     <div className="flex flex-col border rounded-2xl items-center mb-3 p-3 text-black bg-orange">
       <form className="" onSubmit={handleSubmit(onSubmit)}>
@@ -121,7 +119,7 @@ export default function RecipeInformationForm({
             🥕🥕🥕
           </p>
         ) : (
-          <button className="" type="submit" onClick={handleClick}>
+          <button className="" type="submit">
             Validez les informations de votre recette ici ! 🥕🥕🥕
           </button>
         )}

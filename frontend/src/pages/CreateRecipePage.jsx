@@ -1,23 +1,26 @@
 // import RecipeCreation from "../components/RecipeCreation";
 import React, { useState } from "react";
 import axios from "axios";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import IngredientsForm from "../components/IngredientsForm";
 import RecipeStepForm from "../components/RecipeStepForm";
 import RecipeInformationForm from "../components/RecipeInformationForm";
 
 function CreateRecipePage() {
+  const navigate = useNavigate();
   const { ingredients, unit } = useLoaderData();
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedSteps, setSelectedSteps] = useState([]);
   const [selectedInformations, setSelectedInformations] = useState([]);
   const handleForm = () => {
     const data = {
-      info: selectedInformations[0],
+      info: selectedInformations,
       ingredients: selectedIngredients,
       steps: selectedSteps,
     };
-    axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/recipe`, data);
+    axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/recipe`, data)
+      .then((res) => navigate(`/recipe/${res.data.id}`));
   };
   return (
     <div className="">

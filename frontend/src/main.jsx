@@ -31,8 +31,10 @@ const router = createBrowserRouter([
         element: <RecipesPage />,
         loader: async ({ params }) => {
           const id = parseInt(params.id, 10);
-          const recipes = await fetch(`${apiUrl}/api/recipe/${id}`);
-          return recipes;
+          const recipeId = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${id}`
+          );
+          return recipeId;
         },
       },
       {
