@@ -1,12 +1,19 @@
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 
 import Carousel from "../components/carousel/Carousel";
 
 function HomePage() {
+  const { auth } = useOutletContext();
   const recipes = useLoaderData();
   return (
     <div className="m-20">
-      <div>
+      {auth.token ? (
+        <h1 className="text-center text-4xl">
+          Bienvenue {auth.userVerified.pseudo} !
+        </h1>
+      ) : null}
+
+      <div className={!auth.token ? "blur-sm" : null}>
         <Carousel recipes={recipes} />
         <ul className="flex flex-row justify-center flex-wrap gap-16">
           <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">

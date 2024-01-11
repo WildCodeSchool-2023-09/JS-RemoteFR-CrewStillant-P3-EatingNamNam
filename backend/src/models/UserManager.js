@@ -41,6 +41,14 @@ class UserManager extends AbstractManager {
     );
     return rows[0];
   }
+
+  async readByEmail(mail) {
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE mail = ?`,
+      [mail]
+    );
+    return rows[0];
+  }
   // The U of CRUD - Update operation
 
   async update(user, id) {
