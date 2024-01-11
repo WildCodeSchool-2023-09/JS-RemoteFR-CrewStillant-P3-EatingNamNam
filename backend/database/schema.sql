@@ -40,6 +40,7 @@ CREATE TABLE ingredient_recipe (
 -- Table: recipe
 CREATE TABLE recipe (
     id int  NOT NULL AUTO_INCREMENT,
+    registration_date DATETIME NOT NULL DEFAULT NOW(),
     title varchar(150)  NOT NULL,
     cooking_time int  NOT NULL,
     preparation_time int  NOT NULL,
