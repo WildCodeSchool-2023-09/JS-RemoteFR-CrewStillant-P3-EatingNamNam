@@ -53,7 +53,7 @@ function HomePage() {
                 className="rounded-2xl w-72 h-80 p-0 bg-green text-center"
               >
                 <h1 className="text-beige text-2xl m-2 uppercase">{r.title}</h1>
-                <div className="flex flex-row justify-between m-5">
+                <div className="flex flex-row justify-around m-5">
                   <div>{difficultyEmoji(r.difficulty)}</div>
                   <img className="h-8 w-8 ml-32" src={timer} alt="" />
                   <p className="text-beige">: {r.preparation_time}min</p>

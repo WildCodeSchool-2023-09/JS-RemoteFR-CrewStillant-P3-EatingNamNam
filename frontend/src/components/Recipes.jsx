@@ -27,46 +27,46 @@ function Recipes({ recipe }) {
 
   return (
     <div className="m-5 text-xl">
-      <div className="flex flex-row justify-between m-5 gap-7">
+      <div className="flex flex-col sm:flex-row justify-between m-5 gap-7">
         <img
           className="w-full h-96 rounded-3xl"
           src={recipe.image}
           alt={recipe.image}
         />
         <div className="flex flex-col">
-          <div className="rounded-2xl flex flex-row mb-3 p-3 gap-32 text-beige bg-orange">
-            <div className="text-center">
-              <p>Préparation : </p>
+          <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-8 justify-center text-beige bg-orange">
+            <div className="text-center text-lg">
+              <p>Préparation</p>
               <div>{recipe.preparation_time}min</div>
             </div>
-            <div className="text-center">
-              <p>Cuisson : </p>
+            <div className="text-center text-lg">
+              <p>Cuisson</p>
               <div>{recipe.cooking_time}min</div>
             </div>
-            <div className="text-center">
-              <p>Difficultés :</p>
+            <div className="text-center text-lg">
+              <p>Difficultés</p>
               <div>{difficultyEmoji(recipe.difficulty)}</div>
             </div>
           </div>
-          <div className="border rounded-2xl flex flex-row justify-around mb-3 p-3 text-beige bg-orange">
-            <div className="text-center">
-              <p>Calories : </p>
+          <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-3 justify-center text-beige bg-orange">
+            <div className="text-center text-lg break-normal">
+              <p>Calories</p>
               <div>{recipe.calories}kcal</div>
             </div>
-            <div className="text-center">
-              <p>Lipides : </p>
+            <div className="text-center text-lg">
+              <p>Lipides</p>
               <div>{recipe.sugar}g</div>
             </div>
-            <div className="text-center">
-              <p>Glucides :</p>
+            <div className="text-center text-lg">
+              <p>Glucides</p>
               <div>{recipe.fat}g</div>
             </div>
-            <div className="text-center">
-              <p>Protéines :</p>
+            <div className="text-center text-lg">
+              <p>Protéines</p>
               <div>{recipe.protein}g</div>
             </div>
           </div>
-          <div className="border rounded-2xl mb-3 p-3 text-beige bg-orange">
+          <div className="rounded-2xl p-16 text-beige text-lg bg-orange">
             <p>Liste des ingrédients :</p>
             <ul>
               <li className="flex flex-row">
@@ -76,13 +76,13 @@ function Recipes({ recipe }) {
           </div>
         </div>
       </div>
-      <p className="bg-orange w-fit text-beige mb-3 p-2 rounded-xl">
+      <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
         Etapes de préparation :
       </p>
       <div className="border-green border-4 rounded-2xl p-16 bg-slate-200 mb-4">
         {recipe.text}
       </div>
-      <p className="bg-orange w-fit text-beige mb-3 p-2 rounded-xl">
+      <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
         Commentaires :
       </p>
       <div className="border-green border-4 rounded-2xl p-16 bg-slate-200">
