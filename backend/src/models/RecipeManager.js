@@ -25,6 +25,7 @@ class RecipeManager extends AbstractManager {
   // The Rs of CRUD - Read operations
 
   async readAll() {
+    // si limit affiche les 5 sinon affiche normalement
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
     return rows;
   }

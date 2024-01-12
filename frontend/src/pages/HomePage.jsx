@@ -1,5 +1,6 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import Carousel from "../components/carousel/Carousel";
 
 function HomePage() {
   const recipes = useLoaderData();
@@ -56,7 +57,7 @@ function HomePage() {
     setFilteredRecipes(searchData);
   };
 
-  const handleFilter = (e) => {
+  const handleAllFilters = (e) => {
     setSelectedType(e);
     filterRecipes(searchText, selectedType, selectedDifficulty, selectedTime);
   };
@@ -75,33 +76,34 @@ function HomePage() {
 
   return (
     <div className="m-20">
-      <div className="border-solid border-y-4 border-green m-10">
+      <Carousel recipes={recipes} />
+      <div className="border-solid border-y-4 border-orange m-10">
         <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
           <button
             type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-16"
-            onClick={() => handleFilter("All")}
+            className="bg-orange text-beige p-4 rounded-2xl border border-beige w-16"
+            onClick={() => handleAllFilters("All")}
           >
             All
           </button>
           <button
             type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-            onClick={() => handleFilter("healthy")}
+            className="bg-orange text-beige p-4 rounded-2xl border border-beige w-28"
+            onClick={() => handleAllFilters("healthy")}
           >
             Healthy
           </button>
           <button
             type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-            onClick={() => handleFilter("light")}
+            className="bg-orange text-beige p-4 rounded-2xl border border-beige w-28"
+            onClick={() => handleAllFilters("light")}
           >
             Light
           </button>
           <button
             type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-            onClick={() => handleFilter("fat")}
+            className="bg-orange text-beige p-4 rounded-2xl border border-beige w-28"
+            onClick={() => handleAllFilters("fat")}
           >
             Fat
           </button>
@@ -109,17 +111,17 @@ function HomePage() {
             <input
               type="input"
               placeholder="rechercher par nom"
-              className="bg-green text-beige p-4 rounded-2xl"
+              className="bg-orange text-beige p-4 rounded-2xl"
               value={searchText}
               onChange={handleSearch}
             />
           </div>
         </div>
         <div className="m-10 flex flex-row justify-center text-xl gap-6">
-          <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
+          <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
             Difficulté:
             <select
-              className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
+              className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1"
               onChange={difficultyFiltered}
             >
               <option value="">Tous</option>
@@ -128,10 +130,10 @@ function HomePage() {
               <option value="3">🧑🏻‍🍳🧑🏻‍🍳🧑🏻‍🍳</option>
             </select>
           </label>
-          <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
+          <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
             Temps:
             <select
-              className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
+              className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1"
               onChange={handleTimeFilter}
             >
               <option value="">Tous</option>
