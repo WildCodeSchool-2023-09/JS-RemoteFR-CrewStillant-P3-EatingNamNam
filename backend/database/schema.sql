@@ -48,7 +48,7 @@ CREATE TABLE recipe (
     preparation_time int  NOT NULL,
     difficulty int  NOT NULL,
     image varchar(255)  NOT NULL,
-    type varchar(255) NOT NULL,
+    type varchar(255) NOT NULL DEFAULT 'healthy',
     CONSTRAINT recipe_pk PRIMARY KEY (id)
 );
 

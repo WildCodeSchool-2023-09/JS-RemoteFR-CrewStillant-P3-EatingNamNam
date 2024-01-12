@@ -21,51 +21,10 @@ const seed = async () => {
 
     // Optional: Truncate tables (remove existing data)
     // await database.query("delete recipe");
-    // await database.query("delete FROM recipe");
-    // await database.query("delete FROM ingredient");
+    await database.query("delete FROM recipe");
+    await database.query("delete FROM ingredient");
 
     // Insert fake data into the 'recipe' table
-    await database.query(
-      "INSERT INTO recipe (title, cooking_time, preparation_time, difficulty, image, type) VALUES ('Poulet au Curry', 30, 15, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salade de Quinoa', 45, 20, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Soupe aux légumes', 45, 20, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Lasagnes au Bœuf', 40, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Saumon Grillé', 55, 10, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healty'), ('Risotto aux Champignons', 70, 35, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Burger Végétarien', 25, 12, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Pâtes Carbonara', 50, 18, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Salade César', 65, 30, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Tacos au Poulet', 35, 20, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Pizza Margherita', 60, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Crevettes à l/Ail', 60, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Tajine de Poulet', 28, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salmon Poke Bowl', 48, 22, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Wraps au Thon', 63, 28, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Ratatouille Provençale', 42, 30, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Poulet Teriyaki', 55, 18, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Salade de Lentilles', 68, 35, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Galette de Pommes de Terre', 32, 14, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Poisson Grillé', 52, 20, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Riz Cantonais', 70, 32, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Quiche Lorraine', 38, 18, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Spaghetti Bolognese', 58, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Couscous aux Légumes', 73, 40, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Poulet au Citron', 45, 22, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salade de Fruits de Mer', 60, 28, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Steak de Thon', 75, 42, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Fajitas au Bœuf', 30, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Chili Con Carne', 50, 20, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Poulet au Curry Coco', 65, 35, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Pâtes à la Carbonara', 40, 18, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salade Grecque', 55, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Poke Bowl au Saumon', 70, 40, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'),('Tarte aux Légumes', 35, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Crevettes à la Créole', 48, 22, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Hachis Parmentier', 62, 30, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'),  ('Brochettes de Poulet', 25, 12, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salmon Avocado Roll', 50, 20, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Poulet au Paprika', 65, 32, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'),  ('Gratin de Pommes de Terre', 38, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Penne Arrabiata', 58, 28, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Curry de Légumes', 73, 40, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Omelette aux Champignons', 42, 22, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Tagliatelles au Saumon', 55, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Tagliatelles au champignons', 55, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Poulet au Citron Vert', 30, 14, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Tacos aux Crevettes', 52, 22, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Risotto aux Asperges', 67, 38, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Pizza Végétalienne', 40, 18, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Poulet aux Herbes', 55, 30, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy')"
-    );
-    // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "INSERT INTO recipe (title, cooking_time, preparation_time, difficulty, image) VALUES (?, ?, ?, ?, ?)",
-    //       [
-    //         faker.lorem.word(),
-    //         faker.number.int({ min: 1, max: 100 }),
-    //         faker.number.int({ min: 1, max: 120 }),
-    //         faker.number.int({ min: 1, max: 5 }),
-    //         faker.image.food(),
-    //       ]
-    //     )
-    //   );
-    // }
-
-    for (let i = 0; i < 40; i += 1) {
-      queries.push(
-        database.query(
-          "INSERT INTO recipe (title, cooking_time, preparation_time, difficulty, image) VALUES (?, ?, ?, ?, ?)",
-          [
-            faker.lorem.word(),
-            faker.number.int({ min: 1, max: 100 }),
-            faker.number.int({ min: 1, max: 120 }),
-            faker.number.int({ min: 1, max: 3 }),
-            faker.image.urlLoremFlickr({ category: "cat" }),
-          ]
-        )
-      );
-    }
-
-    for (let i = 0; i < 400; i += 1) {
-      queries.push(
-        database.query("INSERT INTO step (text, recipe_id) VALUES (?, ?)", [
-          faker.lorem.words(30),
-          faker.number.int({ min: 1, max: 40 }),
-        ])
-      );
-    }
 
     await database.query(
       "INSERT INTO unit (name, mesure_unit) VALUES ('solid', 'g kg cac cas'),('liquid','cl dc l cac cas')"
@@ -77,7 +36,7 @@ const seed = async () => {
     );
 
     // Insert fake data into the 'ingredient_recipe' table
-    for (let i = 0; i < 50; i += 1) {
+    for (let i = 0; i < 30; i += 1) {
       queries.push(
         database.query(
           "INSERT INTO ingredient_recipe (quantity, recipe_id, Ingredient_id) VALUES (?, ?, ?)",
@@ -90,7 +49,28 @@ const seed = async () => {
       );
     }
 
+    await database.query(
+      "INSERT INTO recipe (title, cooking_time, preparation_time, difficulty, image, type) VALUES ('Poulet au Curry', 30, 15, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salade de Quinoa', 45, 20, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Soupe aux légumes', 45, 20, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Lasagnes au Bœuf', 40, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Saumon Grillé', 55, 10, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healty'), ('Risotto aux Champignons', 70, 35, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Burger Végétarien', 25, 12, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Pâtes Carbonara', 50, 18, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Salade César', 65, 30, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Tacos au Poulet', 35, 20, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Pizza Margherita', 60, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Crevettes à l/Ail', 60, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Tajine de Poulet', 28, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salmon Poke Bowl', 48, 22, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Wraps au Thon', 63, 28, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Ratatouille Provençale', 42, 30, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Poulet Teriyaki', 55, 18, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Salade de Lentilles', 68, 35, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Galette de Pommes de Terre', 32, 14, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Poisson Grillé', 52, 20, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Riz Cantonais', 70, 32, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Quiche Lorraine', 38, 18, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Spaghetti Bolognese', 58, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Couscous aux Légumes', 73, 40, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Poulet au Citron', 45, 22, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salade de Fruits de Mer', 60, 28, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Steak de Thon', 75, 42, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Fajitas au Bœuf', 30, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Chili Con Carne', 50, 20, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Poulet au Curry Coco', 65, 35, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Pâtes à la Carbonara', 40, 18, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salade Grecque', 55, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Poke Bowl au Saumon', 70, 40, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'),('Tarte aux Légumes', 35, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Crevettes à la Créole', 48, 22, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Hachis Parmentier', 62, 30, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'),  ('Brochettes de Poulet', 25, 12, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Salmon Avocado Roll', 50, 20, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Poulet au Paprika', 65, 32, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'),  ('Gratin de Pommes de Terre', 38, 15, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Penne Arrabiata', 58, 28, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Curry de Légumes', 73, 40, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Omelette aux Champignons', 42, 22, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Tagliatelles au Saumon', 55, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Tagliatelles au champignons', 55, 25, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Poulet au Citron Vert', 30, 14, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Tacos aux Crevettes', 52, 22, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy'), ('Risotto aux Asperges', 67, 38, 3, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'light'), ('Pizza Végétalienne', 40, 18, 1, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'fat'), ('Poulet aux Herbes', 55, 30, 2, 'https://t3.ftcdn.net/jpg/02/60/12/88/360_F_260128861_Q2ttKHoVw2VrmvItxyCVBnEyM1852MoJ.jpg', 'healthy')"
+    );
+
     await database.query("INSERT INTO role (type)VALUES ('member'), ('admin')");
+
+    for (let i = 0; i < 400; i += 1) {
+      queries.push(
+        database.query("INSERT INTO comment (content) VALUES (?)", [
+          faker.lorem.words(50),
+        ])
+      );
+    }
+
+    // for (let i = 0; i < 400; i += 1) {
+    //   queries.push(
+    //     database.query("INSERT INTO step (text, recipe_id) VALUES (?, ?)", [
+    //       faker.lorem.words(10),
+    //       faker.number.int({ min: 1, max: 40 }),
+    //     ])
+    //   );
+    // }
 
     /* ************************************************************************* */
 
