@@ -4,16 +4,16 @@ class CommentManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "comments" as configuration
-    super({ table: "comments" });
+    super({ table: "comment" });
   }
 
   // The C of CRUD - Create operation
 
-  async create(comment) {
+  async create(content) {
     // Execute the SQL INSERT query to add a new comment to the "comments" table
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (content) VALUES (?)`,
-      [comment]
+      `INSERT INTO ${this.table} (text) VALUES (?)`,
+      [content]
     );
     // Return the ID of the newly inserted comment
     return result.insertId;
@@ -35,6 +35,14 @@ class CommentManager extends AbstractManager {
     // Execute the SQL SELECT query to retrieve all comments from the "comments" table
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
     // Return the array of items
+    return rows;
+  }
+
+  async readByRecipe(recipeID) {
+    const [rows] = await this.database.query(
+      `SELECT comment.* FROM ${this.table} JOIN recipe_comment AS rc ON rc.comment_id = comment.id JOIN recipe ON recipe.id = rc.recipe_id WHERE recipe_id = ?`,
+      [recipeID]
+    );
     return rows;
   }
 

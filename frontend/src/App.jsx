@@ -9,7 +9,7 @@ import "./App.css";
 function App() {
   const [auth, setAuth] = useState({ token: "", userVerified: "" });
   return (
-    <div>
+    <div className="bg-beige">
       <Navbar />
       <Outlet context={{ auth, setAuth }} />
       <Footer />
