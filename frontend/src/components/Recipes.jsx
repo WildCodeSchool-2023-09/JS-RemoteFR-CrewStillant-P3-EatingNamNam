@@ -38,19 +38,19 @@ function Recipes({ recipeId }) {
       </div>
       <div className="border rounded-2xl flex flex-row justify-around mb-3 p-3 text-beige bg-orange">
         <div className="text-center">
-          <p>Calories: </p>
+          <p>Calories : </p>
           <div>{recipeId.calories}kcal</div>
         </div>
         <div className="text-center">
-          <p>Lipide: </p>
+          <p>Lipides : </p>
           <div>{recipeId.sugar}g</div>
         </div>
         <div className="text-center">
-          <p>Glucides:</p>
+          <p>Glucides :</p>
           <div>{recipeId.fat}g</div>
         </div>
         <div className="text-center">
-          <p>Protéine:</p>
+          <p>Protéines :</p>
           <div>{recipeId.protein}g</div>
         </div>
       </div>
@@ -64,11 +64,11 @@ function Recipes({ recipeId }) {
       </div>
       <p className="text-orange mb-3">Etapes de préparation:</p>
       <div className="border-green border-4 rounded-2xl p-3 bg-slate-200 mb-4">
-        {recipeId.text}
+        {/* {recipe.steps} */}
       </div>
       <p className="text-orange  mb-3">Commentaires:</p>
       <div className="border-green border-4 rounded-2xl p-3 bg-slate-200">
-        en attente d'une fonction commentaire
+        {/* {recipe.comments} */}
       </div>
     </div>
   );
@@ -78,7 +78,8 @@ Recipes.propTypes = {
   recipeId: PropTypes.shape({
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    steps: PropTypes.string.isRequired,
+    comments: PropTypes.string.isRequired,
     cooking_time: PropTypes.number.isRequired,
     preparation_time: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,

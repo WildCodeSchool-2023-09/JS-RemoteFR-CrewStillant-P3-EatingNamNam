@@ -10,6 +10,7 @@ const SuccessManager = require("./models/SuccessManager");
 const UserManager = require("./models/UserManager");
 const RoleManager = require("./models/RoleManager");
 const UnitManager = require("./models/UnitManager");
+const RecipeCommentManager = require("./models/RecipeCommentManager");
 const RecipeIngredientManager = require("./models/RecipeIngredientManager");
 const StepManager = require("./models/StepManager");
 
@@ -21,6 +22,7 @@ const managers = [
   UserManager,
   RoleManager,
   UnitManager,
+  RecipeCommentManager,
   RecipeIngredientManager,
   StepManager,
 ];

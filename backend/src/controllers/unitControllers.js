@@ -22,7 +22,6 @@ const browse = async (req, res, next) => {
 const read = async (req, res, next) => {
   try {
     const unit = await tables.unit.read(parseInt(req.params.id, 10));
-
     if (unit == null) {
       res.sendStatus(404);
     } else {

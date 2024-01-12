@@ -14,7 +14,9 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
   //     image: "https://loremflickr.com/640/480/cat?lock=7759580905865216",
   //   },
   // }
-  const [imageRecipe, setImageRecipe] = useState("");
+  const [imageRecipe, setImageRecipe] = useState(
+    "https://i.ibb.co/dWCZjNS/plathealthy.jpg"
+  );
   const [formIsValidated, setFormIsValidated] = useState(false);
   const onSubmit = (data) => {
     setSelectedInformations(data);
@@ -27,37 +29,49 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
   // database faire une table type avec l'image associée
   // donc le get sera + simple et je map sur lui ensuite
   const imageArray = [
-    { id: "1", name: "soupe", imageUrl: "https://ibb.co/FhVbGDQ" },
-    { id: "2", name: "viande", imageUrl: "https://ibb.co/s9WYNMt" },
+    {
+      id: "1",
+      name: "healthy",
+      imageUrl:
+        "https://img.freepik.com/photos-gratuite/poisson-grille-bouchent-decore-legumes_1303-12328.jpg",
+    },
+    {
+      id: "2",
+      name: "fat",
+      imageUrl:
+        "https://img.freepik.com/photos-gratuite/lasagne-traditionnelle-riche-sauce-bolognaise_60438-3536.jpg",
+    },
     {
       id: "3",
-      name: "healthy",
-      imageUrl: "https://i.ibb.co/dWCZjNS/plathealthy.jpg",
+      name: "light",
+      imageUrl:
+        "https://img.freepik.com/photos-gratuite/curry-poulet-oignons-cuisine-indienne-cuisine-asiatique_2829-4415.jpg",
     },
-    { id: "4", name: "tarte", imageUrl: "https://ibb.co/NSHLLbj" },
   ];
   const handleImageUrlChange = (event) => {
-    setImageRecipe(event.target.value);
+    const newimageurl = imageArray.find((i) => i.name === event.target.value);
+    setImageRecipe(newimageurl.imageUrl);
   };
   return (
     <div className="flex flex-col border rounded-2xl items-center mb-3 p-3 text-black bg-orange">
       <form className="" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <img src={imageRecipe} alt="" />
+          <label htmlFor="type">Choisissez votre type de recette</label>
           <select
-            name="image"
-            {...register("image", {
+            name="type"
+            {...register("type", {
               required: "Ce champ est obligatoire ",
             })}
             onChange={handleImageUrlChange}
           >
-            <option value="">Choisissez votre image pour la recette</option>
             {imageArray.map((i) => (
-              <option key={i.id} value={i.imageUrl}>
+              <option key={i.id} value={i.name}>
                 {i.name}
               </option>
             ))}
           </select>
+          <input type="hidden" value={imageRecipe} {...register("image")} />
         </div>
         <div className="flex gap-4 mb-3">
           <label htmlFor="title">Titre de votre recette</label>
