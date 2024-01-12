@@ -10,6 +10,7 @@ import Conditions from "./pages/ConditionPage";
 import RecipesPage from "./pages/RecipesPage";
 import UserPage from "./pages/UserPage";
 import UserInformation from "./components/UserInformation";
+import AdminPage from "./pages/AdminPage";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             },
           },
         ],
+      },
+      {
+        path: "/admin",
+        element: <AdminPage />,
       },
       {
         path: "/contact",
