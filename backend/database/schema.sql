@@ -5,7 +5,7 @@
 -- Table: comment
 CREATE TABLE comment (
     id int  NOT NULL AUTO_INCREMENT,
-    text varchar(255)  NOT NULL,
+    content TEXT NOT NULL,
     CONSTRAINT comment_pk PRIMARY KEY (id)
 );
 
@@ -40,11 +40,13 @@ CREATE TABLE ingredient_recipe (
 -- Table: recipe
 CREATE TABLE recipe (
     id int  NOT NULL AUTO_INCREMENT,
+    registration_date DATETIME NOT NULL DEFAULT NOW(),
     title varchar(150)  NOT NULL,
     cooking_time int  NOT NULL,
     preparation_time int  NOT NULL,
     difficulty int  NOT NULL,
     image varchar(255)  NOT NULL,
+    type varchar(255) NOT NULL,
     CONSTRAINT recipe_pk PRIMARY KEY (id)
 );
 
@@ -118,7 +120,7 @@ CREATE TABLE user (
     lastname varchar(150)  NOT NULL,
     birthdate date  NOT NULL,
     pseudo varchar(50)  NOT NULL,
-    mail varchar(255)  NOT NULL,
+    mail varchar(255)  NOT NULL UNIQUE,
     password varchar(255)  NOT NULL,
     week_time_kitchen int  NOT NULL,
     weight int  NOT NULL,

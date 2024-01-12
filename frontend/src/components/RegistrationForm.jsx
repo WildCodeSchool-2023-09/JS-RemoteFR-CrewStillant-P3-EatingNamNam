@@ -19,7 +19,7 @@ export default function RegistrationForm({ setOption }) {
   };
 
   return (
-    <div className="bg-orange text-beige p-6 rounded-xl m-2 w-auto border-2 border-green">
+    <div className="bg-orange text-beige p-6 rounded-xl m-2 w-fit border-2 border-green">
       <h1 className="text-center my-5 text-3xl font-bold">
         Renseignez les champs suivants
       </h1>
@@ -114,6 +114,7 @@ export default function RegistrationForm({ setOption }) {
             type="email"
             placeholder="johndoe99@doe.fr"
             {...register("mail", {
+              required: "Ce champs est obligatoire",
               pattern: {
                 value: /\b[\w.-]+@[\w.-]+\.\w{2,4}\b/,
                 message:
@@ -136,7 +137,7 @@ export default function RegistrationForm({ setOption }) {
             name="confirm-email"
             type="email"
             placeholder="johndoe99@doe.fr"
-            {...register("confirmemail", {
+            {...register("confirmEmail", {
               required: "Vous devez confirmer votre email",
               validate: (value) =>
                 value === watch("mail") || "Emails non identiques",
@@ -158,6 +159,7 @@ export default function RegistrationForm({ setOption }) {
             type="password"
             placeholder="**********"
             {...register("password", {
+              required: "Ce champs est obligatoire",
               pattern: {
                 value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
                 message:
@@ -180,7 +182,7 @@ export default function RegistrationForm({ setOption }) {
             name="confirm-password"
             type="password"
             placeholder="**********"
-            {...register("confirmpassword", {
+            {...register("confirmPassword", {
               required: "Vous devez confirmer votre mot de passe",
               validate: (value) =>
                 value === watch("password") || "Mots de passe non identiques",
