@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import PropTypes from "prop-types";
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ setOption }) {
   const {
     register,
     handleSubmit,
@@ -10,8 +11,11 @@ export default function RegistrationForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, data);
+  const onSubmit = async (data) => {
+    await axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, data)
+      .then((res) => console.info(res.data));
+    setOption(true);
   };
 
   return (
@@ -273,3 +277,6 @@ export default function RegistrationForm() {
     </div>
   );
 }
+RegistrationForm.propTypes = {
+  setOption: PropTypes.func.isRequired,
+};
