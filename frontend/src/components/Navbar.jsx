@@ -12,7 +12,10 @@ function Navbar() {
         <NavLink className="hover:text-green text-xl h-fit my-auto" to="/">
           Mes recettes
         </NavLink>
-        <NavLink className="hover:text-green text-xl h-fit my-auto" to="/">
+        <NavLink
+          className="hover:text-green text-xl h-fit my-auto"
+          to="/user/info"
+        >
           Mon compte
         </NavLink>
       </div>
