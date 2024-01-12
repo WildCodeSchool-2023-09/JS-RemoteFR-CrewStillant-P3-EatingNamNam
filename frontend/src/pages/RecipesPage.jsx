@@ -6,8 +6,12 @@ import CommentForm from "../components/CommentForm";
 
 function RecipesPage() {
   const recipes = useLoaderData();
+
+  // States pour générer un nouvel affichage de la recette avec le commentaire juste posté
+
   const [isValidated, setIsValidated] = useState(false);
   const [updatedData, setUpdatedData] = useState(recipes);
+
   useEffect(() => {
     if (isValidated) {
       axios
