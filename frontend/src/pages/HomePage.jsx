@@ -1,9 +1,10 @@
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 import { useState } from "react";
 
 import Carousel from "../components/carousel/Carousel";
 
 function HomePage() {
+  const { auth } = useOutletContext();
   const recipes = useLoaderData();
 
   const difficultyEmoji = (difficulty) => {
@@ -145,49 +146,59 @@ function HomePage() {
         </div>
       </div>
       <div>
-        <Carousel recipes={recipes} />
-        <ul className="flex flex-row justify-center flex-wrap gap-16">
-          <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
-            <h1 className="text-beige text-2xl">Créer ma recette</h1>
-            <NavLink to="/new-recipe">
-              <div className="flex flex-col items-center justify-center mt-16">
-                <button
-                  type="button"
-                  className="rounded-full bg-beige p-10 text-green font-bold text-4xl"
-                >
-                  +
-                </button>
-              </div>
-            </NavLink>
-          </div>
-          {filteredRecipes.map((r) => (
-            <li
-              key={r.id}
-              className="rounded-2xl w-72 h-80 p-4 bg-green text-center"
-            >
-              <h1 className="text-beige text-2xl mb-1 uppercase">{r.title}</h1>
-              <div className="flex flex-row justify-between">
-                <div>{difficultyEmoji(r.difficulty)}</div>
-                <p className="text-beige mb-2">
-                  Temps : {r.preparation_time} min
-                </p>
-              </div>
-              <img
-                src={r.image}
-                alt={r.image}
-                className="rounded-2xl relative self-end"
-              />
-              <div className="flex flex-col items-center justify-center">
-                <NavLink
-                  to={`/recipe/${r.id}`}
-                  className="border bg-green text-beige p-1.5 absolute"
-                >
-                  En savoir plus
-                </NavLink>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {auth.token ? (
+          <h1 className="text-center text-4xl">
+            Bienvenue {auth.userVerified.pseudo} !
+          </h1>
+        ) : null}
+
+        <div className={!auth.token ? "blur-sm" : null}>
+          <Carousel recipes={recipes} />
+          <ul className="flex flex-row justify-center flex-wrap gap-16">
+            <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
+              <h1 className="text-beige text-2xl">Créer ma recette</h1>
+              <NavLink to="/new-recipe">
+                <div className="flex flex-col items-center justify-center mt-16">
+                  <button
+                    type="button"
+                    className="rounded-full bg-beige p-10 text-green font-bold text-4xl"
+                  >
+                    +
+                  </button>
+                </div>
+              </NavLink>
+            </div>
+            {filteredRecipes.map((r) => (
+              <li
+                key={r.id}
+                className="rounded-2xl w-72 h-80 p-4 bg-green text-center"
+              >
+                <h1 className="text-beige text-2xl mb-1 uppercase">
+                  {r.title}
+                </h1>
+                <div className="flex flex-row justify-between">
+                  <div>{difficultyEmoji(r.difficulty)}</div>
+                  <p className="text-beige mb-2">
+                    Temps : {r.preparation_time} min
+                  </p>
+                </div>
+                <img
+                  src={r.image}
+                  alt={r.image}
+                  className="rounded-2xl relative self-end"
+                />
+                <div className="flex flex-col items-center justify-center">
+                  <NavLink
+                    to={`/recipe/${r.id}`}
+                    className="border bg-green text-beige p-1.5 absolute"
+                  >
+                    En savoir plus
+                  </NavLink>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
