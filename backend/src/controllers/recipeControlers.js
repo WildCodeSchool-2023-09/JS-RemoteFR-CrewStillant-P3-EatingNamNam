@@ -4,7 +4,7 @@ const tables = require("../tables");
 
 const browse = async (req, res, next) => {
   try {
-    const recipes = await tables.recipe.readAll();
+    const recipes = await tables.recipe.readAll(); // req.query pour recuperer la date d'entrée et limiter le nombre de card carousel
     if (recipes == null) {
       res.sendStatus(404);
     } else {

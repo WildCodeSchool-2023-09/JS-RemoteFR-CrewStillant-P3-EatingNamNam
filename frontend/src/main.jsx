@@ -23,8 +23,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: async () => {
-          const response = await fetch(`${apiUrl}/api/recipe`);
-          const recipes = await response.json();
+          const recipes = await fetch(`${apiUrl}/api/recipe`).then((res) =>
+            res.json()
+          );
           return recipes;
         },
       },

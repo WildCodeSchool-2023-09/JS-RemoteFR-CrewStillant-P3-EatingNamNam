@@ -5,6 +5,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/splide": "^4.1.4",
     "axios": "^1.6.2",
     "file-saver": "^2.0.5",
     "moment": "^2.30.1",
