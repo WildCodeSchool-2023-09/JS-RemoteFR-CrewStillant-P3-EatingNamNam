@@ -5,7 +5,7 @@
 -- Table: comment
 CREATE TABLE comment (
     id int  NOT NULL AUTO_INCREMENT,
-    text varchar(255)  NOT NULL,
+    content TEXT NOT NULL,
     CONSTRAINT comment_pk PRIMARY KEY (id)
 );
 
