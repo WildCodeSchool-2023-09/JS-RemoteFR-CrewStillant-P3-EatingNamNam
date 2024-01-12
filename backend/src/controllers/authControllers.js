@@ -10,8 +10,7 @@ const login = async (req, res, next) => {
     const user = await tables.user.readByEmail(mail);
 
     if (user == null) {
-      res.status(200).json({
-        error: 422,
+      res.status(404).json({
         message: "Combinaison e-mail / mot-de-passe invalide",
       });
     }
@@ -25,8 +24,7 @@ const login = async (req, res, next) => {
     };
 
     if (!verified) {
-      res.status(200).json({
-        error: 422,
+      res.status(403).json({
         message: "Combinaison e-mail / mot-de-passe invalide",
       });
     } else {

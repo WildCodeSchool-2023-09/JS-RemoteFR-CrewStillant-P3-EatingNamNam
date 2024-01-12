@@ -16,7 +16,10 @@ export default function Login() {
   const onSubmit = (data) => {
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/auth`, data)
-      .then((res) => (res.data?.error ? setErr(res.data) : setAuth(res.data)));
+      .then((res) => setAuth(res.data))
+      .catch((error) => {
+        setErr(error.response.data.message);
+      });
   };
 
   return (
@@ -55,7 +58,7 @@ export default function Login() {
           role="alert"
           className="bg-red-700 text-beige text-md px-1 rounded-md"
         >
-          {err.message}
+          {err}
         </p>
       ) : null}
       <button
