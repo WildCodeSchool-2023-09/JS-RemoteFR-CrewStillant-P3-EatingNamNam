@@ -16,11 +16,12 @@ export default function IngredientsForm({
     reset,
   } = useForm();
 
+  // correspond à la valeur d'ingrédients filtré par la valeur de l'input
   const [updatedData, setUpdatedData] = useState(ingredients);
   const [formVisible, setFormVisible] = useState(false);
-  const [ingredient, setIngredient] = useState("");
+  // ce state sert à remplir les valeurs de l'ingrédient choisi dans le select/option
+  const [ingredient, setIngredient] = useState({});
   const onSubmit = (data) => {
-    console.info(data);
     setFormVisible(false);
     setSelectedIngredients([...selectedIngredients, data]);
     reset();
@@ -31,16 +32,11 @@ export default function IngredientsForm({
   };
 
   const handleIngredient = (event) => {
+    // reset({name}) permet de vider la valeur de register/name et de lui en réattribuer une quand le state re-render
+    // reset({ name });
     const ingredientname = event.target.value;
     setFormVisible(true);
     setIngredient(ingredients.find((i) => i.name === ingredientname));
-  };
-
-  const handlePost = () => {
-    // axios.post(
-    //   `${import.meta.env.VITE_BACKEND_URL}/api/ingredient_recipe`,
-    //   selectedIngredients
-    // );
   };
   const handleDeleteIngredient = (element) => {
     const index = selectedIngredients.findIndex(
@@ -134,7 +130,6 @@ export default function IngredientsForm({
       )}
       <div className="flex flex-col gap-4 mb-">
         <ul>
-          <li>JE SUIS UNE LISTE DINGREDIENTS</li>
           {selectedIngredients.map((s) => (
             <li key={s.ingredient}>
               {s.ingredient},{s.quantity}, {s.mesure_unit}{" "}
@@ -144,9 +139,6 @@ export default function IngredientsForm({
             </li>
           ))}
         </ul>
-        <button type="button" onClick={handlePost}>
-          J'envoie mes ingrédient 🥕
-        </button>
       </div>
     </div>
   );

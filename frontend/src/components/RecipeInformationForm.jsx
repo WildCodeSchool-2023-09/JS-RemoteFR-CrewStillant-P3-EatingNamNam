@@ -8,21 +8,57 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      image: "https://loremflickr.com/640/480/cat?lock=7759580905865216",
-    },
-  });
-
+  } = useForm();
+  //   {
+  //   defaultValues: {
+  //     image: "https://loremflickr.com/640/480/cat?lock=7759580905865216",
+  //   },
+  // }
+  const [imageRecipe, setImageRecipe] = useState("");
   const [formIsValidated, setFormIsValidated] = useState(false);
   const onSubmit = (data) => {
     setSelectedInformations(data);
     setFormIsValidated(true);
   };
 
+  // axios get sur type de recette
+  // et l'incorporer
+  // faire en sorte que choisir le type
+  // database faire une table type avec l'image associée
+  // donc le get sera + simple et je map sur lui ensuite
+  const imageArray = [
+    { id: "1", name: "soupe", imageUrl: "https://ibb.co/FhVbGDQ" },
+    { id: "2", name: "viande", imageUrl: "https://ibb.co/s9WYNMt" },
+    {
+      id: "3",
+      name: "healthy",
+      imageUrl: "https://i.ibb.co/dWCZjNS/plathealthy.jpg",
+    },
+    { id: "4", name: "tarte", imageUrl: "https://ibb.co/NSHLLbj" },
+  ];
+  const handleImageUrlChange = (event) => {
+    setImageRecipe(event.target.value);
+  };
   return (
     <div className="flex flex-col border rounded-2xl items-center mb-3 p-3 text-black bg-orange">
       <form className="" onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <img src={imageRecipe} alt="" />
+          <select
+            name="image"
+            {...register("image", {
+              required: "Ce champ est obligatoire ",
+            })}
+            onChange={handleImageUrlChange}
+          >
+            <option value="">Choisissez votre image pour la recette</option>
+            {imageArray.map((i) => (
+              <option key={i.id} value={i.imageUrl}>
+                {i.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="flex gap-4 mb-3">
           <label htmlFor="title">Titre de votre recette</label>
           <input
@@ -81,7 +117,7 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
               min: {
                 value: 1,
                 message:
-                  "Votre recette ne peux pas prendre moins d'une heure de préparation",
+                  "Votre recette ne peux pas prendre moins d'une minute de préparation",
               },
               max: {
                 value: 1440,
