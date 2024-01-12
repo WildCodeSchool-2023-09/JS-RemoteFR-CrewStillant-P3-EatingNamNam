@@ -33,14 +33,21 @@ const download = async (req, res, next) => {
       users.forEach((e) => {
         delete e.password;
       });
+
+      // cette ligne de code pour pouvoir générer une lecture propre avec Excel des données utilisateurs
       const test = [{ "sep=,": "" }];
+
+      // je transforme mes 2 données JSON en CSV
       const initFile = Papa.unparse(test);
       const parsUsers = Papa.unparse(users);
+
+      // j'écris dans un nouveau fichier les données CSV
       await fs.writeFile("./public/assets/users_informations.csv", initFile);
       await fs.writeFile("./public/assets/users_informations.csv", parsUsers, {
         flag: "a",
       });
-      // Download function provided by express
+
+      // Download function provided by express, je télécharge ce nouveau fichier vers le front
       res
         .status(200)
         .download("./public/assets/users_informations.csv", (err) => {
