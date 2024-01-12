@@ -4,20 +4,20 @@ const router = express.Router();
 
 const {
   browse,
-  read,
-  edit,
-  add,
-  destroy,
+  // read,
+  // edit,
+  // add,
+  // destroy,
 } = require("../controllers/unitControllers");
 
 router.get("/", browse);
 
-router.post("/", add);
+// router.post("/", add);
 
-router.get("/:id", read);
+// router.get("/:id", read);
 
-router.put("/:id", edit);
+// router.put("/:id", edit);
 
-router.delete("/:id", destroy);
+// router.delete("/:id", destroy);
 
 module.exports = router;
