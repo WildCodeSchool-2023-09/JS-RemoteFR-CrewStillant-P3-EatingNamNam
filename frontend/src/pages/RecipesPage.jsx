@@ -15,10 +15,11 @@ function RecipesPage() {
   useEffect(() => {
     if (isValidated) {
       axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/api/recipe/${recipes.id}`)
-        .then((res) => setUpdatedData(res.data));
-
-      setTimeout(() => setIsValidated(false), 3000);
+        .get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${recipes.infos.id}`
+        )
+        .then((res) => setUpdatedData(res.data))
+        .then(setTimeout(() => setIsValidated(false), 3000));
     }
   }, [isValidated]);
 
@@ -26,7 +27,7 @@ function RecipesPage() {
     <div>
       <Recipes recipe={updatedData} />
       <CommentForm
-        recipeID={recipes.id}
+        recipeID={recipes.infos.id}
         isValidated={isValidated}
         setIsValidated={setIsValidated}
       />

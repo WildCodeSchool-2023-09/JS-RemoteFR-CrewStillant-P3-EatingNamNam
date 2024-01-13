@@ -1,14 +1,18 @@
 const AbstractManager = require("./AbstractManager");
 
-class RecipeCommentManager extends AbstractManager {
+class IngredientRecipeManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "comments" as configuration
-    super({ table: "recipe_comment" });
+    super({ table: "ingredient_recipe" });
   }
 
   async read(id) {
-    const [rows] = await this.database.query(`SELECT `[id]);
+    const [rows] = await this.database.query(
+      `SELECT i.id, i.name, ir.quantity, i.calories, i.fat, i.protein, i.sugar 
+      FROM ${this.table} AS ir JOIN ingredient AS i ON i.id = ir.ingredient_id WHERE recipe_id=?`,
+      [id]
+    );
     return rows;
   }
 
@@ -21,8 +25,4 @@ class RecipeCommentManager extends AbstractManager {
   }
 }
 
-module.exports = RecipeCommentManager;
-
-// const ingredients = await tables.ingredient_recipe.read(parseInt(id, 10));
-// const comments = await tables.recipe_comment.read(parseInt(id, 10));
-// const steps = await tables.step.read(parseInt(id, 10));
+module.exports = IngredientRecipeManager;

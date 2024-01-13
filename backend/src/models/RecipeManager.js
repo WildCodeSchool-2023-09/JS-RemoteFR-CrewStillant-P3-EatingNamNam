@@ -33,34 +33,16 @@ class RecipeManager extends AbstractManager {
   async read(id) {
     const [rows] = await this.database.query(
       `SELECT
-        recipe.id,
-        recipe.title,
-        recipe.cooking_time,
-        recipe.preparation_time,
-        recipe.difficulty,
-        recipe.image,
-        ingredient_recipe.quantity,
-        ingredient.name,
-        ingredient.calories,
-        ingredient.fat,
-        ingredient.sugar,
-        ingredient.protein,
-        step.text AS steps,
-        comment.text AS comments
-
-      FROM ${this.table}
-      JOIN ingredient_recipe ON recipe.id = ingredient_recipe.recipe_id
-      JOIN ingredient ON ingredient_recipe.ingredient_id = ingredient.id
-      JOIN step ON recipe.id = step.recipe_id
-      JOIN recipe_comment ON recipe_comment.id = recipe.id
-      JOIN comment ON recipe_comment.id = comment.id
-      WHERE recipe.id = ?`,
+        id,
+        title,
+        cooking_time,
+        preparation_time,
+        difficulty,
+        image FROM ${this.table} WHERE id = ?`,
       [id]
     );
     return rows[0];
   }
-
-  // The U of CRUD - Update operation
 
   async update(recipe, id) {
     const [result] = await this.database.query(

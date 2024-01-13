@@ -55,11 +55,28 @@ const seed = async () => {
     }
 
     // Insert fake data into the 'comment' table
-    for (let i = 0; i < 50; i += 1) {
+    for (let i = 0; i < 80; i += 1) {
       queries.push(
-        database.query("INSERT INTO comment (text) VALUES (?)", [
+        database.query("INSERT INTO comment (content) VALUES (?)", [
           faker.lorem.words(20),
         ])
+      );
+    }
+
+    await database.query(
+      "INSERT INTO user (firstname, lastname) VALUES ('Toto', 'TheBest', '2000-12-10', 'Toto le magnifique','toto@toto.fr', 'Toto1234*','7', '45')"
+    );
+
+    for (let i = 0; i < 80; i += 1) {
+      queries.push(
+        database.query(
+          "INSERT INTO recipe_comment (comment_id, user_id, recipe_id) VALUES (?,?,?)",
+          [
+            faker.number.int({ min: 1, max: 80 }),
+            1,
+            faker.number.int({ min: 1, max: 30 }),
+          ]
+        )
       );
     }
 

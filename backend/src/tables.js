@@ -11,6 +11,8 @@ const UserManager = require("./models/UserManager");
 const RoleManager = require("./models/RoleManager");
 const UnitManager = require("./models/UnitManager");
 const RecipeCommentManager = require("./models/RecipeCommentManager");
+const IngredientRecipeManager = require("./models/IngredientRecipeManager");
+const StepManager = require("./models/StepManager");
 
 const managers = [
   CommentManager,
@@ -21,6 +23,8 @@ const managers = [
   RoleManager,
   UnitManager,
   RecipeCommentManager,
+  IngredientRecipeManager,
+  StepManager,
 ];
 
 // Create an empty object to hold data managers for different tables
