@@ -23,7 +23,7 @@ function Recipes({ recipe }) {
           (<img className="h-8 w-8" src={difficult} alt={difficult} />)
         );
       default:
-        return <img className="h-8 w-8" src={diffNone} alt="" />;
+        return <img className="h-8 w-8" src={diffNone} alt={diffNone} />;
     }
   };
 
@@ -33,15 +33,15 @@ function Recipes({ recipe }) {
         <h1>{recipe.title}</h1>
         <div className={!auth ? "blur-sm" : null}>
           <img
-            className={
-              !auth
-                ? "blur-md  w-full h-96 mb-3 w-68 rounded-3xl"
-                : "flex flex-col"
-            }
             src={recipe.image}
             alt={recipe.image}
+            className={
+              !auth
+                ? "blur-md flex flex-col w-full h-96 rounded-3xl"
+                : "flex flex-col w-full h-96 rounded-3xl"
+            }
           />
-          <div>
+          <div className="flex flex-col">
             <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-8 justify-center text-beige bg-orange">
               <div className="text-center text-lg">
                 <p>Préparation</p>
@@ -84,18 +84,18 @@ function Recipes({ recipe }) {
             </div>
           </div>
         </div>
-        <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
-          Etapes de préparation :
-        </p>
-        <div className="border-green border-4 rounded-2xl p-16 bg-slate-200 mb-4">
-          {recipe.steps}
-        </div>
-        <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
-          Commentaires :
-        </p>
-        <div className="border-green border-4 rounded-2xl p-16 bg-slate-200">
-          {recipe.comments}
-        </div>
+      </div>
+      <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
+        Etapes de préparation :
+      </p>
+      <div className="border-green border-2 rounded-2xl p-16 bg-slate-200 mb-4">
+        {recipe.steps}
+      </div>
+      <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
+        Commentaires :
+      </p>
+      <div className="border-green border-2 rounded-2xl p-16 bg-slate-200">
+        {recipe.comments}
       </div>
     </div>
   );

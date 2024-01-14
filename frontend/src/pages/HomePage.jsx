@@ -89,6 +89,7 @@ function HomePage() {
 
   return (
     <div className="m-20">
+      <Carousel recipes={recipes} />
       <div className="border-solid border-y-4 border-green m-10">
         <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
           <button
@@ -164,7 +165,6 @@ function HomePage() {
         ) : null}
 
         <div className={!auth.token ? "blur-sm" : null}>
-          <Carousel recipes={recipes} />
           <ul className="flex flex-row justify-center flex-wrap gap-16">
             <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
               <h1 className="text-beige text-2xl">Créer ma recette</h1>
