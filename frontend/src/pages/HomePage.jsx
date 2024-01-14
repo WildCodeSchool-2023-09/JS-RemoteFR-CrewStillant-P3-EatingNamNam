@@ -164,7 +164,7 @@ function HomePage() {
           </h1>
         ) : null}
 
-        <div className={!auth.token ? "" : null}>
+        <div className={!auth.token ? "blur-sm" : null}>
           {/* // blur-sm */}
           <ul className="flex flex-row justify-center flex-wrap gap-16">
             <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
