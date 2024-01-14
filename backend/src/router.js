@@ -9,7 +9,7 @@ const ingredientRouter = require("./routers/ingredientRouter");
 const successRouter = require("./routers/successRouter");
 const roleRouter = require("./routers/roleRouter");
 const unitRouter = require("./routers/unitRouter");
-const stepRouter = require("./routers/stepRouter");
+const authRouter = require("./routers/authRouter");
 
 router.use("/user", userRouter);
 router.use("/comment", commentRouter);
@@ -18,6 +18,6 @@ router.use("/ingredient", ingredientRouter);
 router.use("/success", successRouter);
 router.use("/role", roleRouter);
 router.use("/unit", unitRouter);
-router.use("step", stepRouter);
+router.use("/auth", authRouter);
 
 module.exports = router;

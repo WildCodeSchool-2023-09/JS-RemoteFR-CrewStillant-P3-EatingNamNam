@@ -1,6 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
+const { verifyToken } = require("../services/verifyToken");
 
 const {
   browse,
@@ -12,9 +13,11 @@ const {
 
 router.get("/", browse);
 
-router.post("/", add);
-
 router.get("/:id", read);
+
+router.use(verifyToken);
+
+router.post("/", add);
 
 router.put("/:id", edit);
 
