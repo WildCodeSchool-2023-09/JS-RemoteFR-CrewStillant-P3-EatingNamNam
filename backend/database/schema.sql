@@ -9,6 +9,15 @@ CREATE TABLE comment (
     CONSTRAINT comment_pk PRIMARY KEY (id)
 );
 
+CREATE TABLE contact (
+    id INT  NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email varchar(255)  NOT NULL UNIQUE,
+    message TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    CONSTRAINT id PRIMARY KEY (id)
+);
+
 -- Table: favoriteRecipe_user
 CREATE TABLE favoriteRecipe_user (
     id int  NOT NULL AUTO_INCREMENT,
