@@ -20,7 +20,7 @@ CREATE TABLE favoriteRecipe_user (
 -- Table: ingredient
 CREATE TABLE ingredient (
     id int  NOT NULL AUTO_INCREMENT,
-    name varchar(150)  NOT NULL,
+    name TEXT  NOT NULL,
     calories int  NOT NULL,
     fat int  NOT NULL,
     sugar int  NOT NULL,
