@@ -53,10 +53,6 @@ const edit = async (req, res, next) => {
 const add = async (req, res, next) => {
   try {
     const { info, ingredients, steps } = req.body;
-    // const recipeInformations = req.body.info;
-    // const ingredients = req.body.ingredients;
-    // const recipeSteps = req.body.steps;
-
     const newRecipeInformation = await tables.recipe.create(info);
     if (newRecipeInformation == null) {
       res.sendStatus(404);
