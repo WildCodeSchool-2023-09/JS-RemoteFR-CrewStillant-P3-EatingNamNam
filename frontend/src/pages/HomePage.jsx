@@ -17,14 +17,18 @@ function HomePage() {
         return <img className="h-8 w-8" src={difficult} alt={difficult} />;
       case 2:
         return (
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />),
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+          </>
         );
       case 3:
         return (
-          (<img className="h-8 w-8" src={difficult} alt="" />),
-          (<img className="h-8 w-8" src={difficult} alt="" />),
-          (<img className="h-8 w-8" src={difficult} alt="" />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt="" />
+            <img className="h-8 w-8" src={difficult} alt="" />
+            <img className="h-8 w-8" src={difficult} alt="" />
+          </>
         );
       default:
         return <img className="h-8 w-8" src={diffNone} alt="" />;
@@ -138,9 +142,9 @@ function HomePage() {
               onChange={difficultyFiltered}
             >
               <option value="">Tous</option>
-              <option value="1">🧑🏻‍🍳</option>
-              <option value="2">🧑🏻‍🍳🧑🏻‍🍳</option>
-              <option value="3">🧑🏻‍🍳🧑🏻‍🍳🧑🏻‍🍳</option>
+              <option value="1">facile</option>
+              <option value="2">moyen</option>
+              <option value="3">difficile</option>
             </select>
           </label>
           <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
@@ -187,7 +191,9 @@ function HomePage() {
               >
                 <h1 className="text-beige text-lg m-2 uppercase">{r.title}</h1>
                 <div className="flex flex-row justify-between m-2">
-                  <div>{difficultyEmoji(r.difficulty)}</div>
+                  <div className="flex flex-row h-6 w-7">
+                    {difficultyEmoji(r.difficulty)}
+                  </div>
                   {/* // demander pour la difficulter */}
                   <p className="text-beige mb-2 flex flex-row">
                     <img
