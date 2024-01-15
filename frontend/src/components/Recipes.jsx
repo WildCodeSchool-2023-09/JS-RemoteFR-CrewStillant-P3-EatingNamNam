@@ -64,11 +64,11 @@ function Recipes({ recipeId }) {
       </div>
       <p className="text-orange mb-3">Etapes de préparation:</p>
       <div className="border-green border-4 rounded-2xl p-3 bg-slate-200 mb-4">
-        {/* {recipe.steps} */}
+        {recipeId.steps}
       </div>
       <p className="text-orange  mb-3">Commentaires:</p>
       <div className="border-green border-4 rounded-2xl p-3 bg-slate-200">
-        {/* {recipe.comments} */}
+        {recipeId.comments}
       </div>
     </div>
   );

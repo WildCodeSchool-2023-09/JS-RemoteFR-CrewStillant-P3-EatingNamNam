@@ -32,18 +32,6 @@ class RecipeManager extends AbstractManager {
     return rows;
   }
 
-  // ingredient_recipe.quantity,
-  //       ingredient.name,
-  //       ingredient.calories,
-  //       ingredient.fat,
-  //       ingredient.sugar,
-  //       ingredient.protein,
-  //       step.text AS steps
-  //       JOIN ingredient_recipe ON recipe.id = ingredient_recipe.recipe_id
-  //       JOIN ingredient ON ingredient_recipe.ingredient_id = ingredient.id
-  //       JOIN step ON recipe.id = step.recipe_id
-  //       JOIN recipe_comment ON recipe_comment.id = recipe.id
-
   async read(id) {
     const [rows] = await this.database.query(
       `SELECT
@@ -72,6 +60,30 @@ class RecipeManager extends AbstractManager {
     );
     return rows[0];
   }
+
+  // `SELECT
+  //       recipe.id,
+  //       recipe.title,
+  //       recipe.cooking_time,
+  //       recipe.preparation_time,
+  //       recipe.difficulty,
+  //       recipe.image,
+  //       ingredient_recipe.quantity,
+  //       ingredient.name,
+  //       ingredient.calories,
+  //       ingredient.fat,
+  //       ingredient.sugar,
+  //       ingredient.protein,
+  //       step.text AS steps,
+  //       comment.content AS comment
+  //     FROM ${this.table}
+  //     JOIN ingredient_recipe ON recipe.id = ingredient_recipe.recipe_id
+  //     JOIN ingredient ON ingredient_recipe.ingredient_id = ingredient.id
+  //     JOIN step ON recipe.id = step.recipe_id
+  //     JOIN recipe_comment ON recipe_comment.id = recipe.id
+  //     JOIN comment on comment.id = recipe_comment.id
+  //     WHERE recipe.id = ?`,
+  //     [id]
 
   // The U of CRUD - Update operation
 

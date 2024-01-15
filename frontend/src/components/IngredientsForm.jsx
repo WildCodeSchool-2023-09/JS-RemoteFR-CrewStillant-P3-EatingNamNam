@@ -9,6 +9,7 @@ export default function IngredientsForm({
   selectedIngredients,
   setSelectedIngredients,
 }) {
+  const [ingredient, setIngredient] = useState({});
   const {
     register,
     handleSubmit,
@@ -20,7 +21,7 @@ export default function IngredientsForm({
   const [updatedData, setUpdatedData] = useState(ingredients);
   const [formVisible, setFormVisible] = useState(false);
   // ce state sert à remplir les valeurs de l'ingrédient choisi dans le select/option
-  const [ingredient, setIngredient] = useState({});
+
   const onSubmit = (data) => {
     setFormVisible(false);
     setSelectedIngredients([...selectedIngredients, data]);
@@ -30,7 +31,6 @@ export default function IngredientsForm({
     const inputValue = event.target.value;
     setUpdatedData(ingredients.filter((u) => u.name.includes(inputValue)));
   };
-
   const handleIngredient = (event) => {
     // reset({name}) permet de vider la valeur de register/name et de lui en réattribuer une quand le state re-render
     // reset({ name });
@@ -70,7 +70,7 @@ export default function IngredientsForm({
             type="hidden"
             name="id"
             value={ingredient.id}
-            {...register("id")}
+            {...register("id", { valueAsNumber: "Un nombre est obligatoire" })}
           />
           <input
             type="text"
@@ -84,6 +84,7 @@ export default function IngredientsForm({
             min={0}
             {...register("quantity", {
               required: "Ce champ est obligatoire",
+              valueAsNumber: "Un nombre est obligatoire",
               pattern: {
                 value: /^[0-9]+$/,
                 message: "Vous ne pouvez mettre que des chiffres",
@@ -143,7 +144,6 @@ export default function IngredientsForm({
     </div>
   );
 }
-
 IngredientsForm.propTypes = {
   selectedIngredients: PropTypes.arrayOf.isRequired,
   setSelectedIngredients: PropTypes.func.isRequired,

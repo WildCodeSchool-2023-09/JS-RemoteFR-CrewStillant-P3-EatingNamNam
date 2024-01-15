@@ -1,11 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from "react-hook-form";
-import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 
 export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
-  const { auth } = useOutletContext();
   const {
     register,
     handleSubmit,
@@ -14,7 +12,7 @@ export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
   } = useForm({
     defaultValues: {
       recipe_id: recipeID,
-      user_id: auth.id,
+      // user_id: auth.id,
     },
   });
 

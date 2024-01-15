@@ -12,7 +12,6 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.info(data);
     setSelectedSteps([...selectedSteps, data]);
     reset();
   };
@@ -37,9 +36,12 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
         </ul>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
+        <label htmlFor="step">
+          Pensez à détailler votre recette par étape :{" "}
+        </label>
+        <textarea
           className=" bg-red-700"
-          type="text"
+          name="step"
           {...register("step", {
             required: "ce champ est obligatoire",
             minLength: {
