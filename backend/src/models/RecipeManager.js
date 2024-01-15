@@ -32,13 +32,13 @@ class RecipeManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `SELECT
-        id,
-        title,
-        cooking_time,
-        preparation_time,
-        difficulty,
-        image FROM ${this.table} WHERE id = ?`,
+      `SELECT r.id, r.title, r.cooking_time, r.preparation_time, r.difficulty, r.image,
+          GROUP_CONCAT(ir.quantity) AS quantity,
+          GROUP_CONCAT(i.name) AS ingredient, GROUP_CONCAT(i.calories) AS calories, GROUP_CONCAT(i.fat) AS fats, GROUP_CONCAT(i.sugar) AS sugars, GROUP_CONCAT(i.protein) AS proteins
+          FROM ${this.table} AS r 
+          JOIN ingredient_recipe AS ir ON ir.recipe_id = r.id 
+          JOIN ingredient AS i ON i.id = ir.ingredient_id 
+          WHERE r.id= ?`,
       [id]
     );
     return rows[0];

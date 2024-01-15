@@ -3,9 +3,11 @@ import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
-export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
+export default function CommentForm({ recipeID, setIsValidated }) {
   const { auth } = useOutletContext();
+  const [isCreated, setIsCreated] = useState(false);
   const {
     register,
     handleSubmit,
@@ -14,26 +16,32 @@ export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
   } = useForm({
     defaultValues: {
       recipe_id: recipeID,
-      user_id: auth.id,
+      user_id: auth.userVerified.id,
     },
   });
-
   const onSubmit = async (data) => {
     try {
       await axios
-        .post(`${import.meta.env.VITE_BACKEND_URL}/api/comment`, data)
-        .then((res) => console.info(res.data))
-        .then(setIsValidated(true));
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/comment`, data, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => console.info(res.data));
+      setIsValidated(true);
+      setIsCreated(true);
       reset();
     } catch (error) {
       console.error(error);
     }
   };
 
+  if (isCreated) {
+    setTimeout(() => setIsCreated(false), 3000);
+  }
+
   return (
     <div className="border-green border-4 rounded-2xl p-3 bg-slate-200">
       <h1 className="text-2xl mb-2">Nouveau commentaire :</h1>
-      {isValidated ? (
+      {isCreated ? (
         <p className="text-xl text-center">Commentaires posté !</p>
       ) : (
         <form
@@ -46,7 +54,7 @@ export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
             {...register("content", {
               required: "Ce champs est obligatoire",
               minLength: {
-                value: 20,
+                value: 10,
                 message: "Votre commentaire est trop court...",
               },
               maxLength: {

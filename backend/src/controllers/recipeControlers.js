@@ -21,15 +21,12 @@ const read = async (req, res, next) => {
   try {
     const { id } = req.params;
     const recipe = await tables.recipe.read(parseInt(id, 10));
-    const ingredientsByRecipe = await tables.ingredient_recipe.read(
-      parseInt(id, 10)
-    );
+
     const stepsByRecipe = await tables.step.read(parseInt(id, 10));
     const commentsByRecipe = await tables.comment.read(parseInt(id, 10));
 
     const data = {
       infos: recipe,
-      ingredients: ingredientsByRecipe,
       steps: stepsByRecipe,
       comments: commentsByRecipe,
     };

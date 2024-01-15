@@ -2,6 +2,7 @@ import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 import { useState } from "react";
 
 import Carousel from "../components/carousel/Carousel";
+import Login from "../components/Login";
 
 function HomePage() {
   const { auth } = useOutletContext();
@@ -78,6 +79,7 @@ function HomePage() {
 
   return (
     <div className="m-20">
+      <Login />
       <div className="border-solid border-y-4 border-green m-10">
         <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
           <button
