@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState({ token: "", userVerified: "" });
   return (
     <div className="bg-beige">
       <Navbar />

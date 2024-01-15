@@ -29,8 +29,10 @@ export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
   };
 
   return (
-    <div className="border-green border-4 rounded-2xl p-3 bg-slate-200">
-      <h1 className="text-2xl mb-2">Nouveau commentaire :</h1>
+    <div className="border-green border-2 m-5 rounded-2xl p-3 bg-slate-200">
+      <h1 className="text-lg text-beige rounded-xl p-2 bg-orange w-fit mb-2">
+        Nouveau commentaire :
+      </h1>
       {isValidated ? (
         <p className="text-xl text-center">Commentaires posté !</p>
       ) : (
@@ -40,7 +42,7 @@ export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
         >
           <textarea
             name="comment"
-            className="h-16 px-1 text-xl rounded-md w-full"
+            className="h-16 px-1 text-xl rounded-2xl w-full bg-slate-200"
             {...register("content", {
               required: "Ce champs est obligatoire",
               minLength: {
@@ -64,7 +66,7 @@ export default function CommentForm({ recipeID, isValidated, setIsValidated }) {
           )}
 
           <button
-            className="text-xl border-2 bg-orange px-2 py-1 rounded-md text-beige active:bg-green hover:bg-opacity-85"
+            className="text-lg border-2 bg-orange px-2 py-1 rounded-xl text-beige active:bg-green hover:bg-opacity-85"
             type="submit"
           >
             Envoyer mon commentaire
