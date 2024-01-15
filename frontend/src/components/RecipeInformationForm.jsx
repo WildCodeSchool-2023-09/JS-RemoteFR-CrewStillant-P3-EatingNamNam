@@ -9,11 +9,6 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  //   {
-  //   defaultValues: {
-  //     image: "https://loremflickr.com/640/480/cat?lock=7759580905865216",
-  //   },
-  // }
   const [imageRecipe, setImageRecipe] = useState(
     "https://i.ibb.co/dWCZjNS/plathealthy.jpg"
   );
@@ -23,11 +18,6 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
     setFormIsValidated(true);
   };
 
-  // axios get sur type de recette
-  // et l'incorporer
-  // faire en sorte que choisir le type
-  // database faire une table type avec l'image associée
-  // donc le get sera + simple et je map sur lui ensuite
   const imageArray = [
     {
       id: "1",
