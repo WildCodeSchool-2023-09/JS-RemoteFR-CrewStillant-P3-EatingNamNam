@@ -14,20 +14,37 @@ function Recipes({ recipe }) {
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
       case 1:
-        return <img className="h-8 w-8" src={difficult} alt={difficult} />;
+        return (
+          <>
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img className="h-9 w-9" src={diffNone} alt={diffNone} />
+            <img className="h-9 w-9" src={diffNone} alt={diffNone} />
+          </>
+        );
       case 2:
         return (
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />),
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img className="h-8 w-8" src={difficult} alt={diffNone} />
+            <img className="h-9 w-9" src={diffNone} alt={diffNone} />
+          </>
         );
       case 3:
         return (
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />),
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />),
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+          </>
         );
       default:
-        return <img className="h-8 w-8" src={diffNone} alt={diffNone} />;
+        return (
+          <>
+            <img className="h-9 w-9" src={diffNone} alt={diffNone} />
+            <img className="h-9 w-9" src={diffNone} alt={diffNone} />
+            <img className="h-9 w-9" src={diffNone} alt={diffNone} />
+          </>
+        );
     }
   };
 
@@ -56,7 +73,7 @@ function Recipes({ recipe }) {
   return (
     <div className="m-5 text-xl">
       <h1>{infos.title}</h1>
-      <div className={!auth ? "blur-sm" : null}>
+      <div className={!auth.token ? "blur-sm" : null}>
         <img
           src={infos.image}
           alt={infos.title}
@@ -77,8 +94,10 @@ function Recipes({ recipe }) {
               <p>{infos.cooking_time} minutes</p>
             </div>
             <div className="text-center text-lg">
-              <p>Difficult</p>
-              <p>{difficultyEmoji(infos.difficulty)}</p>
+              <p>Difficulté</p>
+              <p className="flex flex-row gap-2 items-center">
+                {difficultyEmoji(infos.difficulty)}
+              </p>
             </div>
           </div>
           <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-3 justify-center text-beige bg-orange">
@@ -122,22 +141,10 @@ function Recipes({ recipe }) {
             {comments.map((c) => (
               <div className="flex flex-col gap-1" key={c.id}>
                 <p>{c.pseudo} :</p>
-                <p key={c.id}>{c.content}</p>
+                <p className="pl-6">{c.content}</p>
               </div>
             ))}
           </div>
-        </div>
-        <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
-          Etapes de préparation :
-        </p>
-        <div className="border-green border-2 rounded-2xl p-16 bg-slate-200 mb-4">
-          {recipe.steps}
-        </div>
-        <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
-          Commentaires :
-        </p>
-        <div className="border-green border-2 rounded-2xl p-16 bg-slate-200">
-          {recipe.comments}
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ export default function CommentForm({ recipeID, setIsValidated }) {
       user_id: auth.userVerified.id,
     },
   });
+
   const onSubmit = async (data) => {
     try {
       await axios
@@ -39,51 +40,51 @@ export default function CommentForm({ recipeID, setIsValidated }) {
   }
 
   return (
-    <div className="border-green border-2 m-5 rounded-2xl p-3 bg-slate-200">
-      <h1 className="text-lg text-beige rounded-xl p-2 bg-orange w-fit mb-2">
-        Nouveau commentaire :
-      </h1>
-      {isCreated ? (
-        <p className="text-xl text-center">Commentaires posté !</p>
-      ) : (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center gap-2"
-        >
-          <textarea
-            name="comment"
-            className="h-16 px-1 text-xl rounded-2xl w-full bg-slate-200"
-            {...register("content", {
-              required: "Ce champs est obligatoire",
-              minLength: {
-                value: 10,
-                message: "Votre commentaire est trop court...",
-              },
-              maxLength: {
-                value: 1000,
-                message:
-                  "Votre commentaire est trop long, veuillez le réduire.",
-              },
-            })}
-          />
-          {errors.content && (
-            <p
-              role="alert"
-              className="bg-red-600 text-beige text-sm p-0.5 w-fit"
-            >
-              {errors.content?.message}
-            </p>
-          )}
-
-          <button
-            className="text-lg border-2 bg-orange px-2 py-1 rounded-xl text-beige active:bg-green hover:bg-opacity-85"
-            type="submit"
+    <>
+      <h1 className="text-orange text-xl ml-4 mb-3">Nouveau commentaire :</h1>
+      <div className="border-green border-4 m-5 rounded-2xl p-3 bg-slate-200">
+        {isCreated ? (
+          <h1 className="text-2xl text-center pb-8">Commentaire posté !</h1>
+        ) : (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col items-center gap-2"
           >
-            Envoyer mon commentaire
-          </button>
-        </form>
-      )}
-    </div>
+            <textarea
+              name="comment"
+              className="h-16 px-1 text-xl rounded-2xl w-full"
+              {...register("content", {
+                required: "Ce champs est obligatoire",
+                minLength: {
+                  value: 10,
+                  message: "Votre commentaire est trop court...",
+                },
+                maxLength: {
+                  value: 1000,
+                  message:
+                    "Votre commentaire est trop long, veuillez le réduire.",
+                },
+              })}
+            />
+            {errors.content && (
+              <p
+                role="alert"
+                className="bg-red-600 text-beige text-sm p-0.5 w-fit"
+              >
+                {errors.content?.message}
+              </p>
+            )}
+
+            <button
+              className="text-lg border-2 bg-orange px-2 py-1 rounded-xl text-beige active:bg-green hover:bg-opacity-85"
+              type="submit"
+            >
+              Envoyer mon commentaire
+            </button>
+          </form>
+        )}
+      </div>
+    </>
   );
 }
 
