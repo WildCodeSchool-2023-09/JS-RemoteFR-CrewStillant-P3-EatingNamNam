@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import difficult from "../assets/logo_difficulty/diff-chef.png";
 import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
 
-function Recipes({ recipe }) {
+function Recipes({ recipeId }) {
   const { auth } = useOutletContext();
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
@@ -30,11 +30,11 @@ function Recipes({ recipe }) {
   return (
     <div className="m-5 text-xl">
       <div className="flex flex-col sm:flex-row justify-between m-5 gap-7">
-        <h1>{recipe.title}</h1>
+        <h1>{recipeId.title}</h1>
         <div className={!auth ? "blur-sm" : null}>
           <img
-            src={recipe.image}
-            alt={recipe.image}
+            src={recipeId.image}
+            alt={recipeId.image}
             className={
               !auth
                 ? "blur-md flex flex-col w-full h-96 rounded-3xl"
@@ -45,40 +45,41 @@ function Recipes({ recipe }) {
             <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-8 justify-center text-beige bg-orange">
               <div className="text-center text-lg">
                 <p>Préparation</p>
-                <div>{recipe.preparation_time}min</div>
+                <div>{recipeId.preparation_time}min</div>
               </div>
               <div className="text-center text-lg">
                 <p>Cuisson</p>
-                <div>{recipe.cooking_time}min</div>
+                <div>{recipeId.cooking_time}min</div>
               </div>
               <div className="text-center text-lg">
                 <p>Difficultés</p>
-                <div>{difficultyEmoji(recipe.difficulty)}</div>
+                <div>{difficultyEmoji(recipeId.difficulty)}</div>
               </div>
             </div>
             <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-3 justify-center text-beige bg-orange">
               <div className="text-center text-lg break-normal">
-                <p>Calories</p>
-                <div>{recipe.calories}kcal</div>
+                <p>Calories </p>
+                <div>{recipeId.calories}kcal</div>
               </div>
               <div className="text-center text-lg">
-                <p>Lipides</p>
-                <div>{recipe.sugar}g</div>
+                <p>Lipides s</p>
+                <div>{recipeId.sugar}g</div>
               </div>
               <div className="text-center text-lg">
-                <p>Glucides</p>
-                <div>{recipe.fat}g</div>
+                <p>Glucides </p>
+                <div>{recipeId.fat}g</div>
               </div>
               <div className="text-center text-lg">
-                <p>Protéines</p>
-                <div>{recipe.protein}g</div>
+                <p>Protéines s</p>
+                <div>{recipeId.protein}g</div>
               </div>
             </div>
             <div className="rounded-2xl p-16 text-beige text-lg bg-orange">
               <p>Liste des ingrédients :</p>
               <ul>
                 <li className="flex flex-row">
-                  {recipe.name}: <div className="ml-3">{recipe.quantity}g</div>
+                  {recipeId.name}:{" "}
+                  <div className="ml-3">{recipeId.quantity}g</div>
                 </li>
               </ul>
             </div>
@@ -89,20 +90,20 @@ function Recipes({ recipe }) {
         Etapes de préparation :
       </p>
       <div className="border-green border-2 rounded-2xl p-16 bg-slate-200 mb-4">
-        {recipe.steps}
+        {recipeId.steps}
       </div>
       <p className="bg-orange w-fit text-beige mb-3 p-2 text-lg rounded-xl">
         Commentaires :
       </p>
       <div className="border-green border-2 rounded-2xl p-16 bg-slate-200">
-        {recipe.comments}
+        {recipeId.comments}
       </div>
     </div>
   );
 }
 
 Recipes.propTypes = {
-  recipe: PropTypes.shape({
+  recipeId: PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
