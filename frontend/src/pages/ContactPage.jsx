@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -9,7 +10,10 @@ function ContactPage() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -20,6 +24,8 @@ function ContactPage() {
 
       if (response.status === 201) {
         toast.success(response.data.message);
+        reset();
+        navigate("/");
       }
     } catch (e) {
       console.error(e);
@@ -54,7 +60,7 @@ function ContactPage() {
 
           <div className="w-1/2">
             <label htmlFor="email" className="block text-2xl text-orange">
-              Votre adresse email:
+              Votre email:
             </label>
             <input
               className="w-full h-10 bg-orange text-beige"

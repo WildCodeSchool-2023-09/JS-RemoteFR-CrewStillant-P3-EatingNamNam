@@ -12,7 +12,7 @@ CREATE TABLE comment (
 CREATE TABLE contact (
     id INT  NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    email varchar(255)  NOT NULL UNIQUE,
+    email varchar(255)  NOT NULL,
     message TEXT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT NOW(),
     CONSTRAINT id PRIMARY KEY (id)
@@ -29,7 +29,7 @@ CREATE TABLE favoriteRecipe_user (
 -- Table: ingredient
 CREATE TABLE ingredient (
     id int  NOT NULL AUTO_INCREMENT,
-    name TEXT  NOT NULL,
+    name VARCHAR(155)  NOT NULL,
     calories int  NOT NULL,
     fat int  NOT NULL,
     sugar int  NOT NULL,
