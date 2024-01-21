@@ -61,12 +61,20 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const newRecipe = await tables.recipe.create(req.body);
-
-    if (newRecipe == null) {
+    const { info, ingredients, steps } = req.body;
+    const newRecipeInformation = await tables.recipe.create(info);
+    if (newRecipeInformation == null) {
       res.sendStatus(404);
     } else {
-      res.status(200).json({ message: "Recipe created" });
+      for (let i = 0; i < ingredients.length; i += 1) {
+        tables.ingredient_recipe.create(newRecipeInformation, ingredients[i]);
+      }
+      for (let i = 0; i < steps.length; i += 1) {
+        tables.step.create(steps[i].step, newRecipeInformation);
+      }
+      res
+        .status(200)
+        .json({ id: newRecipeInformation, message: `Recipe created` });
     }
   } catch (error) {
     next(error);

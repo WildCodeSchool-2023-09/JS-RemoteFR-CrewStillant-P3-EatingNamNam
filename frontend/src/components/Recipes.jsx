@@ -119,7 +119,7 @@ function Recipes({ recipe }) {
             </div>
           </div>
           <div className="rounded-2xl p-16 text-beige text-lg bg-orange">
-            <p>Liste des ingrédients:</p>
+            <p>Liste des ingrédients :</p>
             <ul className="sm:columns-3 columns-2">
               {ingredientList.map((i) => (
                 <li className="flex flex-row" key={i.id}>

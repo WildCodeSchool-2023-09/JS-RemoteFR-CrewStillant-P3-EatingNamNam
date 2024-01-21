@@ -6,10 +6,10 @@ class StepManager extends AbstractManager {
   }
 
   // CRUD
-  async create(newStep) {
+  async create(newStep, recipe) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (text) VALUES(?)`,
-      [newStep.text]
+      `INSERT INTO ${this.table} (text, recipe_id) VALUES(?, ?)`,
+      [newStep, recipe]
     );
     return result.insertId;
   }

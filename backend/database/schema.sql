@@ -20,11 +20,12 @@ CREATE TABLE favoriteRecipe_user (
 -- Table: ingredient
 CREATE TABLE ingredient (
     id int  NOT NULL AUTO_INCREMENT,
-    name varchar(150)  NOT NULL,
+    name varchar(150)  NOT NULL UNIQUE,
     calories int  NOT NULL,
     fat int  NOT NULL,
     sugar int  NOT NULL,
     protein int  NOT NULL,
+    unit_id int NOT NULL,
     CONSTRAINT id PRIMARY KEY (id)
 );
 
@@ -32,8 +33,9 @@ CREATE TABLE ingredient (
 CREATE TABLE ingredient_recipe (
     id int  NOT NULL AUTO_INCREMENT,
     quantity int  NOT NULL,
+    mesure_unit_recipe VARCHAR (10),
     recipe_id int  NOT NULL,
-    Ingredient_id int  NOT NULL,
+    ingredient_id int  NOT NULL,
     CONSTRAINT ingredient_recipe_pk PRIMARY KEY (id)
 );
 
@@ -46,7 +48,7 @@ CREATE TABLE recipe (
     preparation_time int  NOT NULL,
     difficulty int  NOT NULL,
     image varchar(255)  NOT NULL,
-    type varchar(255) NOT NULL,
+    type varchar(255) NOT NULL DEFAULT 'healthy',
     CONSTRAINT recipe_pk PRIMARY KEY (id)
 );
 
@@ -62,8 +64,8 @@ CREATE TABLE recipe_comment (
 -- Table: recipe_user
 CREATE TABLE recipe_user (
     id int  NOT NULL AUTO_INCREMENT,
-    Recipe_id int  NOT NULL,
-    User_id int  NOT NULL,
+    recipe_id int  NOT NULL,
+    user_id int  NOT NULL,
     CONSTRAINT recipe_user_pk PRIMARY KEY (id)
 );
 
@@ -105,14 +107,6 @@ CREATE TABLE unit (
     CONSTRAINT unit_pk PRIMARY KEY (id)
 );
 
--- Table: unit_ingredient
-CREATE TABLE unit_ingredient (
-    id int  NOT NULL AUTO_INCREMENT,
-    ingredient_id int  NOT NULL,
-    unit_id int  NOT NULL,
-    CONSTRAINT unit_ingredient_pk PRIMARY KEY (id)
-);
-
 -- Table: user
 CREATE TABLE user (
     id int  NOT NULL AUTO_INCREMENT,
@@ -130,8 +124,6 @@ CREATE TABLE user (
 );
 
 -- foreign keys
--- Reference: Recipe_ingredient_list (table: recipe)
-
 -- Reference: Table_13_Success (table: success_user)
 ALTER TABLE success_user ADD CONSTRAINT Table_13_Success FOREIGN KEY Table_13_Success (Success_id)
     REFERENCES success (id);
@@ -151,10 +143,6 @@ ALTER TABLE favoriteRecipe_user ADD CONSTRAINT favoriteRecipe_user_Recipe FOREIG
 -- Reference: favoriteRecipe_user_User (table: favoriteRecipe_user)
 ALTER TABLE favoriteRecipe_user ADD CONSTRAINT favoriteRecipe_user_User FOREIGN KEY favoriteRecipe_user_User (user_id)
     REFERENCES user (id);
-
--- Reference: ingredient_list_Ingredient (table: ingredient_recipe)
-ALTER TABLE ingredient_recipe ADD CONSTRAINT ingredient_list_Ingredient FOREIGN KEY ingredient_list_Ingredient (Ingredient_id)
-    REFERENCES ingredient (id);
 
 -- Reference: recipe_comment_Comment (table: recipe_comment)
 ALTER TABLE recipe_comment ADD CONSTRAINT recipe_comment_Comment FOREIGN KEY recipe_comment_Comment (comment_id)
@@ -180,12 +168,6 @@ ALTER TABLE recipe_user ADD CONSTRAINT recipe_user_User FOREIGN KEY recipe_user_
 ALTER TABLE step ADD CONSTRAINT step_recipe FOREIGN KEY step_recipe (recipe_id)
     REFERENCES recipe (id);
 
--- Reference: unit_ingredient_ingredient (table: unit_ingredient)
-ALTER TABLE unit_ingredient ADD CONSTRAINT unit_ingredient_ingredient FOREIGN KEY unit_ingredient_ingredient (ingredient_id)
-    REFERENCES ingredient (id);
-
--- Reference: unit_ingredient_unit (table: unit_ingredient)
-ALTER TABLE unit_ingredient ADD CONSTRAINT unit_ingredient_unit FOREIGN KEY unit_ingredient_unit (unit_id)
-    REFERENCES unit (id);
-
+-- Reference: unit_ingredient (table: ingredient)
+ALTER TABLE ingredient ADD CONSTRAINT ingredient_unit FOREIGN KEY (unit_id) REFERENCES unit (id);
 -- End of file.

@@ -25,7 +25,7 @@ function RecipesPage() {
 
   return (
     <div>
-      <Recipes recipe={updatedData} />
+      <Recipes recipeId={updatedData.data} />
       <CommentForm
         recipeID={recipes.infos.id}
         isValidated={isValidated}
