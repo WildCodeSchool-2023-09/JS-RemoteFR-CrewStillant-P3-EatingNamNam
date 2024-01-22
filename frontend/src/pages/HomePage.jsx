@@ -78,137 +78,89 @@ function HomePage() {
   };
 
   return (
-    <div className="m-20">
-      <div className="border-solid border-y-4 border-green m-10">
-        <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
-          <button
-            type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-16"
-            onClick={() => handleFilter("All")}
-          >
-            All
-          </button>
-          <button
-            type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-            onClick={() => handleFilter("healthy")}
-          >
-            Healthy
-          </button>
-          <button
-            type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-            onClick={() => handleFilter("light")}
-          >
-            Light
-          </button>
-          <button
-            type="button"
-            className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-            onClick={() => handleFilter("fat")}
-          >
-            Fat
-          </button>
-          <div>
-            <input
-              type="input"
-              placeholder="rechercher par nom"
-              className="bg-green text-beige p-4 rounded-2xl"
-              value={searchText}
-              onChange={handleSearch}
-            />
+    <div>
+      <Access />
+
+      <div className="m-20">
+        <div className="border-solid border-y-4 border-green m-10">
+          <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
+            <button
+              type="button"
+              className="bg-green text-beige p-4 rounded-2xl border border-beige w-16"
+              onClick={() => handleFilter("All")}
+            >
+              All
+            </button>
+            <button
+              type="button"
+              className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
+              onClick={() => handleFilter("healthy")}
+            >
+              Healthy
+            </button>
+            <button
+              type="button"
+              className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
+              onClick={() => handleFilter("light")}
+            >
+              Light
+            </button>
+            <button
+              type="button"
+              className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
+              onClick={() => handleFilter("fat")}
+            >
+              Fat
+            </button>
+            <div>
+              <input
+                type="input"
+                placeholder="rechercher par nom"
+                className="bg-green text-beige p-4 rounded-2xl"
+                value={searchText}
+                onChange={handleSearch}
+              />
+            </div>
+          </div>
+          <div className="m-10 flex flex-row justify-center text-xl gap-6">
+            <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
+              Difficulté:
+              <select
+                className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
+                onChange={difficultyFiltered}
+              >
+                <option value="">Tous</option>
+                <option value="1">🧑🏻‍🍳</option>
+                <option value="2">🧑🏻‍🍳🧑🏻‍🍳</option>
+                <option value="3">🧑🏻‍🍳🧑🏻‍🍳🧑🏻‍🍳</option>
+              </select>
+            </label>
+            <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
+              Temps:
+              <select
+                className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
+                onChange={handleTimeFilter}
+              >
+                <option value="">Tous</option>
+                <option value="10-20">10-20min</option>
+                <option value="20-30">20-30min</option>
+                <option value="35+">plus de 35min</option>
+              </select>
+            </label>
           </div>
         </div>
-        <div className="m-10 flex flex-row justify-center text-xl gap-6">
-          <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
-            Difficulté:
-            <select
-              className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
-              onChange={difficultyFiltered}
-            >
-              <option value="">Tous</option>
-              <option value="1">🧑🏻‍🍳</option>
-              <option value="2">🧑🏻‍🍳🧑🏻‍🍳</option>
-              <option value="3">🧑🏻‍🍳🧑🏻‍🍳🧑🏻‍🍳</option>
-            </select>
-          </label>
-          <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
-            Temps:
-            <select
-              className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
-              onChange={handleTimeFilter}
-            >
-              <option value="">Tous</option>
-              <option value="10-20">10-20min</option>
-              <option value="20-30">20-30min</option>
-              <option value="35+">plus de 35min</option>
-            </select>
-          </label>
-        </div>
-      </div>
-      <div>
-        {auth.token ? (
-          <h1 className="text-center text-4xl">
-            Bienvenue {auth.userVerified.pseudo} !
-          </h1>
-        ) : null}
+        <div>
+          {auth.token ? (
+            <h1 className="text-center text-4xl">
+              Bienvenue {auth.userVerified.pseudo} !
+            </h1>
+          ) : null}
 
-        <div className={!auth.token ? "blur-sm" : null}>
-          <Carousel recipes={recipes} />
-          <ul className="flex flex-row justify-center flex-wrap gap-16">
-            <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
-              <h1 className="text-beige text-2xl">Créer ma recette</h1>
-              <NavLink to="/new-recipe">
-                <div className="flex flex-col items-center justify-center mt-16">
-                  <button
-                    type="button"
-                    className="rounded-full bg-beige p-10 text-green font-bold text-4xl"
-                  >
-                    +
-                  </button>
-                </div>
-              </NavLink>
-            </div>
-            {filteredRecipes.map((r) => (
-              <li
-                key={r.id}
-                className="rounded-2xl w-72 h-80 p-4 bg-green text-center"
-              >
-                <h1 className="text-beige text-2xl mb-1 uppercase">
-                  {r.title}
-                </h1>
-                <div className="flex flex-row justify-between">
-                  <div>{difficultyEmoji(r.difficulty)}</div>
-                  <p className="text-beige mb-2">
-                    Temps : {r.preparation_time} min
-                  </p>
-                </div>
-                <img
-                  src={r.image}
-                  alt={r.image}
-                  className="rounded-2xl relative self-end"
-                />
-                <div className="flex flex-col items-center justify-center">
-                  <NavLink
-                    to={`/recipe/${r.id}`}
-                    className="border bg-green text-beige p-1.5 absolute"
-                  >
-                    En savoir plus
-                  </NavLink>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div>
-        <Access />
-        <div className="m-20">
-          <div>
+          <div className={!auth.token ? "blur-sm" : null}>
+            <Carousel recipes={recipes} />
             <ul className="flex flex-row justify-center flex-wrap gap-16">
               <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
-                <h1 className="text-beige text-xl">Crée ma recette</h1>
+                <h1 className="text-beige text-2xl">Créer ma recette</h1>
                 <NavLink to="/new-recipe">
                   <div className="flex flex-col items-center justify-center mt-16">
                     <button
@@ -220,39 +172,35 @@ function HomePage() {
                   </div>
                 </NavLink>
               </div>
-
-              {recipes &&
-                recipes.map((r) => (
-                  <li
-                    key={r.id}
-                    className="rounded-2xl w-72 h-80 p-4 bg-green text-center"
-                  >
-                    <h1 className="text-beige text-2xl mb-1 uppercase">
-                      {r.title}
-                    </h1>
-                    <div className="flex flex-row justify-between">
-                      <p className="text-beige mb-2">
-                        Difficulté:{r.difficulty}
-                      </p>
-                      <p className="text-beige mb-2">
-                        Temps:{r.preparation_time}min
-                      </p>
-                    </div>
-                    <img
-                      src={r.image}
-                      alt={r.image}
-                      className="rounded-2xl relative self-end"
-                    />
-                    <div className="flex flex-col items-center justify-center">
-                      <NavLink
-                        to={`/recipe/${r.id}`}
-                        className="border bg-green text-beige p-1.5 absolute"
-                      >
-                        En savoir plus
-                      </NavLink>
-                    </div>
-                  </li>
-                ))}
+              {filteredRecipes.map((r) => (
+                <li
+                  key={r.id}
+                  className="rounded-2xl w-72 h-80 p-4 bg-green text-center"
+                >
+                  <h1 className="text-beige text-2xl mb-1 uppercase">
+                    {r.title}
+                  </h1>
+                  <div className="flex flex-row justify-between">
+                    <div>{difficultyEmoji(r.difficulty)}</div>
+                    <p className="text-beige mb-2">
+                      Temps : {r.preparation_time} min
+                    </p>
+                  </div>
+                  <img
+                    src={r.image}
+                    alt={r.image}
+                    className="rounded-2xl relative self-end"
+                  />
+                  <div className="flex flex-col items-center justify-center">
+                    <NavLink
+                      to={`/recipe/${r.id}`}
+                      className="border bg-green text-beige p-1.5 absolute"
+                    >
+                      En savoir plus
+                    </NavLink>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

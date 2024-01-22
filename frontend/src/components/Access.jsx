@@ -49,11 +49,7 @@ export default function Access() {
         </div>
       ) : (
         <div>
-          {option ? (
-            <h1>Connexion</h1>
-          ) : (
-            <RegistrationForm setOption={setOption} />
-          )}
+          {option ? <login /> : <RegistrationForm setOption={setOption} />}
         </div>
       )}
     </div>
