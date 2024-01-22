@@ -17,7 +17,7 @@ class UserManager extends AbstractManager {
         user.lastname,
         user.mail,
         user.pseudo,
-        user.password,
+        user.hashedPassword,
         user.weight,
         user.week_time_kitchen,
         user.birthdate,
@@ -41,19 +41,38 @@ class UserManager extends AbstractManager {
     );
     return rows[0];
   }
+
+  async readByEmail(mail) {
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE mail = ?`,
+      [mail]
+    );
+    return rows[0];
+  }
   // The U of CRUD - Update operation
 
-  async update(user, id) {
+  async update(
+    firstname,
+    lastname,
+    mail,
+    pseudo,
+    password,
+    birthdate,
+    weight,
+    weekTimeKitchen,
+    id
+  ) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET firstname=?, lastname=?, mail=?, pseudo=?, password=?, weight=?, week_time_kitchen=? WHERE id = ?`,
+      `UPDATE ${this.table} SET firstname=?, lastname=?, mail=?, pseudo=?, password=?,birthdate=?, weight=?, week_time_kitchen=? WHERE id = ?`,
       [
-        user.firstname,
-        user.lastname,
-        user.mail,
-        user.pseudo,
-        user.password,
-        user.weight,
-        user.week_time_kitchen,
+        firstname,
+        lastname,
+        mail,
+        pseudo,
+        password,
+        birthdate,
+        weight,
+        weekTimeKitchen,
         id,
       ]
     );

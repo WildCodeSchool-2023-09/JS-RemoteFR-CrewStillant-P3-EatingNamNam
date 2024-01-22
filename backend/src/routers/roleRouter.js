@@ -4,7 +4,7 @@ const router = express.Router();
 
 const {
   browse,
-  read,
+  // read,
   edit,
   add,
   destroy,
@@ -12,7 +12,7 @@ const {
 
 router.get("/", browse);
 router.post("/", add);
-router.get("/:id", read);
+// router.get("/:id", read);
 router.put("/:id", edit);
 router.delete("/:id", destroy);
 

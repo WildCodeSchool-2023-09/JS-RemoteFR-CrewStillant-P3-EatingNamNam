@@ -4,7 +4,7 @@ const tables = require("../tables");
 
 const browse = async (req, res, next) => {
   try {
-    const recipes = await tables.recipe.readAll();
+    const recipes = await tables.recipe.readAll(); // req.query pour recuperer la date d'entrée et limiter le nombre de card carousel
     if (recipes == null) {
       res.sendStatus(404);
     } else {
@@ -19,12 +19,21 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const recipe = await tables.recipe.read(parseInt(req.params.id, 10));
+    const { id } = req.params;
+    const recipe = await tables.recipe.read(parseInt(id, 10));
 
+    const stepsByRecipe = await tables.step.read(parseInt(id, 10));
+    const commentsByRecipe = await tables.comment.read(parseInt(id, 10));
+
+    const data = {
+      infos: recipe,
+      steps: stepsByRecipe,
+      comments: commentsByRecipe,
+    };
     if (recipe == null) {
       res.sendStatus(404);
     } else {
-      res.status(200).json(recipe);
+      res.status(200).json(data);
     }
   } catch (error) {
     next(error);
@@ -52,12 +61,20 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const newRecipe = await tables.recipe.create(req.body);
-
-    if (newRecipe == null) {
+    const { info, ingredients, steps } = req.body;
+    const newRecipeInformation = await tables.recipe.create(info);
+    if (newRecipeInformation == null) {
       res.sendStatus(404);
     } else {
-      res.status(200).json({ message: "Recipe created" });
+      for (let i = 0; i < ingredients.length; i += 1) {
+        tables.ingredient_recipe.create(newRecipeInformation, ingredients[i]);
+      }
+      for (let i = 0; i < steps.length; i += 1) {
+        tables.step.create(steps[i].step, newRecipeInformation);
+      }
+      res
+        .status(200)
+        .json({ id: newRecipeInformation, message: `Recipe created` });
     }
   } catch (error) {
     next(error);
