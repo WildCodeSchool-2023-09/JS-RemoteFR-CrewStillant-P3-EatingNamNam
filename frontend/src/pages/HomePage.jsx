@@ -194,7 +194,6 @@ function HomePage() {
                   <div className="flex flex-row h-6 w-7">
                     {difficultyEmoji(r.difficulty)}
                   </div>
-                  {/* // demander pour la difficulter */}
                   <p className="text-beige mb-2 flex flex-row">
                     <img
                       className="h-8 w-8 items-center mb-2"
