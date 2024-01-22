@@ -19,12 +19,21 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const recipe = await tables.recipe.read(parseInt(req.params.id, 10));
+    const { id } = req.params;
+    const recipe = await tables.recipe.read(parseInt(id, 10));
 
+    const stepsByRecipe = await tables.step.read(parseInt(id, 10));
+    const commentsByRecipe = await tables.comment.read(parseInt(id, 10));
+
+    const data = {
+      infos: recipe,
+      steps: stepsByRecipe,
+      comments: commentsByRecipe,
+    };
     if (recipe == null) {
       res.sendStatus(404);
     } else {
-      res.status(200).json(recipe);
+      res.status(200).json(data);
     }
   } catch (error) {
     next(error);
