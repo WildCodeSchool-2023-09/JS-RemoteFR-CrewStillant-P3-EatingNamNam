@@ -6,27 +6,27 @@ import CommentForm from "../components/CommentForm";
 
 function RecipesPage() {
   const recipes = useLoaderData();
-
   // States pour générer un nouvel affichage de la recette avec le commentaire juste posté
 
   const [isValidated, setIsValidated] = useState(false);
-  const [updatedData, setUpdatedData] = useState(recipes);
+  const [updatedData, setUpdatedData] = useState(recipes.data);
 
   useEffect(() => {
     if (isValidated) {
       axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/api/recipe/${recipes.id}`)
-        .then((res) => setUpdatedData(res.data));
-
-      setTimeout(() => setIsValidated(false), 3000);
+        .get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/recipe/${recipes.infos.id}`
+        )
+        .then((res) => setUpdatedData(res.data))
+        .then(setIsValidated(false));
     }
   }, [isValidated]);
 
   return (
     <div>
-      <Recipes recipeId={updatedData.data} />
+      <Recipes recipe={updatedData} />
       <CommentForm
-        recipeID={recipes.id}
+        recipeID={updatedData.infos.id}
         isValidated={isValidated}
         setIsValidated={setIsValidated}
       />

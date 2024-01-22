@@ -58,6 +58,7 @@ const seed = async () => {
       );
     }
 
+    // Insert fake data into the 'comment' table
     for (let i = 0; i < 80; i += 1) {
       queries.push(
         database.query("INSERT INTO comment (content) VALUES (?)", [

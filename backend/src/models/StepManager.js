@@ -22,11 +22,11 @@ class StepManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT step.id, step.text FROM ${this.table} WHERE recipe_id = ?`,
       [id]
     );
 
-    return rows[0];
+    return rows;
   }
 
   async update(text, id) {
