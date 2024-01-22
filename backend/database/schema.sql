@@ -37,6 +37,15 @@ CREATE TABLE ingredient_recipe (
     CONSTRAINT ingredient_recipe_pk PRIMARY KEY (id)
 );
 
+CREATE TABLE notation (
+    id int  NOT NULL AUTO_INCREMENT,
+    note int NOT NULL,
+    recipe_id INT NOT NULL,
+    user_id int NOT NULL,
+        CONSTRAINT id PRIMARY KEY (id)
+
+);
+
 -- Table: recipe
 CREATE TABLE recipe (
     id int  NOT NULL AUTO_INCREMENT,
@@ -187,5 +196,12 @@ ALTER TABLE unit_ingredient ADD CONSTRAINT unit_ingredient_ingredient FOREIGN KE
 -- Reference: unit_ingredient_unit (table: unit_ingredient)
 ALTER TABLE unit_ingredient ADD CONSTRAINT unit_ingredient_unit FOREIGN KEY unit_ingredient_unit (unit_id)
     REFERENCES unit (id);
+
+ALTER TABLE notation ADD CONSTRAINT notation_recipe FOREIGN KEY notation_recipe (recipe_id)
+    REFERENCES recipe (id);
+
+ALTER TABLE notation ADD CONSTRAINT notation_user FOREIGN KEY notation_user (User_id)
+    REFERENCES user (id);
+
 
 -- End of file.

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { useOutletContext } from "react-router-dom";
+import ReactStars from "react-stars";
 
 function Recipes({ recipe }) {
   const { auth } = useOutletContext();
@@ -17,6 +19,14 @@ function Recipes({ recipe }) {
     }
   };
 
+  const ratingChanged = (newRating) => {
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
+      note: newRating,
+      recipeID: recipe,
+      userID: auth.id,
+    });
+  };
+
   return (
     <div className="m-3 text-xl">
       <h1>{recipe.title}</h1>
@@ -28,6 +38,10 @@ function Recipes({ recipe }) {
             !auth ? "blur-md mb-3 w-68 rounded-3xl" : "mb-3 w-68 rounded-3xl"
           }
         />
+        <div className="flex flex-row justify-around mb-2 text-2xl">
+          <p>Noter la recette :</p>
+          <ReactStars onChange={ratingChanged} size={40} half={false} />
+        </div>
         <div className="border rounded-2xl flex flex-row justify-around mb-3 p-3 text-beige bg-orange">
           <div className="text-center">
             <p>Préparation: </p>
