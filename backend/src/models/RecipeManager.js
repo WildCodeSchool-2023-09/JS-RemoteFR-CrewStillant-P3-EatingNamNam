@@ -46,7 +46,7 @@ class RecipeManager extends AbstractManager {
         ingredient.sugar,
         ingredient.protein,
         step.text AS steps,
-        comment.text AS comments
+        comment.content AS comments
 
       FROM ${this.table}
       JOIN ingredient_recipe ON recipe.id = ingredient_recipe.recipe_id
