@@ -23,14 +23,19 @@ class IngredientManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      // `SELECT ingredient.*, unit.mesure_unit AS unit FROM ${this.table}
+      // JOIN unit ON unit.id = ingredient.unit_id WHERE id = ?`,
+      // `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT ingredient.*, unit.mesure_unit AS unit FROM ${this.table} JOIN unit ON unit.id = ingredient.unit_id WHERE ingredient.id = ? `,
       [id]
     );
     return rows[0];
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    const [rows] = await this.database.query(
+      `SELECT ingredient.*, unit.mesure_unit AS units FROM ${this.table} JOIN unit ON unit.id = ingredient.unit_id`
+    );
     return rows;
   }
 
