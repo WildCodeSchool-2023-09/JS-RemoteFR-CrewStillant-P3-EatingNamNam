@@ -1,12 +1,9 @@
-// // import components
-
 // import  from "";
 
-// function MyBooks() {
+// function MyRecipeFav() {
 //   return (
 //     <div>
 //       <h1>Mes Recettes Favorites</h1>
-//       <BookFav />
 //     </div>
 //   );
 // }
