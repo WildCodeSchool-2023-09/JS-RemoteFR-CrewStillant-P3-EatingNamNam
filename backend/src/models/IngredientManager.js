@@ -8,13 +8,14 @@ class IngredientManager extends AbstractManager {
 
   async create(ingredient) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, calories, fat, sugar, protein) VALUE(?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (name, calories, fat, sugar, protein, recipe_id) VALUE(?, ?, ?, ?, ?, ?)`,
       [
         ingredient.name,
         ingredient.calories,
         ingredient.fat,
         ingredient.sugar,
         ingredient.protein,
+        ingredient.recipe_id,
       ]
     );
     return result.insertId;
@@ -22,14 +23,19 @@ class IngredientManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      // `SELECT ingredient.*, unit.mesure_unit AS unit FROM ${this.table}
+      // JOIN unit ON unit.id = ingredient.unit_id WHERE id = ?`,
+      // `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT ingredient.*, unit.mesure_unit AS unit FROM ${this.table} JOIN unit ON unit.id = ingredient.unit_id WHERE ingredient.id = ? `,
       [id]
     );
     return rows[0];
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    const [rows] = await this.database.query(
+      `SELECT ingredient.*, unit.mesure_unit AS units FROM ${this.table} JOIN unit ON unit.id = ingredient.unit_id`
+    );
     return rows;
   }
 

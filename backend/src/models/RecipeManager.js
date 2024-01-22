@@ -11,12 +11,14 @@ class RecipeManager extends AbstractManager {
 
   async create(recipe) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (title, cooking_time, preparation_time, difficulty) VALUES (?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (title, cooking_time, preparation_time, difficulty, image, type) VALUES (?, ?, ?, ?, ?, ?)`,
       [
         recipe.title,
         recipe.cooking_time,
         recipe.preparation_time,
         recipe.difficulty,
+        recipe.image,
+        recipe.type,
       ]
     );
     return result.insertId;
@@ -32,35 +34,17 @@ class RecipeManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `SELECT
-        recipe.id,
-        recipe.title,
-        recipe.cooking_time,
-        recipe.preparation_time,
-        recipe.difficulty,
-        recipe.image,
-        ingredient_recipe.quantity,
-        ingredient.name,
-        ingredient.calories,
-        ingredient.fat,
-        ingredient.sugar,
-        ingredient.protein,
-        step.text AS steps,
-        comment.text AS comments
-
-      FROM ${this.table}
-      JOIN ingredient_recipe ON recipe.id = ingredient_recipe.recipe_id
-      JOIN ingredient ON ingredient_recipe.ingredient_id = ingredient.id
-      JOIN step ON recipe.id = step.recipe_id
-      JOIN recipe_comment ON recipe_comment.id = recipe.id
-      JOIN comment ON recipe_comment.id = comment.id
-      WHERE recipe.id = ?`,
+      `SELECT r.id, r.title, r.cooking_time, r.preparation_time, r.difficulty, r.image,
+          GROUP_CONCAT(ir.quantity) AS quantity,
+          GROUP_CONCAT(i.name) AS ingredient, GROUP_CONCAT(i.calories) AS calories, GROUP_CONCAT(i.fat) AS fats, GROUP_CONCAT(i.sugar) AS sugars, GROUP_CONCAT(i.protein) AS proteins
+          FROM ${this.table} AS r 
+          JOIN ingredient_recipe AS ir ON ir.recipe_id = r.id 
+          JOIN ingredient AS i ON i.id = ir.ingredient_id 
+          WHERE r.id= ?`,
       [id]
     );
     return rows[0];
   }
-
-  // The U of CRUD - Update operation
 
   async update(recipe, id) {
     const [result] = await this.database.query(
