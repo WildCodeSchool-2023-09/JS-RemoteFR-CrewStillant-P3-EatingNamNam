@@ -9,9 +9,15 @@ const {
   edit,
   add,
   destroy,
-} = require("../controllers/recipeControlers");
+} = require("../controllers/recipeControllers");
+
+const {
+  tableIngredientRecipeValidation,
+} = require("../middlewares/postRecipeValidation");
 
 router.get("/", browse);
+
+router.post("/", tableIngredientRecipeValidation, add);
 
 router.get("/:id", read);
 

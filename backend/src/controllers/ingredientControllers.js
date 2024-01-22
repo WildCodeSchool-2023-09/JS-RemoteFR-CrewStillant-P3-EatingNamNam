@@ -7,7 +7,6 @@ const tables = require("../tables");
 const browse = async (req, res, next) => {
   try {
     const ingredients = await tables.ingredient.readAll();
-
     if (ingredients == null) {
       res.sendStatus(404);
     } else {

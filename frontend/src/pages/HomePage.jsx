@@ -29,7 +29,6 @@ function HomePage() {
             <img className="h-8 w-8" src={difficult} alt="" />
             <img className="h-8 w-8" src={difficult} alt="" />
           </>
-        );
       default:
         return <img className="h-8 w-8" src={diffNone} alt="" />;
     }
