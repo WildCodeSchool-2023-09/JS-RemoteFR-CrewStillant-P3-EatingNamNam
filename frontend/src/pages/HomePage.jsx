@@ -94,7 +94,7 @@ function HomePage() {
   return (
     <div className="m-20">
       <Carousel recipes={recipes} />
-      <div className="border-solid border-y-4 border-green m-10">
+      <div className="border-solid border-y-4 border-orange m-10">
         <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
           <button
             type="button"
