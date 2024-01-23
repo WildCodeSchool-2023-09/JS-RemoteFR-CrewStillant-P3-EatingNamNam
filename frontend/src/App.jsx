@@ -11,10 +11,10 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [auth, setAuth] = useState({ token: "", userVerified: "" });
+  const [auth, setAuth] = useState({ token: "" });
   return (
     <div className="bg-beige">
-      <Navbar />
+      <Navbar auth={auth} />
       <ToastContainer
         position="top-right"
         autoClose={5000}

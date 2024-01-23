@@ -7,14 +7,15 @@ import PropTypes from "prop-types";
 function Carousel({ recipes }) {
   const navigate = useNavigate();
   // create new array for Store the first 5 pieces of data (methode slice?)
-  const card = recipes.slice(0, 5);
+  const card = recipes.slice(0, 10);
   return (
     <div>
       <Splide
         options={{
           type: "loop",
           focus: "center",
-          rewind: true,
+          start: 3,
+          pagination: false,
           perMove: 1,
           perPage: 5,
           gap: 10,

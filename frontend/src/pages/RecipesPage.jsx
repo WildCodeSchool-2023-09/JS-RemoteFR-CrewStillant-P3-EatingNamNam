@@ -10,7 +10,6 @@ function RecipesPage() {
 
   const [isValidated, setIsValidated] = useState(false);
   const [updatedData, setUpdatedData] = useState(recipes.data);
-
   useEffect(() => {
     if (isValidated) {
       axios

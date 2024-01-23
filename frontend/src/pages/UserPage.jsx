@@ -1,25 +1,26 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useOutletContext } from "react-router-dom";
 
 export default function UserPage() {
+  const { auth } = useOutletContext();
   const navUser = [
     {
       id: 1,
-      path: "/user/info",
+      path: `/user/info/${auth.id}`,
       name: "Mon profil",
     },
     {
       id: 2,
-      path: "/user/created",
+      path: `/user/created/${auth.id}`,
       name: "Mes recettes créées",
     },
     {
       id: 3,
-      path: "/user/favorite",
+      path: `/user/favorites/${auth.id}`,
       name: "Mes recettes favorites",
     },
     {
       id: 4,
-      path: "/user/comment",
+      path: `/user/comments/${auth.id}`,
       name: "Mes commentaires",
     },
   ];
@@ -36,7 +37,7 @@ export default function UserPage() {
           </NavLink>
         ))}
       </div>
-      <Outlet />
+      <Outlet context={auth} />
     </div>
   );
 }

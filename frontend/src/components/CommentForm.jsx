@@ -16,7 +16,7 @@ export default function CommentForm({ recipeID, setIsValidated }) {
   } = useForm({
     defaultValues: {
       recipe_id: recipeID,
-      user_id: auth.userVerified.id,
+      user_id: auth.id,
     },
   });
 

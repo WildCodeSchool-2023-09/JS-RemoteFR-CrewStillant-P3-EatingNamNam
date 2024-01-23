@@ -44,7 +44,7 @@ class UserManager extends AbstractManager {
 
   async readByEmail(mail) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE mail = ?`,
+      `SELECT u.*, r.type AS role FROM ${this.table} AS u JOIN role AS r ON r.id = u.role_id WHERE mail = ?`,
       [mail]
     );
     return rows[0];

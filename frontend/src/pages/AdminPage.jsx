@@ -1,6 +1,10 @@
 import { saveAs } from "file-saver";
+import { useLoaderData } from "react-router-dom";
+import UsersInfoAdmin from "../components/UsersInfoAdmin";
 
 export default function AdminPage() {
+  const users = useLoaderData();
+
   const handleClick = async () => {
     try {
       const csv = await fetch(
@@ -14,15 +18,17 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="m-2">
-      <h1 className="text-3xl text-green border-2 border-orange p-2 rounded-md m-1 text-center">
+    <div className="m-2 flex flex-col items-center p-2">
+      <h1 className="text-3xl text-green border-b-2 border-orange p-2 m-1 text-center">
         Bienvenue sur votre page administrateur
       </h1>
+
+      <UsersInfoAdmin users={users} />
 
       <button
         type="button"
         onClick={handleClick}
-        className="rounded-md  px-2 hover:text-beige hover:bg-orange active:bg-green"
+        className="rounded-md text-xl border-2 mt-4 border-orange px-2 hover:text-beige hover:bg-orange active:bg-green"
       >
         Télécharger les informations des utilisateurs
       </button>

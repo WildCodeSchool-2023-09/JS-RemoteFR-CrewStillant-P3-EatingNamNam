@@ -61,7 +61,9 @@ const router = createBrowserRouter([
             path: "/user/info/:id",
             element: <UserInformation />,
             loader: async ({ params }) => {
-              const user = await axios.get(`${apiUrl}/api/user/${params.id}`);
+              const user = await axios.get(
+                `${apiUrl}/api/user/${Number(params.id)}`
+              );
               return user;
             },
           },
@@ -70,6 +72,9 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminPage />,
+        loader: async () => {
+          return axios.get(`${apiUrl}/api/user/`).then((res) => res.data);
+        },
       },
       {
         path: "/contact",

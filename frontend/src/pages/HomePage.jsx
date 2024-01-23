@@ -4,6 +4,7 @@ import { useState } from "react";
 import timer from "../assets/timer/minuteur.png";
 import difficult from "../assets/logo_difficulty/diff-chef.png";
 import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
+import Login from "../components/Login";
 
 import Carousel from "../components/carousel/Carousel";
 
@@ -89,6 +90,8 @@ function HomePage() {
 
   return (
     <div className="m-20">
+      <Login />
+
       <Carousel recipes={recipes} />
       <div className="border-solid border-y-4 border-orange m-10">
         <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
@@ -159,9 +162,7 @@ function HomePage() {
       </div>
       <div>
         {auth.token ? (
-          <h1 className="text-center text-4xl">
-            Bienvenue {auth.userVerified.pseudo} !
-          </h1>
+          <h1 className="text-center text-4xl">Bienvenue {auth.pseudo} !</h1>
         ) : null}
 
         <div className={!auth.token ? "blur-sm" : null}>
