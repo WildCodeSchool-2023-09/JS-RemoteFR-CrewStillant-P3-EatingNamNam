@@ -7,6 +7,9 @@ import Access from "../components/Access";
 function HomePage() {
   const { auth } = useOutletContext();
   const recipes = useLoaderData();
+  const [accessVisible, setAccessVisible] = useState(
+    localStorage.getItem("accessVisible")
+  );
 
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
@@ -79,8 +82,14 @@ function HomePage() {
 
   return (
     <div>
-      <Access />
-
+      {accessVisible ? (
+        ""
+      ) : (
+        <Access
+          setAccessVisible={setAccessVisible}
+          accessVisible={accessVisible}
+        />
+      )}
       <div className="m-20">
         <div className="border-solid border-y-4 border-green m-10">
           <div className="m-10 flex flex-row justify-center text-xl gap-6 ">

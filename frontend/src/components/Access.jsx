@@ -1,9 +1,16 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import RegistrationForm from "./RegistrationForm";
+import Login from "./Login";
 
-export default function Access() {
+export default function Access({ setAccessVisible }) {
   const [isVisible, setIsVisible] = useState(false);
   const [option, setOption] = useState(false);
+  const handleClick = () => {
+    setAccessVisible(true);
+    localStorage.setItem("accessVisible", true);
+  };
+
   return (
     <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-green px-6 py-16 sm:px-3.5 sm:before:flex-1">
       {!isVisible ? (
@@ -40,7 +47,7 @@ export default function Access() {
             S'inscrire
           </button>
           <div className="flex flex-auto justify-end">
-            <button type="button">
+            <button type="button" onClick={handleClick}>
               <span className="flex rounded-full bg-lime-700 px-3.5 py-1.5 text-center font-semibold text-white shadow-sm ">
                 Ne plus afficher ce message
               </span>
@@ -49,9 +56,12 @@ export default function Access() {
         </div>
       ) : (
         <div>
-          {option ? <login /> : <RegistrationForm setOption={setOption} />}
+          {option ? <Login /> : <RegistrationForm setOption={setOption} />}
         </div>
       )}
     </div>
   );
 }
+Access.propTypes = {
+  setAccessVisible: PropTypes.func.isRequired,
+};
