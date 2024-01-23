@@ -6,10 +6,10 @@ class NotationManager extends AbstractManager {
   }
 
   // CRUD
-  async create(newNote) {
+  async create(note, recipeID, userID) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (text) VALUES(?)`,
-      [newNote.text]
+      `INSERT INTO ${this.table} (note, recipe_id, user_id) VALUES(?, ?, ?)`,
+      [note, recipeID, userID]
     );
     return result.insertId;
   }
@@ -20,9 +20,9 @@ class NotationManager extends AbstractManager {
     return rows;
   }
 
-  async read(id) {
+  async readByRecipe(id) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT AVG(note) AS average_note, COUNT(note) AS total_note, recipe_id FROM ${this.table} WHERE recipe_id = ?`,
       [id]
     );
 

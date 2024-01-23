@@ -20,14 +20,13 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const note = await tables.notation.readByRecipe(
-      parseInt(req.params.id, 10)
-    );
+    const recipeID = parseInt(req.params.id, 10);
+    const averageNote = await tables.notation.readByRecipe(recipeID);
 
-    if (note == null) {
+    if (averageNote == null) {
       res.sendStatus(404);
     } else {
-      res.status(200).json(note);
+      res.status(200).json(averageNote);
     }
   } catch (err) {
     next(err);
@@ -36,46 +35,24 @@ const read = async (req, res, next) => {
 
 // The E of BREAD - Edit (Update) operation
 
-const edit = async (req, res, next) => {
-  try {
-    const note = req.body;
-    const updatedNote = await tables.notation.update(
-      note,
-      parseInt(req.params.id, 10)
-    );
-
-    if (updatedNote == null) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).json({ message: "comment updated successfully" });
-    }
-  } catch (err) {
-    next(err);
-  }
-};
+// const edit = async (req, res, next) => {};
 
 // The A of BREAD - Add (Create) operation
 
 const add = async (req, res, next) => {
   try {
-    const { recipe_id: recipeID, user_id: userID, content } = req.body;
+    const { note, recipeID, userID } = req.body;
 
-    const newCommentID = await tables.comment.create(content);
-
-    if (newCommentID == null) {
-      res.sendStatus(404);
-    }
-
-    const newRefComment = await tables.recipe_comment.create(
-      newCommentID,
-      userID,
-      recipeID
+    const newNoteID = await tables.notation.create(
+      Number(note),
+      Number(recipeID),
+      Number(userID)
     );
 
-    if (newRefComment == null) {
+    if (newNoteID == null) {
       res.sendStatus(404);
     } else {
-      res.status(201).json({ message: "comment created successfully" });
+      res.status(201).json({ message: "note created successfully" });
     }
   } catch (err) {
     next(err);
@@ -84,25 +61,15 @@ const add = async (req, res, next) => {
 
 // The D of BREAD - Destroy (Delete) operation
 
-const destroy = async (req, res, next) => {
-  try {
-    const comment = await tables.comment.destroy(parseInt(req.params.id, 10));
+// const destroy = async (req, res, next) => {
 
-    if (comment == null) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).json({ message: "comment deleted successfully" });
-    }
-  } catch (err) {
-    next(err);
-  }
-};
+// };
 
 // Ready to export the controller functions
 module.exports = {
   browse,
   read,
-  edit,
+  // edit,
   add,
-  destroy,
+  // destroy,
 };
