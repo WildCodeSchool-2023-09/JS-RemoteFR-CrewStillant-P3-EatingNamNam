@@ -30,9 +30,12 @@ class UserManager extends AbstractManager {
   // The Rs of CRUD - Read operations
 
   async readAll() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    const [rows] = await this.database.query(
+      `SELECT u.*, r.type AS role FROM ${this.table} AS u JOIN role AS r ON r.id = u.role_id`
+    );
     return rows;
   }
+  // , COUNT(rc.recipe_id) AS total_recipe JOIN recipe_comment AS rc ON rc.user_id=u.id
 
   async read(id) {
     const [rows] = await this.database.query(
@@ -78,6 +81,15 @@ class UserManager extends AbstractManager {
     );
     return result.affectedRows;
   }
+
+  async updateRole(id, roleID) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET role_id=? WHERE id=?`,
+      [roleID, id]
+    );
+    return result.affectedRows;
+  }
+
   // The D of CRUD - Delete operation
 
   async delete(id) {

@@ -9,6 +9,7 @@ const {
   browse,
   read,
   edit,
+  editRole,
   add,
   destroy,
   download,
@@ -21,6 +22,8 @@ router.post("/", userValidation, hash, add);
 router.get("/dl", download);
 
 router.get("/:id", read);
+
+router.put("/role/", editRole);
 
 router.put("/:id", userValidation, hash, edit);
 

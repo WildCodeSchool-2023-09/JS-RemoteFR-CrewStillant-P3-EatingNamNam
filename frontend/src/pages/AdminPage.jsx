@@ -30,7 +30,7 @@ export default function AdminPage() {
         onClick={handleClick}
         className="rounded-md text-xl border-2 mt-4 border-orange px-2 hover:text-beige hover:bg-orange active:bg-green"
       >
-        Télécharger les informations des utilisateurs
+        Télécharger toutes les informations des utilisateurs
       </button>
     </div>
   );
