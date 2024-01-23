@@ -1,7 +1,10 @@
 import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 import { useState } from "react";
 
-import Carousel from "../components/carousel/Carousel";
+import timer from "../assets/timer/minuteur.png";
+import difficult from "../assets/logo_difficulty/diff-chef.png";
+import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
+
 import Access from "../components/Access";
 
 function HomePage() {
@@ -14,13 +17,20 @@ function HomePage() {
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
       case 1:
-        return "🧑🏻‍🍳";
+        return <img className="h-8 w-8" src={difficult} alt={difficult} />;
       case 2:
-        return "🧑🏻‍🍳🧑🏻‍🍳";
+        return (
+          (<img className="h-8 w-8" src={difficult} alt={difficult} />),
+          (<img className="h-8 w-8" src={difficult} alt={difficult} />)
+        );
       case 3:
-        return "🧑🏻‍🍳🧑🏻‍🍳🧑🏻‍🍳";
+        return (
+          (<img className="h-8 w-8" src={difficult} alt="" />),
+          (<img className="h-8 w-8" src={difficult} alt="" />),
+          (<img className="h-8 w-8" src={difficult} alt="" />)
+        );
       default:
-        return "❓";
+        return <img className="h-8 w-8" src={diffNone} alt="" />;
     }
   };
 
@@ -63,7 +73,7 @@ function HomePage() {
     setFilteredRecipes(searchData);
   };
 
-  const handleFilter = (e) => {
+  const handleAllFilters = (e) => {
     setSelectedType(e);
     filterRecipes(searchText, selectedType, selectedDifficulty, selectedTime);
   };
@@ -96,28 +106,28 @@ function HomePage() {
             <button
               type="button"
               className="bg-green text-beige p-4 rounded-2xl border border-beige w-16"
-              onClick={() => handleFilter("All")}
+              onClick={() => handleAllFilters("All")}
             >
               All
             </button>
             <button
               type="button"
               className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-              onClick={() => handleFilter("healthy")}
+              onClick={() => handleAllFilters("healthy")}
             >
               Healthy
             </button>
             <button
               type="button"
               className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-              onClick={() => handleFilter("light")}
+              onClick={() => handleAllFilters("light")}
             >
               Light
             </button>
             <button
               type="button"
               className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
-              onClick={() => handleFilter("fat")}
+              onClick={() => handleAllFilters("fat")}
             >
               Fat
             </button>
@@ -166,7 +176,6 @@ function HomePage() {
           ) : null}
 
           <div className={!auth.token ? "blur-sm" : null}>
-            <Carousel recipes={recipes} />
             <ul className="flex flex-row justify-center flex-wrap gap-16">
               <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
                 <h1 className="text-beige text-2xl">Créer ma recette</h1>
@@ -184,26 +193,25 @@ function HomePage() {
               {filteredRecipes.map((r) => (
                 <li
                   key={r.id}
-                  className="rounded-2xl w-72 h-80 p-4 bg-green text-center"
+                  className="rounded-2xl w-72 h-80 p-0 bg-green text-center"
                 >
-                  <h1 className="text-beige text-2xl mb-1 uppercase">
+                  <h1 className="text-beige text-2xl m-2 uppercase">
                     {r.title}
                   </h1>
-                  <div className="flex flex-row justify-between">
+                  <div className="flex flex-row justify-around m-5">
                     <div>{difficultyEmoji(r.difficulty)}</div>
-                    <p className="text-beige mb-2">
-                      Temps : {r.preparation_time} min
-                    </p>
+                    <img className="h-8 w-8 ml-32" src={timer} alt="" />
+                    <p className="text-beige">: {r.preparation_time}min</p>
                   </div>
                   <img
                     src={r.image}
                     alt={r.image}
-                    className="rounded-2xl relative self-end"
+                    className="rounded-2xl mt-4 object-cover"
                   />
                   <div className="flex flex-col items-center justify-center">
                     <NavLink
                       to={`/recipe/${r.id}`}
-                      className="border bg-green text-beige p-1.5 absolute"
+                      className="rounded-xl mb-16 bg-green text-beige p-1.5 absolute"
                     >
                       En savoir plus
                     </NavLink>
