@@ -8,13 +8,14 @@ class IngredientManager extends AbstractManager {
 
   async create(ingredient) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, calories, fat, sugar, protein) VALUE(?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (name, calories, fat, sugar, protein, unit_id) VALUE(?, ?, ?, ?, ?, ?)`,
       [
         ingredient.name,
         ingredient.calories,
         ingredient.fat,
         ingredient.sugar,
         ingredient.protein,
+        ingredient.unit_id,
       ]
     );
     return result.insertId;

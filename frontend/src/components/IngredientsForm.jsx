@@ -33,7 +33,7 @@ export default function IngredientsForm({
   };
   const handleIngredient = (event) => {
     // reset({name}) permet de vider la valeur de register/name et de lui en réattribuer une quand le state re-render
-    // reset({ name });
+    reset();
     const ingredientname = event.target.value;
     setFormVisible(true);
     setIngredient(ingredients.find((i) => i.name === ingredientname));

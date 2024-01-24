@@ -18,7 +18,6 @@ function CreateRecipePage() {
       ingredients: selectedIngredients,
       steps: selectedSteps,
     };
-    console.info(data);
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/recipe`, data)
       .then((res) => navigate(`/recipe/${res.data.id}`));
