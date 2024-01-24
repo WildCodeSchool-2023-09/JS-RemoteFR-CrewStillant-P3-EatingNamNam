@@ -9,6 +9,15 @@ function Navbar() {
         <img className="h-28 rounded-full" src={logo} alt="logo" />
       </NavLink>
       <div className="text-beige m-4 flex gap-3">
+        <NavLink className="hover:text-green text-xl h-fit my-auto" to="/login">
+          Connexion
+        </NavLink>{" "}
+        <NavLink
+          className="hover:text-green text-xl h-fit my-auto"
+          to="/registration"
+        >
+          Inscription
+        </NavLink>
         <NavLink className="hover:text-green text-xl h-fit my-auto" to="/">
           Mes recettes
         </NavLink>
