@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-export default function RegistrationForm({ setOption }) {
+export default function RegistrationForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,7 +16,8 @@ export default function RegistrationForm({ setOption }) {
     await axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, data)
       .then((res) => console.info(res.data));
-    setOption(true);
+    localStorage.setItem("accessVisible", true);
+    navigate("/Login");
   };
 
   return (
@@ -279,6 +281,3 @@ export default function RegistrationForm({ setOption }) {
     </div>
   );
 }
-RegistrationForm.propTypes = {
-  setOption: PropTypes.func.isRequired,
-};

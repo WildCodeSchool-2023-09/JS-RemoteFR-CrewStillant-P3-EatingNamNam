@@ -11,6 +11,8 @@ import RecipesPage from "./pages/RecipesPage";
 import UserPage from "./pages/UserPage";
 import UserInformation from "./components/UserInformation";
 import AdminPage from "./pages/AdminPage";
+import Registration from "./pages/RegistrationPage";
+import Login from "./pages/LoginPage";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
             },
           },
         ],
+      },
+      {
+        path: "/registration",
+        element: <Registration />,
+      },
+      {
+        path: "/Login",
+        element: <Login />,
       },
       {
         path: "/admin",

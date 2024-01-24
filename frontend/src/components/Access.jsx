@@ -1,9 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { NavLink, useNavigate } from "react-router-dom";
 import RegistrationForm from "./RegistrationForm";
-import Login from "./Login";
 
 export default function Access({ setAccessVisible }) {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [option, setOption] = useState(false);
   const handleClick = () => {
@@ -33,6 +34,7 @@ export default function Access({ setAccessVisible }) {
             onClick={() => {
               setIsVisible(true);
               setOption(true);
+              navigate("/Login");
             }}
           >
             Se connecter
@@ -42,6 +44,7 @@ export default function Access({ setAccessVisible }) {
             className="flex-auto rounded-full bg-gray-900 px-3.5 py-1.5 text-center font-semibold text-white shadow-sm"
             onClick={() => {
               setIsVisible(true);
+              navigate("/Registration");
             }}
           >
             S'inscrire
@@ -56,7 +59,16 @@ export default function Access({ setAccessVisible }) {
         </div>
       ) : (
         <div>
-          {option ? <Login /> : <RegistrationForm setOption={setOption} />}
+          {option ? (
+            <NavLink
+              className="hover:text-green text-xl h-fit my-auto"
+              to="/Login"
+            >
+              Connexion
+            </NavLink>
+          ) : (
+            <RegistrationForm setOption={setOption} />
+          )}
         </div>
       )}
     </div>
