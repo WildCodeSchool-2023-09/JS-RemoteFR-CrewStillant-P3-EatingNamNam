@@ -172,7 +172,7 @@ function HomePage() {
           <ul className="flex flex-row justify-center flex-wrap gap-16">
             <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
               <h1 className="text-beige text-2xl">Créer ma recette</h1>
-              <NavLink to="/new-recipe">
+              <NavLink to="/createrecipe">
                 <div className="flex flex-col items-center justify-center mt-16">
                   <button
                     type="button"
