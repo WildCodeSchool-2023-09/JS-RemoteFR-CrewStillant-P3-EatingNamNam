@@ -33,7 +33,6 @@ export default function UsersInfoAdmin({ users }) {
   };
   const handleDeleteUser = async (id) => {
     // on ne supprime pas vraiment l'utilisateur mais on l'edit avec 'anonymous' dans tous ses champs
-
     try {
       await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/anonymous/${id}`

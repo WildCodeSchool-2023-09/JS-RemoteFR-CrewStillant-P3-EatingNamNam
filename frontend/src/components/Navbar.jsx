@@ -9,30 +9,47 @@ function Navbar({ auth }) {
       <NavLink className="m-2" to="/">
         <img className="h-28 rounded-full" src={logo} alt="logo" />
       </NavLink>
-      {auth.token && (
-        <div className="text-beige m-4 flex gap-3">
-          <NavLink
-            className="hover:text-green text-xl h-fit my-auto"
-            to={`/user/created/${auth.id}`}
-          >
-            Mes recettes
-          </NavLink>
-          <NavLink
-            className="hover:text-green text-xl h-fit my-auto"
-            to={`/user/info/${auth.id}`}
-          >
-            Mon compte
-          </NavLink>
-          {auth.role === "admin" ? (
+      <div className="text-beige m-4 flex gap-3">
+        {!auth.token ? (
+          <>
             <NavLink
               className="hover:text-green text-xl h-fit my-auto"
-              to="/admin"
+              to="/login"
             >
-              Administration du site
+              Connexion
             </NavLink>
-          ) : null}
-        </div>
-      )}
+            <NavLink
+              className="hover:text-green text-xl h-fit my-auto"
+              to="/registration"
+            >
+              Inscription
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink
+              className="hover:text-green text-xl h-fit my-auto"
+              to={`/user/created/${auth.id}`}
+            >
+              Mes recettes
+            </NavLink>
+            <NavLink
+              className="hover:text-green text-xl h-fit my-auto"
+              to={`/user/info/${auth.id}`}
+            >
+              Mon compte
+            </NavLink>
+            {auth.role === "admin" ? (
+              <NavLink
+                className="hover:text-green text-xl h-fit my-auto"
+                to="/admin"
+              >
+                Administration du site
+              </NavLink>
+            ) : null}
+          </>
+        )}
+      </div>
     </div>
   );
 }

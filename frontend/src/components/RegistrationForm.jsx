@@ -1,8 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function RegistrationForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -10,8 +12,12 @@ export default function RegistrationForm() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, data);
+  const onSubmit = async (data) => {
+    await axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, data)
+      .then((res) => console.info(res.data));
+    localStorage.setItem("accessVisible", true);
+    navigate("/login");
   };
 
   return (
