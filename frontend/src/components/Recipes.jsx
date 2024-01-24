@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 import { sum, stringToNumberArray } from "../services/calculator";
 
@@ -10,6 +11,35 @@ function Recipes({ recipe }) {
   const { auth } = useOutletContext();
 
   const { infos, comments, steps } = recipe;
+
+  const [favList, setFavList] = useState();
+
+  const [isTrue, setIsTrue] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`)
+      .then((res) => setFavList(res.data));
+    setIsTrue(false);
+  }, [isTrue]);
+
+  const isFav = favList?.userList.includes("1");
+
+  const handleClick = async () => {
+    const data = { userID: 1, recipeID: infos.id };
+    await axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/favorite`, data)
+      .then((res) => console.info(res.data))
+      .then(setIsTrue(true));
+  };
+
+  const handleClickSupp = async () => {
+    const ID = 1;
+    await axios
+      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${ID}`)
+      .then((res) => console.info(res.data));
+    setIsTrue(true);
+  };
 
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
@@ -73,7 +103,16 @@ function Recipes({ recipe }) {
   return (
     <div className="m-5 text-xl">
       <h1>{infos.title}</h1>
-      <div className={!auth.token ? "blur-sm" : null}>
+      {!isFav ? (
+        <button type="button" onClick={handleClick}>
+          Ajoutez à vos favoris
+        </button>
+      ) : (
+        <button type="button" onClick={handleClickSupp}>
+          supprimer de vos favoris
+        </button>
+      )}
+      <div className={!auth.token ? "" : null}>
         <img
           src={infos.image}
           alt={infos.title}

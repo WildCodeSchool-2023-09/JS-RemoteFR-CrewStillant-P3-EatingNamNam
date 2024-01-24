@@ -11,6 +11,7 @@ const roleRouter = require("./routers/roleRouter");
 const unitRouter = require("./routers/unitRouter");
 const authRouter = require("./routers/authRouter");
 const contactRouter = require("./routers/contactRouter");
+const favRecipeRouter = require("./routers/favRecipeRouter");
 
 router.use("/user", userRouter);
 router.use("/comment", commentRouter);
@@ -21,5 +22,6 @@ router.use("/role", roleRouter);
 router.use("/unit", unitRouter);
 router.use("/auth", authRouter);
 router.use("/contact", contactRouter);
+router.use("/favorite", favRecipeRouter);
 
 module.exports = router;

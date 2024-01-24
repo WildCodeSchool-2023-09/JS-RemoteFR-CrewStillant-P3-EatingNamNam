@@ -10,6 +10,7 @@ import Conditions from "./pages/ConditionPage";
 import RecipesPage from "./pages/RecipesPage";
 import UserPage from "./pages/UserPage";
 import UserInformation from "./components/UserInformation";
+import FavRecipe from "./components/FavRecipe";
 import AdminPage from "./pages/AdminPage";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
           {
             path: "/user/info/:id",
             element: <UserInformation />,
+            loader: async ({ params }) => {
+              const user = await axios.get(`${apiUrl}/api/user/${params.id}`);
+              return user;
+            },
+          },
+          {
+            path: "/user/favorite/:id",
+            element: <FavRecipe />,
             loader: async ({ params }) => {
               const user = await axios.get(`${apiUrl}/api/user/${params.id}`);
               return user;
