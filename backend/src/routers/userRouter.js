@@ -10,6 +10,7 @@ const {
   read,
   edit,
   editRole,
+  editAnonymous,
   add,
   destroy,
   download,
@@ -26,6 +27,8 @@ router.get("/:id", read);
 router.put("/role/", editRole);
 
 router.put("/:id", userValidation, hash, edit);
+
+router.put("/anonymous/:id", editAnonymous);
 
 router.delete("/:id", destroy);
 

@@ -147,6 +147,20 @@ const editRole = async (req, res, next) => {
   }
 };
 
+const editAnonymous = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const anonymousUser = await tables.user.updateAnonymous(Number(id));
+    if (anonymousUser === 0) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json({ message: "Role updated" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 // The A of BREAD - Add (Create) operation
 
 const add = async (req, res, next) => {
@@ -186,6 +200,7 @@ module.exports = {
   read,
   edit,
   editRole,
+  editAnonymous,
   add,
   destroy,
   download,

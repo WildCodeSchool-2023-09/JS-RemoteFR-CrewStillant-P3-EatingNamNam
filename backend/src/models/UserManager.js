@@ -90,6 +90,14 @@ class UserManager extends AbstractManager {
     return result.affectedRows;
   }
 
+  async updateAnonymous(id) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET firstname= 'anonymous', lastname= 'anonymous', birthdate = '1900-01-01', pseudo= 'anonymous', mail= ?, password='anonymous', week_time_kitchen='999', weight='999', role_id=1 WHERE id=?`,
+      [`anonymous${id}@anonymous.fr`, id]
+    );
+    return result.affectedRows;
+  }
+
   // The D of CRUD - Delete operation
 
   async delete(id) {

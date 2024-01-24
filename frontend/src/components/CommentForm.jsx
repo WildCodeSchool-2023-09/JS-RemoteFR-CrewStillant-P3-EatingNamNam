@@ -52,7 +52,7 @@ export default function CommentForm({ recipeID, setIsValidated }) {
           >
             <textarea
               name="comment"
-              className="h-16 px-1 text-xl rounded-2xl w-full"
+              className="h-16 px-1 text-xl bg-slate-200 rounded-2xl w-full"
               {...register("content", {
                 required: "Ce champs est obligatoire",
                 minLength: {

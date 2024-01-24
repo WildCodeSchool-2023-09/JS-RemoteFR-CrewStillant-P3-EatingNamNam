@@ -11,9 +11,9 @@ export default function UsersInfoAdmin({ users }) {
   const [updatedUsers, setUpdatedUsers] = useState(users);
   const [isUpdated, setIsUpdated] = useState(false);
 
-  const handleChangeRole = (ID) => {
+  const handleChangeRole = async (ID) => {
     const user = updatedUsers.find((u) => u.id === ID);
-    let newRole = "";
+    let newRole = 0;
     if (user.role_id === 1) {
       newRole = 2;
     }
@@ -21,23 +21,23 @@ export default function UsersInfoAdmin({ users }) {
       newRole = 1;
     }
     try {
-      axios
-        .put(`${import.meta.env.VITE_BACKEND_URL}/api/user/role`, {
-          id: user.id,
-          role_id: newRole,
-        })
-        .then((res) => console.info(res.data));
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/user/role`, {
+        id: user.id,
+        role_id: newRole,
+      });
+
       setIsUpdated(true);
     } catch (error) {
       console.error(error);
     }
   };
   // demander à Ayoub ON DELETE CASCADE sur toutes les tables? et le rerender en 2 temps...
-  const handleDeleteUser = (id) => {
+  const handleDeleteUser = async (id) => {
     try {
-      axios
-        .delete(`${import.meta.env.VITE_BACKEND_URL}/api/user/${id}`)
-        .then((res) => console.info(res.data));
+      await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/anonymous/${id}`
+      );
+
       setIsUpdated(true);
     } catch (error) {
       console.error(error);
@@ -49,7 +49,7 @@ export default function UsersInfoAdmin({ users }) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/api/user`)
         .then((res) => setUpdatedUsers(res.data))
-        .then(setIsUpdated(false));
+        .finally(setIsUpdated(false));
     }
   }, [isUpdated]);
 
