@@ -9,6 +9,15 @@ CREATE TABLE comment (
     CONSTRAINT comment_pk PRIMARY KEY (id)
 );
 
+CREATE TABLE contact (
+    id INT  NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email varchar(255)  NOT NULL,
+    message TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT NOW(),
+    CONSTRAINT id PRIMARY KEY (id)
+);
+
 -- Table: favoriteRecipe_user
 CREATE TABLE favoriteRecipe_user (
     id int  NOT NULL AUTO_INCREMENT,
@@ -37,6 +46,15 @@ CREATE TABLE ingredient_recipe (
     recipe_id int  NOT NULL,
     ingredient_id int  NOT NULL,
     CONSTRAINT ingredient_recipe_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE notation (
+    id int  NOT NULL AUTO_INCREMENT,
+    note int NOT NULL,
+    recipe_id INT NOT NULL,
+    user_id int NOT NULL,
+        CONSTRAINT id PRIMARY KEY (id)
+
 );
 
 -- Table: recipe
@@ -170,4 +188,11 @@ ALTER TABLE step ADD CONSTRAINT step_recipe FOREIGN KEY step_recipe (recipe_id)
 
 -- Reference: unit_ingredient (table: ingredient)
 ALTER TABLE ingredient ADD CONSTRAINT ingredient_unit FOREIGN KEY (unit_id) REFERENCES unit (id);
+ALTER TABLE notation ADD CONSTRAINT notation_recipe FOREIGN KEY notation_recipe (recipe_id)
+    REFERENCES recipe (id);
+
+ALTER TABLE notation ADD CONSTRAINT notation_user FOREIGN KEY notation_user (User_id)
+    REFERENCES user (id);
+
+
 -- End of file.

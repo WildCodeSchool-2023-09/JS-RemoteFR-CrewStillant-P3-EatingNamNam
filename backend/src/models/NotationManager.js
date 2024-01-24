@@ -1,15 +1,15 @@
 const AbstractManager = require("./AbstractManager");
 
-class StepManager extends AbstractManager {
+class NotationManager extends AbstractManager {
   constructor() {
-    super({ table: "step" });
+    super({ table: "notation" });
   }
 
   // CRUD
-  async create(newStep, recipe) {
+  async create(note, recipeID, userID) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (text, recipe_id) VALUES(?, ?)`,
-      [newStep, recipe]
+      `INSERT INTO ${this.table} (note, recipe_id, user_id) VALUES(?, ?, ?)`,
+      [note, recipeID, userID]
     );
     return result.insertId;
   }
@@ -20,13 +20,13 @@ class StepManager extends AbstractManager {
     return rows;
   }
 
-  async read(id) {
+  async readByRecipe(id) {
     const [rows] = await this.database.query(
-      `SELECT step.id, step.text FROM ${this.table} WHERE recipe_id = ?`,
+      `SELECT AVG(note) AS average_note, COUNT(note) AS total_note, recipe_id FROM ${this.table} WHERE recipe_id = ?`,
       [id]
     );
 
-    return rows;
+    return rows[0];
   }
 
   async update(text, id) {
@@ -46,4 +46,4 @@ class StepManager extends AbstractManager {
   }
 }
 
-module.exports = StepManager;
+module.exports = NotationManager;

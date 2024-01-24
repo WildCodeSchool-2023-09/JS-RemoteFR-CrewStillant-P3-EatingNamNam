@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import PropTypes from "prop-types";
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -8,8 +9,15 @@ export default function IngredientsForm({
   unit,
   selectedIngredients,
   setSelectedIngredients,
+  setIsCreatedIngredient,
+  isCreatedingredient,
 }) {
   const [ingredient, setIngredient] = useState({});
+  // correspond à la valeur d'ingrédients filtré par la valeur de l'input
+  const [updatedData, setUpdatedData] = useState(ingredients);
+  const [formVisible, setFormVisible] = useState(false);
+  // ce state sert à remplir les valeurs de l'ingrédient choisi dans le select/option
+
   const {
     register,
     handleSubmit,
@@ -17,10 +25,12 @@ export default function IngredientsForm({
     reset,
   } = useForm();
 
-  // correspond à la valeur d'ingrédients filtré par la valeur de l'input
-  const [updatedData, setUpdatedData] = useState(ingredients);
-  const [formVisible, setFormVisible] = useState(false);
-  // ce state sert à remplir les valeurs de l'ingrédient choisi dans le select/option
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/ingredient`)
+      .then((res) => setUpdatedData(res.data));
+    setIsCreatedIngredient(false);
+  }, [isCreatedingredient]);
 
   const onSubmit = (data) => {
     setFormVisible(false);
@@ -29,14 +39,14 @@ export default function IngredientsForm({
   };
   const handleInputIngredient = (event) => {
     const inputValue = event.target.value;
-    setUpdatedData(ingredients.filter((u) => u.name.includes(inputValue)));
+    setUpdatedData(updatedData.filter((u) => u.name.includes(inputValue)));
   };
   const handleIngredient = (event) => {
     // reset({name}) permet de vider la valeur de register/name et de lui en réattribuer une quand le state re-render
     reset();
     const ingredientname = event.target.value;
     setFormVisible(true);
-    setIngredient(ingredients.find((i) => i.name === ingredientname));
+    setIngredient(updatedData.find((i) => i.name === ingredientname));
   };
   const handleDeleteIngredient = (element) => {
     const index = selectedIngredients.findIndex(
@@ -144,9 +154,12 @@ export default function IngredientsForm({
     </div>
   );
 }
+
 IngredientsForm.propTypes = {
   selectedIngredients: PropTypes.arrayOf.isRequired,
   setSelectedIngredients: PropTypes.func.isRequired,
+  isCreatedingredient: PropTypes.func.isRequired,
+  setIsCreatedIngredient: PropTypes.func.isRequired,
   unit: PropTypes.oneOfType([
     PropTypes.shape,
     () => null,

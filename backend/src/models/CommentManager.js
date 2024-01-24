@@ -12,7 +12,7 @@ class CommentManager extends AbstractManager {
   async create(content) {
     // Execute the SQL INSERT query to add a new comment to the "comments" table
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (text) VALUES (?)`,
+      `INSERT INTO ${this.table} (content) VALUES (?)`,
       [content]
     );
     // Return the ID of the newly inserted comment
@@ -24,11 +24,11 @@ class CommentManager extends AbstractManager {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific comment by its ID
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT c.id, user.pseudo, c.content FROM ${this.table} AS c JOIN recipe_comment AS rc ON rc.comment_id = c.id JOIN user ON user.id = rc.user_id WHERE rc.recipe_id = ?`,
       [id]
     );
     // Return the first row of the result, which represents the comment
-    return rows[0];
+    return rows;
   }
 
   async readAll() {
@@ -50,7 +50,7 @@ class CommentManager extends AbstractManager {
   async update(comment, id) {
     // Execute the SQL SELECT query to modify a specific comment by its ID
     const [result] = await this.database.query(
-      `ALTER TABLE ${this.table} SET comment=? WHERE id=?`,
+      `ALTER TABLE ${this.table} SET content=? WHERE id=?`,
       [comment, id]
     );
 
