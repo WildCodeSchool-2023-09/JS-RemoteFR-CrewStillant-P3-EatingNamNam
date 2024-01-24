@@ -20,14 +20,18 @@ function HomePage() {
         return <img className="h-8 w-8" src={difficult} alt={difficult} />;
       case 2:
         return (
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />),
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+          </>
         );
       case 3:
         return (
-          (<img className="h-8 w-8" src={difficult} alt="" />),
-          (<img className="h-8 w-8" src={difficult} alt="" />),
-          (<img className="h-8 w-8" src={difficult} alt="" />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt="" />
+            <img className="h-8 w-8" src={difficult} alt="" />
+            <img className="h-8 w-8" src={difficult} alt="" />
+          </>
         );
       default:
         return <img className="h-8 w-8" src={diffNone} alt="" />;
