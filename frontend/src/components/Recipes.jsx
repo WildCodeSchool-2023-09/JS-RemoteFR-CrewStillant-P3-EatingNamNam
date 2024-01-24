@@ -7,6 +7,8 @@ import { sum, stringToNumberArray } from "../services/calculator";
 
 import difficult from "../assets/logo_difficulty/diff-chef.png";
 import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
+import redHeart from "../assets/logo_fav/red-heart.png";
+import heartNone from "../assets/logo_fav/heart-none.png";
 
 function Recipes({ recipe, notation }) {
   const { auth } = useOutletContext();
@@ -14,9 +16,12 @@ function Recipes({ recipe, notation }) {
   const { infos, comments, steps } = recipe;
   const [recipeNote, setRecipeNote] = useState(notation);
   const [isNoted, setIsNoted] = useState(false);
-  const [favList, setFavList] = useState();
 
+  // ajoutez / enlevez les recettes favorites
+
+  const [favList, setFavList] = useState();
   const [isTrue, setIsTrue] = useState(false);
+  const isFav = favList?.userList?.includes(`${auth.id}`);
 
   useEffect(() => {
     axios
@@ -24,8 +29,6 @@ function Recipes({ recipe, notation }) {
       .then((res) => setFavList(res.data));
     setIsTrue(false);
   }, [isTrue]);
-
-  const isFav = favList?.userList.includes("1");
 
   const handleClick = async () => {
     const data = { userID: 1, recipeID: infos.id };
@@ -39,8 +42,8 @@ function Recipes({ recipe, notation }) {
     const ID = 1;
     await axios
       .delete(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${ID}`)
-      .then((res) => console.info(res.data));
-    setIsTrue(true);
+      .then((res) => console.info(res.data))
+      .then(setIsTrue(true));
   };
 
   const difficultyEmoji = (difficulty) => {
@@ -127,17 +130,20 @@ function Recipes({ recipe, notation }) {
           <p>
             Note moyenne des utilisateurs : <br />
             {Math.round(recipeNote.average_note * 100) / 100}/5 sur{" "}
-            {recipeNote.total_note}{" "}
+            {recipeNote.total_note}
             {recipeNote.total_note === 1 ? "vote" : "votes"}
           </p>
         )}
       </div>
-      {!isFav ? (
+
+      {isFav && isFav ? (
         <button type="button" onClick={handleClick}>
+          <img className="h-7" src={redHeart} alt={redHeart} />
           Ajoutez à vos favoris
         </button>
       ) : (
         <button type="button" onClick={handleClickSupp}>
+          <img className="h-7" src={heartNone} alt={heartNone} />
           supprimer de vos favoris
         </button>
       )}
@@ -152,10 +158,6 @@ function Recipes({ recipe, notation }) {
                 : "flex flex-col h-96 w- rounded-3xl"
             }
           />
-          <div className="flex flex-row justify-center gap-4 mb-2 text-2xl">
-            <p>Noter la recette :</p>
-            <ReactStars onChange={ratingChanged} size={32} half={false} />
-          </div>
           <div className="flex flex-col">
             <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-8 justify-center text-beige bg-orange">
               <div className="text-center text-lg">
@@ -202,6 +204,10 @@ function Recipes({ recipe, notation }) {
               </ul>
             </div>
           </div>
+        </div>
+        <div className="flex flex-row justify-center gap-2 text-2xl">
+          <p>Noter la recette :</p>
+          <ReactStars onChange={ratingChanged} size={32} half={false} />
         </div>
         <p className="text-orange mb-3">Etapes de préparation:</p>
         <div className="border-green h-28 flex flex-col border-4 rounded-2xl p-3 bg-slate-200 mb-4 gap-4">
