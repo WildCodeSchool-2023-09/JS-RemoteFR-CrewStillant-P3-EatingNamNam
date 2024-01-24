@@ -52,7 +52,9 @@ const seed = async () => {
       );
     }
 
-    await database.query("INSERT INTO role (type)VALUES ('member'), ('admin')");
+    await database.query(
+      "INSERT INTO role (type)VALUES ('member'), ('admin'), ('deleted')"
+    );
 
     await database.query(
       "INSERT INTO user (firstname, lastname, birthdate, pseudo, mail, password, week_time_kitchen, weight, role_id ) VALUES ('Toto', 'TheBest', '2000-10-10', 'Toto le magnifique','toto@toto.fr', '$argon2id$v=19$m=19456,t=2,p=1$hRqD1webqd/IpIymyLxq5A$rzJ/Wean/U4x8G7AlFoQl6q1EqNCLOEhnOGzT//pfxM','7', '45', '1'), ('Benoit', 'Redfish', '1980-05-10', 'Splagadou','benoit@wcs.fr', '$argon2id$v=19$m=19456,t=2,p=1$hRqD1webqd/IpIymyLxq5A$rzJ/Wean/U4x8G7AlFoQl6q1EqNCLOEhnOGzT//pfxM','9', '75', '2')"

@@ -1,4 +1,3 @@
 "sep=,"
-id,firstname,lastname,birthdate,pseudo,mail,week_time_kitchen,weight,registration_date,role_id
-1,Toto,TheBest,2000-10-09T22:00:00.000Z,Toto le magnifique,toto@toto.fr,7,45,2024-01-23T16:21:03.000Z,1
-2,Benoit,Redfish,1980-05-09T22:00:00.000Z,Splagadou,benoit@wcs.fr,9,75,2024-01-23T16:21:03.000Z,2
+id,firstname,lastname,birthdate,pseudo,mail,week_time_kitchen,weight,registration_date,role_id,role
+1,anonymous,anonymous,1899-12-31T23:50:39.000Z,anonymous,anonymous1@anonymous.fr,999,999,2024-01-23T19:15:40.000Z,1,member

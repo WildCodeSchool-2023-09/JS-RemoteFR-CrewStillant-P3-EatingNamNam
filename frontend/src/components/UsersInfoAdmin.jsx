@@ -31,8 +31,9 @@ export default function UsersInfoAdmin({ users }) {
       console.error(error);
     }
   };
-  // demander à Ayoub ON DELETE CASCADE sur toutes les tables? et le rerender en 2 temps...
   const handleDeleteUser = async (id) => {
+    // on ne supprime pas vraiment l'utilisateur mais on l'edit avec 'anonymous' dans tous ses champs
+
     try {
       await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/anonymous/${id}`
@@ -58,7 +59,7 @@ export default function UsersInfoAdmin({ users }) {
       <table className="mt-4 w-fit table-auto text-left">
         <thead>
           <tr>
-            <th colSpan={6} className="text-2xl border-orange border-b-2">
+            <th colSpan={7} className="text-2xl border-orange border-b-2">
               Informations sur les utilisateurs
             </th>
           </tr>
@@ -73,36 +74,42 @@ export default function UsersInfoAdmin({ users }) {
             <td>Role</td>
             <td>Actions</td>
           </tr>
-          {updatedUsers.map((u) => (
-            <tr key={u.id} className="text-center">
-              <td>{u.firstname}</td>
-              <td>{u.lastname}</td>
-              <td>{u.mail}</td>
-              <td>{moment(u.registration_date).format("LL")}</td>
-              <td>{u.total_recipe}</td>
-              <td>{u.role}</td>
-              <td className="flex flex-row">
-                <button
-                  type="button"
-                  onClick={() => handleChangeRole(u.id)}
-                  title="Changer le rôle de l'utilisateur"
-                >
-                  <img
-                    src={edit}
-                    alt="Changer le rôle de l'utilisateur"
-                    width={30}
-                  />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteUser(u.id)}
-                  title="Supprimer l'utilisateur"
-                >
-                  <img src={destroy} alt="Supprimer l'utilisateur" width={30} />
-                </button>
-              </td>
-            </tr>
-          ))}
+          {updatedUsers
+            .filter((u) => u.firstname !== "anonymous")
+            .map((u) => (
+              <tr key={u.id} className="text-center">
+                <td>{u.firstname}</td>
+                <td>{u.lastname}</td>
+                <td>{u.mail}</td>
+                <td>{moment(u.registration_date).format("LL")}</td>
+                <td>{u.total_recipe}</td>
+                <td>{u.role}</td>
+                <td className="flex flex-row">
+                  <button
+                    type="button"
+                    onClick={() => handleChangeRole(u.id)}
+                    title="Changer le rôle de l'utilisateur"
+                  >
+                    <img
+                      src={edit}
+                      alt="Changer le rôle de l'utilisateur"
+                      width={30}
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteUser(u.id)}
+                    title="Supprimer l'utilisateur"
+                  >
+                    <img
+                      src={destroy}
+                      alt="Supprimer l'utilisateur"
+                      width={30}
+                    />
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
