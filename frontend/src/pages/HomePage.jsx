@@ -17,14 +17,18 @@ function HomePage() {
         return <img className="h-8 w-8" src={difficult} alt={difficult} />;
       case 2:
         return (
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />),
-          (<img className="h-8 w-8" src={difficult} alt={difficult} />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img className="h-8 w-8" src={difficult} alt={difficult} />
+          </>
         );
       case 3:
         return (
-          (<img className="h-8 w-8" src={difficult} alt="" />),
-          (<img className="h-8 w-8" src={difficult} alt="" />),
-          (<img className="h-8 w-8" src={difficult} alt="" />)
+          <>
+            <img className="h-8 w-8" src={difficult} alt="" />
+            <img className="h-8 w-8" src={difficult} alt="" />
+            <img className="h-8 w-8" src={difficult} alt="" />
+          </>
         );
       default:
         return <img className="h-8 w-8" src={diffNone} alt="" />;
@@ -138,9 +142,9 @@ function HomePage() {
               onChange={difficultyFiltered}
             >
               <option value="">Tous</option>
-              <option value="1">🧑🏻‍🍳</option>
-              <option value="2">🧑🏻‍🍳🧑🏻‍🍳</option>
-              <option value="3">🧑🏻‍🍳🧑🏻‍🍳🧑🏻‍🍳</option>
+              <option value="1">facile</option>
+              <option value="2">moyen</option>
+              <option value="3">difficile</option>
             </select>
           </label>
           <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
@@ -163,8 +167,8 @@ function HomePage() {
             Bienvenue {auth.userVerified.pseudo} !
           </h1>
         ) : null}
-
         <div className={!auth.token ? "blur-sm" : null}>
+          {/* // blur-sm */}
           <ul className="flex flex-row justify-center flex-wrap gap-16">
             <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
               <h1 className="text-beige text-2xl">Créer ma recette</h1>
@@ -184,21 +188,25 @@ function HomePage() {
                 key={r.id}
                 className="rounded-2xl w-72 h-80 p-0 bg-green text-center"
               >
-                <h1 className="text-beige text-2xl m-2 uppercase">{r.title}</h1>
-                <div className="flex flex-row justify-around m-5">
-                  <div>{difficultyEmoji(r.difficulty)}</div>
-                  <img className="h-8 w-8 ml-32" src={timer} alt="" />
-                  <p className="text-beige">: {r.preparation_time}min</p>
+                <h1 className="text-beige text-lg m-2 uppercase">{r.title}</h1>
+                <div className="flex flex-row justify-between m-2">
+                  <div className="flex flex-row h-6 w-7">
+                    {difficultyEmoji(r.difficulty)}
+                  </div>
+                  <p className="text-beige mb-2 flex flex-row">
+                    <img
+                      className="h-8 w-8 items-center mb-2"
+                      src={timer}
+                      alt={timer}
+                    />
+                    : {r.preparation_time} min
+                  </p>
                 </div>
-                <img
-                  src={r.image}
-                  alt={r.image}
-                  className="rounded-2xl mt-4 object-cover"
-                />
+                <img className="rounded-2xl h-56" src={r.image} alt={r.image} />
                 <div className="flex flex-col items-center justify-center">
                   <NavLink
                     to={`/recipe/${r.id}`}
-                    className="rounded-xl mb-16 bg-green text-beige p-1.5 absolute"
+                    className="rounded-xl mb-14 bg-green text-beige p-1.5 absolute"
                   >
                     En savoir plus
                   </NavLink>

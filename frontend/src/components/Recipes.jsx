@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
+import ReactStars from "react-stars";
 import { useOutletContext } from "react-router-dom";
 import { sum, stringToNumberArray } from "../services/calculator";
 
 import difficult from "../assets/logo_difficulty/diff-chef.png";
 import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
 
-function Recipes({ recipe }) {
+function Recipes({ recipe, notation }) {
   const { auth } = useOutletContext();
 
   const { infos, comments, steps } = recipe;
-
+  const [recipeNote, setRecipeNote] = useState(notation);
+  const [isNoted, setIsNoted] = useState(false);
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
       case 1:
@@ -70,9 +73,41 @@ function Recipes({ recipe }) {
     });
   }
 
+  // Récupère la notation de l'utilisateur et la post en base de donnée
+  const ratingChanged = (newRating) => {
+    axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
+        note: newRating,
+        recipeID: recipe.infos.id,
+        userID: auth.id,
+      })
+      .then((res) => console.info(res.data))
+      .then(setIsNoted(true));
+  };
+
+  // met à jour la note moyenne à chaque vote
+  useEffect(() => {
+    if (isNoted) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/note/${infos.id}`)
+        .then((res) => setRecipeNote(res.data))
+        .then(setIsNoted(false));
+    }
+  }, [isNoted]);
+
   return (
     <div className="m-5 text-xl">
-      <h1>{infos.title}</h1>
+      <div>
+        <h1 className="text-4xl">{infos.title}</h1>
+        {recipeNote.average_note && (
+          <p>
+            Note moyenne des utilisateurs : <br />
+            {Math.round(recipeNote.average_note * 100) / 100}/5 sur{" "}
+            {recipeNote.total_note}{" "}
+            {recipeNote.total_note === 1 ? "vote" : "votes"}
+          </p>
+        )}
+      </div>
       <div className={!auth.token ? "blur-sm" : null}>
         <img
           src={infos.image}
@@ -83,6 +118,10 @@ function Recipes({ recipe }) {
               : "flex flex-col w-full h-96 rounded-3xl"
           }
         />
+        <div className="flex flex-row justify-center gap-4 mb-2 text-2xl">
+          <p>Noter la recette :</p>
+          <ReactStars onChange={ratingChanged} size={32} half={false} />
+        </div>
         <div className="flex flex-col">
           <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-8 justify-center text-beige bg-orange">
             <div className="text-center text-lg">
@@ -95,7 +134,7 @@ function Recipes({ recipe }) {
             </div>
             <div className="text-center text-lg">
               <p>Difficulté</p>
-              <p className="flex flex-row gap-2 items-center">
+              <p className="flex sm:flex-row flex-col gap-2 items-center">
                 {difficultyEmoji(infos.difficulty)}
               </p>
             </div>
@@ -153,6 +192,7 @@ function Recipes({ recipe }) {
 
 Recipes.propTypes = {
   recipe: PropTypes.shape().isRequired,
+  notation: PropTypes.shape().isRequired,
 };
 
 export default Recipes;
