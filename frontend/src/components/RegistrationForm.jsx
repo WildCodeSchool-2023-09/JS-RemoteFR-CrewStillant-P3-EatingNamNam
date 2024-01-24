@@ -17,7 +17,7 @@ export default function RegistrationForm() {
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, data)
       .then((res) => console.info(res.data));
     localStorage.setItem("accessVisible", true);
-    navigate("/Login");
+    navigate("/login");
   };
 
   return (
