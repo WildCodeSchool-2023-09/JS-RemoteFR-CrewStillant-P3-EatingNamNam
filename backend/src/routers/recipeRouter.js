@@ -23,7 +23,7 @@ router.get("/:id", read);
 
 router.use(verifyToken);
 
-router.post("/", add);
+router.post("/", verifyToken, add);
 
 router.put("/:id", edit);
 

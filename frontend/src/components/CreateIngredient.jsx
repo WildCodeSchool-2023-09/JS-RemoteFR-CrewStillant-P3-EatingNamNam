@@ -2,8 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import { useOutletContext } from "react-router-dom";
 
-function CreateIngredient({ setIsCreatedIngredient }) {
+function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
+  const { auth } = useOutletContext();
   const {
     register,
     handleSubmit,
@@ -13,23 +15,29 @@ function CreateIngredient({ setIsCreatedIngredient }) {
 
   const onSubmit = (data) => {
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/ingredient`, data)
-      .then((res) => setIsCreatedIngredient(res.data))
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/ingredient`, data, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
+      .then((res) => console.info(res.data))
       .then(setIsCreatedIngredient(true));
     reset();
+    setIsVisible(false);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center gap-2"
+    >
       <p>
-        Si votre ingrédient ne figure pas sur la liste, vous pouvez le créer
+        Pour créer un nouvel ingrédient, veuillez remplir les champs suivants :
       </p>
-      <label>
-        Nom de l'ingrédient:
+      <div className="flex flex-rox gap-8">
+        <label htmlFor="name">Nom de l'ingrédient : </label>
         <input
           type="text"
           name="name"
-          placeholder="Entrer l'ingrédient"
+          placeholder="ex:Banane"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register("name", {
             required: "Ce champ est obligatoire",
@@ -39,14 +47,13 @@ function CreateIngredient({ setIsCreatedIngredient }) {
         {errors.name && (
           <span className="text-red-500">{errors.name?.message}</span>
         )}
-      </label>
-
-      <label>
-        Calories:
+      </div>
+      <div className="flex flex-rox gap-8">
+        <label htmlFor="calories">Calories (pour 100g) : </label>
         <input
           type="number"
           name="calories"
-          placeholder="Entrer les calories"
+          placeholder="ex : 250"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register("calories", {
             required: "Ce champ est obligatoire",
@@ -64,14 +71,13 @@ function CreateIngredient({ setIsCreatedIngredient }) {
         {errors.calories && (
           <span className="text-red-500">{errors.calories?.message}</span>
         )}
-      </label>
-
-      <label>
-        Fat:
+      </div>
+      <div className="flex flex-rox gap-8">
+        <label htmlFor="fat">Lipides (pour 100g) : </label>
         <input
           type="number"
           name="fat"
-          placeholder="Entrer les gras"
+          placeholder="ex : 45"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register("fat", {
             required: "Ce champ est obligatoire",
@@ -89,14 +95,13 @@ function CreateIngredient({ setIsCreatedIngredient }) {
         {errors.fat && (
           <span className="text-red-500">{errors.fat?.message}</span>
         )}
-      </label>
-
-      <label>
-        Sucre:
+      </div>
+      <div className="flex flex-rox gap-8">
+        <label htmlFor="sugar">Glucides (pour 100g) : </label>
         <input
           type="number"
           name="sugar"
-          placeholder="Entrer le sucre"
+          placeholder="ex : 45"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register("sugar", {
             required: "Ce champ est obligatoire",
@@ -114,14 +119,13 @@ function CreateIngredient({ setIsCreatedIngredient }) {
         {errors.sugar && (
           <span className="text-red-500">{errors.sugar?.message}</span>
         )}
-      </label>
-
-      <label>
-        Protein:
+      </div>
+      <div className="flex flex-rox gap-8">
+        <label htmlFor="protein">Protéines (pour 100g) : </label>
         <input
           type="number"
           name="protein"
-          placeholder="Entrer les protéines"
+          placeholder="ex : 25"
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register("protein", {
             required: "Ce champ est obligatoire",
@@ -139,10 +143,9 @@ function CreateIngredient({ setIsCreatedIngredient }) {
         {errors.protein && (
           <span className="text-red-500">{errors.protein?.message}</span>
         )}
-      </label>
-
-      <label>
-        Ingrédient liquide ou solide :
+      </div>
+      <div className="flex flex-rox gap-8">
+        <label htmlFor="unit_id">Liquide ou solide : </label>
         <select
           name="unit_id"
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -151,16 +154,29 @@ function CreateIngredient({ setIsCreatedIngredient }) {
             valueAsNumber: "Un nombre est obligatoire",
           })}
         >
-          <option value="">All</option>
+          <option value="">---</option>
           <option value="2">Liquide</option>
           <option value="1">Solide</option>
         </select>
         {errors.unit_id && (
           <span className="text-red-500">{errors.unit_id?.message}</span>
         )}
-      </label>
-
-      <button type="submit">Ajouter l'ingrédient</button>
+      </div>
+      <div className="flex flex-rox gap-8">
+        <button
+          type="button"
+          onClick={() => setIsVisible(false)}
+          className="shadow-lg border-2 border-green rounded-md p-1"
+        >
+          Annuler
+        </button>
+        <button
+          type="submit"
+          className="shadow-lg border-2 border-green rounded-md p-1"
+        >
+          Créer l'ingrédient
+        </button>
+      </div>
     </form>
   );
 }
@@ -168,5 +184,6 @@ function CreateIngredient({ setIsCreatedIngredient }) {
 export default CreateIngredient;
 
 CreateIngredient.propTypes = {
-  setIsCreatedIngredient: PropTypes.arrayOf.isRequired,
+  setIsCreatedIngredient: PropTypes.func.isRequired,
+  setIsVisible: PropTypes.func.isRequired,
 };

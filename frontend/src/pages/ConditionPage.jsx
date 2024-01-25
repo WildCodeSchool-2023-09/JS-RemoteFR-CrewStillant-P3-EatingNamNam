@@ -1,5 +1,5 @@
 import Condition from "../components/Condition";
 
-export default function Conditions() {
+export default function ConditionsPage() {
   return <Condition />;
 }

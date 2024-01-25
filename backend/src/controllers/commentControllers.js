@@ -75,7 +75,7 @@ const add = async (req, res, next) => {
     if (newRefComment == null) {
       res.sendStatus(404);
     } else {
-      res.status(201).json({ message: "comment created successfully" });
+      res.status(201).json({ message: "Commentaire posté" });
     }
   } catch (err) {
     next(err);

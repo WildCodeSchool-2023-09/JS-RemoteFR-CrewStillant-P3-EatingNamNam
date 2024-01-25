@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -47,7 +48,6 @@ function ContactPage() {
               className="w-full h-10 bg-orange text-beige"
               type="text"
               name="name"
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...register("name", {
                 required: "Ce champ est obligatoire",
                 minLength: { value: 3, message: "Minimum 3 caractères" },
@@ -65,7 +65,6 @@ function ContactPage() {
             <input
               className="w-full h-10 bg-orange text-beige"
               type="email"
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...register("email", {
                 pattern: {
                   value: /[\w.%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}/,
@@ -87,7 +86,6 @@ function ContactPage() {
           </label>
           <textarea
             className="w-full h-40 bg-orange text-beige"
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...register("message", {
               required: "Ce champ est obligatoire",
               minLength: { value: 7, message: "Minimum 7 caractères" },
