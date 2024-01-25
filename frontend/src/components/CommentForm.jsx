@@ -4,12 +4,10 @@ import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 
 export default function CommentForm({ recipeID, setIsValidated }) {
   const { auth } = useOutletContext();
-  const decoded = auth && jwtDecode(auth.token);
   const [isCreated, setIsCreated] = useState(false);
   const {
     register,
@@ -19,7 +17,6 @@ export default function CommentForm({ recipeID, setIsValidated }) {
   } = useForm({
     defaultValues: {
       recipe_id: recipeID,
-      user_id: decoded.sub,
     },
   });
 
