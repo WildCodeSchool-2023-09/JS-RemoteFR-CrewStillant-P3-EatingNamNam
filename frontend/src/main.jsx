@@ -9,7 +9,6 @@ import CreateRecipePage from "./pages/CreateRecipePage";
 import RecipesPage from "./pages/RecipesPage";
 import UserPage from "./pages/UserPage";
 import UserInformation from "./components/UserInformation";
-import FavRecipe from "./components/FavRecipe";
 import AdminPage from "./pages/AdminPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import LoginPage from "./pages/LoginPage";
@@ -84,14 +83,6 @@ const router = createBrowserRouter([
           {
             path: "/user/favorites/",
             element: <UserFavoriteRecipe />,
-          },
-          {
-            path: "/user/favorite/:id",
-            element: <FavRecipe />,
-            loader: async ({ params }) => {
-              const user = await axios.get(`${apiUrl}/api/user/${params.id}`);
-              return user;
-            },
           },
         ],
       },
