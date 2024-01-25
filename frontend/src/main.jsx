@@ -83,6 +83,12 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <AdminPage />,
+        loader: async () => {
+          const unit = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/unit`
+          );
+          return { unit };
+        },
       },
       {
         path: "/contact",

@@ -1,6 +1,10 @@
 import { saveAs } from "file-saver";
+import { useLoaderData } from "react-router-dom";
+import EditIngredient from "../components/EditIngredient";
 
 export default function AdminPage() {
+  const { unit } = useLoaderData();
+
   const handleClick = async () => {
     try {
       const csv = await fetch(
@@ -18,6 +22,7 @@ export default function AdminPage() {
       <h1 className="text-3xl text-green border-2 border-orange p-2 rounded-md m-1 text-center">
         Bienvenue sur votre page administrateur
       </h1>
+      <EditIngredient unit={unit.data} />
 
       <button
         type="button"

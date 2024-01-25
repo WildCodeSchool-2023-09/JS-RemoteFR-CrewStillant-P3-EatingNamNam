@@ -12,7 +12,6 @@ function CreateIngredient({ setIsCreatedIngredient }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.info(data);
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/ingredient`, data)
       .then((res) => setIsCreatedIngredient(res.data))
