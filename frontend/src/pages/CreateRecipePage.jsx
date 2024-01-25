@@ -2,14 +2,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import IngredientsForm from "../components/IngredientsForm";
 import RecipeStepForm from "../components/RecipeStepForm";
 import RecipeInformationForm from "../components/RecipeInformationForm";
 
 function CreateRecipePage() {
   const { auth } = useOutletContext();
-  const decoded = auth && jwtDecode(auth.token);
 
   const navigate = useNavigate();
   const { ingredients, unit } = useLoaderData();
@@ -22,7 +20,6 @@ function CreateRecipePage() {
       info: selectedInformations,
       ingredients: selectedIngredients,
       steps: selectedSteps,
-      userID: decoded.sub,
     };
 
     axios

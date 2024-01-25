@@ -1,14 +1,18 @@
 import { saveAs } from "file-saver";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import UsersInfoAdmin from "../components/UsersInfoAdmin";
 
 export default function AdminPage() {
+  const { auth } = useOutletContext();
   const users = useLoaderData();
 
   const handleClick = async () => {
     try {
       const csv = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/dl`
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/dl`,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
       ).then((res) => res.blob());
 
       saveAs(csv, "users_informations.csv");

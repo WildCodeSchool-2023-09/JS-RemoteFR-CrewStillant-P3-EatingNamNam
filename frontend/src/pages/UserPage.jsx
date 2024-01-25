@@ -1,29 +1,27 @@
 import { NavLink, Outlet, useOutletContext } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 
 export default function UserPage() {
   const { auth } = useOutletContext();
-  const decoded = auth && jwtDecode(auth.token);
 
   const navUser = [
     {
       id: 1,
-      path: `/user/info/${decoded.sub}`,
+      path: `/user/info`,
       name: "Mon profil",
     },
     {
       id: 2,
-      path: `/user/created/${decoded.sub}`,
+      path: `/user/created`,
       name: "Mes recettes créées",
     },
     {
       id: 3,
-      path: `/user/favorites/${decoded.sub}`,
+      path: `/user/favorites`,
       name: "Mes recettes favorites",
     },
     {
       id: 4,
-      path: `/user/comments/${decoded.sub}`,
+      path: `/user/comments`,
       name: "Mes commentaires",
     },
   ];
@@ -40,7 +38,7 @@ export default function UserPage() {
           </NavLink>
         ))}
       </div>
-      <Outlet context={auth} />
+      <Outlet context={{ auth }} />
     </div>
   );
 }

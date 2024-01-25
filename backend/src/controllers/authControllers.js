@@ -16,7 +16,7 @@ const login = async (req, res, next) => {
     }
     const verified = await argon2.verify(user.password, password);
 
-    const { id, pseudo, role } = user;
+    const { id, pseudo, role, mail: email } = user;
 
     if (!verified) {
       res.status(403).json({
@@ -24,13 +24,13 @@ const login = async (req, res, next) => {
       });
     } else {
       const token = await jwt.sign(
-        { sub: id, isAdmin: role, name: pseudo },
+        { sub: id, mail: email, isAdmin: role },
         process.env.APP_SECRET,
         {
           expiresIn: "2h",
         }
       );
-      res.status(200).json({ token });
+      res.status(200).json({ token, email, role, pseudo });
     }
   } catch (error) {
     next(error);

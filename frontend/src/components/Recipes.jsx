@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import ReactStars from "react-stars";
 import { useOutletContext } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import { sum, stringToNumberArray } from "../services/calculator";
 
 import difficult from "../assets/logo_difficulty/diff-chef.png";
@@ -11,7 +10,6 @@ import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
 
 function Recipes({ recipe, notation }) {
   const { auth } = useOutletContext();
-  const decoded = auth && jwtDecode(auth.token);
   const { infos, comments, steps } = recipe;
   const [recipeNote, setRecipeNote] = useState(notation);
   const [isNoted, setIsNoted] = useState(false);
@@ -71,11 +69,16 @@ function Recipes({ recipe, notation }) {
   // Récupère la notation de l'utilisateur et la post en base de donnée
   const ratingChanged = (newRating) => {
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
-        note: newRating,
-        recipeID: recipe.infos.id,
-        userID: decoded.sub,
-      })
+      .post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/note`,
+        {
+          note: newRating,
+          recipeID: recipe.infos.id,
+        },
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      )
       .then((res) => console.info(res.data))
       .then(setIsNoted(true));
   };

@@ -4,10 +4,13 @@ const router = express.Router();
 
 const { userValidation } = require("../middlewares/userValidation");
 const { hash } = require("../middlewares/hashPassword");
+const { verifyToken } = require("../services/verifyToken");
 
 const {
   browse,
   read,
+  readRecipe,
+  readComment,
   edit,
   editRole,
   editAnonymous,
@@ -20,15 +23,19 @@ router.get("/", browse);
 
 router.post("/", userValidation, hash, add);
 
-router.get("/dl", download);
+router.get("/dl", userValidation, download);
 
-router.get("/:id", read);
+router.get("/recipe", verifyToken, readRecipe);
 
-router.put("/role/", editRole);
+router.get("/comment", verifyToken, readComment);
 
-router.put("/:id", userValidation, hash, edit);
+router.get("/account", verifyToken, read);
 
-router.put("/anonymous/:id", editAnonymous);
+router.put("/account", verifyToken, userValidation, hash, edit);
+
+router.put("/role/", verifyToken, editRole);
+
+router.put("/anonymous/:id", verifyToken, editAnonymous);
 
 router.delete("/:id", destroy);
 

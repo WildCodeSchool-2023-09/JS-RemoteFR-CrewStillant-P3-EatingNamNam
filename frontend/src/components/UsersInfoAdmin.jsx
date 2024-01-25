@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment/min/moment-with-locales";
@@ -7,6 +8,7 @@ import edit from "../assets/iconEdit.png";
 
 export default function UsersInfoAdmin({ users }) {
   moment.locale("fr");
+  const { auth } = useOutletContext();
 
   const [updatedUsers, setUpdatedUsers] = useState(users);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -21,10 +23,16 @@ export default function UsersInfoAdmin({ users }) {
       newRole = 1;
     }
     try {
-      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/user/role`, {
-        id: user.id,
-        role_id: newRole,
-      });
+      await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/role`,
+        {
+          id: user.id,
+          role_id: newRole,
+        },
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      );
 
       setIsUpdated(true);
     } catch (error) {
@@ -35,7 +43,10 @@ export default function UsersInfoAdmin({ users }) {
     // on ne supprime pas vraiment l'utilisateur mais on l'edit avec 'anonymous' dans tous ses champs
     try {
       await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/anonymous/${id}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/anonymous/${id}`,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
       );
 
       setIsUpdated(true);

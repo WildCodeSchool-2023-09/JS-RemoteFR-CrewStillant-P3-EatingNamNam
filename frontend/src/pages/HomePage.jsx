@@ -1,6 +1,5 @@
 import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 import { useState } from "react";
-import { jwtDecode } from "jwt-decode";
 
 import Carousel from "../components/carousel/Carousel";
 import timer from "../assets/timer/minuteur.png";
@@ -11,7 +10,6 @@ import Access from "../components/Access";
 
 function HomePage() {
   const { auth } = useOutletContext();
-  const decoded = auth && jwtDecode(auth.token);
   const recipes = useLoaderData();
   const [accessVisible, setAccessVisible] = useState(
     localStorage.getItem("accessVisible")
@@ -115,9 +113,9 @@ function HomePage() {
             accessVisible={accessVisible}
           />
         )}
-        {decoded ? (
+        {auth?.pseudo ? (
           <h1 className="text-center text-4xl my-2">
-            Bienvenu {decoded.name} !
+            Bienvenu {auth.pseudo} !
           </h1>
         ) : null}
         <Carousel recipes={recipes} />
@@ -189,7 +187,7 @@ function HomePage() {
           </div>
         </div>
         <div>
-          <div className={!decoded ? "blur-sm" : null}>
+          <div className={!auth?.pseudo ? "blur-sm" : null}>
             <ul className="flex flex-row justify-center flex-wrap gap-16">
               <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
                 <h1 className="text-beige text-2xl">Créer ma recette</h1>

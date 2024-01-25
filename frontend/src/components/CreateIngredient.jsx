@@ -2,8 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import { useOutletContext } from "react-router-dom";
 
 function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
+  const { auth } = useOutletContext();
   const {
     register,
     handleSubmit,
@@ -13,7 +15,9 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
 
   const onSubmit = (data) => {
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/ingredient`, data)
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/ingredient`, data, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
       .then((res) => console.info(res.data))
       .then(setIsCreatedIngredient(true));
     reset();

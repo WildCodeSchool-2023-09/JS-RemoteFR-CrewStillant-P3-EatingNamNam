@@ -2,4 +2,4 @@
 id,firstname,lastname,birthdate,pseudo,mail,week_time_kitchen,weight,registration_date,role_id,role
 1,anonymous,anonymous,1899-12-31T23:50:39.000Z,anonymous,anonymous1@anonymous.fr,999,999,2024-01-23T19:15:40.000Z,1,member
 2,Pierre,Arnaudet,1989-06-11T22:00:00.000Z,Le meilleur des Pruneaux,pierre.arnaudet44@gmail.com,7,65,2024-01-24T15:52:06.000Z,1,member
-3,Toto,Toto,1988-12-31T23:00:00.000Z,Toto,toto@toto.fr,5,55,2024-01-24T19:46:12.000Z,1,member
+3,Toto,Toto,1988-12-31T23:00:00.000Z,Toto,toto@toto.fr,5,55,2024-01-24T19:46:12.000Z,2,admin
