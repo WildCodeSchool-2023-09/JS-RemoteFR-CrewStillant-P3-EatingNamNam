@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function Login() {
+  const navigate = useNavigate();
   const { setAuth } = useOutletContext();
   const [err, setErr] = useState("");
   const {
@@ -14,12 +15,20 @@ export default function Login() {
   } = useForm();
 
   const onSubmit = (data) => {
-    axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/auth`, data)
-      .then((res) => setAuth(res.data))
-      .catch((error) => {
-        setErr(error.response.data.message);
-      });
+    try {
+      axios
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/auth`, data)
+        .then((res) => {
+          setAuth(res.data);
+          localStorage.setItem("accessVisible", true);
+          navigate("/");
+        })
+        .catch((error) => {
+          setErr(error.response.data.message);
+        });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

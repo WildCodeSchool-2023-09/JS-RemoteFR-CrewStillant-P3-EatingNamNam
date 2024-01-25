@@ -16,6 +16,7 @@ const ContactManager = require("./models/ContactManager");
 const IngredientRecipeManager = require("./models/IngredientRecipeManager");
 const StepManager = require("./models/StepManager");
 const NotationManager = require("./models/NotationManager");
+const RecipeUserManager = require("./models/RecipeUserManager");
 
 const managers = [
   FavRecipeManager,
@@ -31,6 +32,7 @@ const managers = [
   IngredientRecipeManager,
   StepManager,
   NotationManager,
+  RecipeUserManager,
 ];
 
 // Create an empty object to hold data managers for different tables

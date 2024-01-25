@@ -6,12 +6,17 @@ import App from "./App";
 import Contact from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import CreateRecipePage from "./pages/CreateRecipePage";
-import Conditions from "./pages/ConditionPage";
 import RecipesPage from "./pages/RecipesPage";
 import UserPage from "./pages/UserPage";
 import UserInformation from "./components/UserInformation";
 import FavRecipe from "./components/FavRecipe";
 import AdminPage from "./pages/AdminPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import LoginPage from "./pages/LoginPage";
+import ConditionsPage from "./pages/ConditionPage";
+import UserCreatedRecipe from "./components/UserCreatedRecipe";
+import UserComments from "./components/UserComments";
+import UserFavoriteRecipe from "./components/UserFavoriteRecipe";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -65,12 +70,20 @@ const router = createBrowserRouter([
         element: <UserPage />,
         children: [
           {
-            path: "/user/info/:id",
+            path: "/user/info/",
             element: <UserInformation />,
-            loader: async ({ params }) => {
-              const user = await axios.get(`${apiUrl}/api/user/${params.id}`);
-              return user;
-            },
+          },
+          {
+            path: "/user/created/",
+            element: <UserCreatedRecipe />,
+          },
+          {
+            path: "/user/comments/",
+            element: <UserComments />,
+          },
+          {
+            path: "/user/favorites/",
+            element: <UserFavoriteRecipe />,
           },
           {
             path: "/user/favorite/:id",
@@ -83,8 +96,26 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "/registration",
+        element: <RegistrationPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
         path: "/admin",
         element: <AdminPage />,
+        loader: async () => {
+          const users = axios
+            .get(`${apiUrl}/api/user/`)
+            .then((res) => res.data);
+
+          const unit = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/unit`
+          );
+          return { unit, users };
+        },
       },
       {
         path: "/contact",
@@ -92,7 +123,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/Conditions",
-        element: <Conditions />,
+        element: <ConditionsPage />,
       },
       {
         path: "*",

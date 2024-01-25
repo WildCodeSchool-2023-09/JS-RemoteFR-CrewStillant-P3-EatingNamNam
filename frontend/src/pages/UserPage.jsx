@@ -1,7 +1,8 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useOutletContext } from "react-router-dom";
 
 export default function UserPage() {
-  // const { auth } = useOutletContext;
+  const { auth } = useOutletContext();
+
   const navUser = [
     {
       id: 1,
@@ -37,7 +38,7 @@ export default function UserPage() {
           </NavLink>
         ))}
       </div>
-      <Outlet />
+      <Outlet context={{ auth }} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ const ingredientRecipeSchema = z.object({
   ingredient: z
     .string()
     .min(2)
-    .regex(/[A-Za-z]+$/, {
+    .regex(/^([a-zA-Z ']*)$/, {
       message: "Ingredient must contain only alphabetic",
     }),
   mesure_unit: z
