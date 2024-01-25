@@ -1,10 +1,12 @@
 import { saveAs } from "file-saver";
 import { useLoaderData, useOutletContext } from "react-router-dom";
+import EditIngredient from "../components/EditIngredient";
 import UsersInfoAdmin from "../components/UsersInfoAdmin";
 
 export default function AdminPage() {
+  const { unit, users } = useLoaderData();
+
   const { auth } = useOutletContext();
-  const users = useLoaderData();
 
   const handleClick = async () => {
     try {
@@ -28,6 +30,7 @@ export default function AdminPage() {
       </h1>
 
       <UsersInfoAdmin users={users} />
+      <EditIngredient unit={unit.data} />
 
       <button
         type="button"

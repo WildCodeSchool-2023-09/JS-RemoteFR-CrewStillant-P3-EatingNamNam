@@ -95,7 +95,14 @@ const router = createBrowserRouter([
         path: "/admin",
         element: <AdminPage />,
         loader: async () => {
-          return axios.get(`${apiUrl}/api/user/`).then((res) => res.data);
+          const users = axios
+            .get(`${apiUrl}/api/user/`)
+            .then((res) => res.data);
+
+          const unit = await axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/unit`
+          );
+          return { unit, users };
         },
       },
       {
