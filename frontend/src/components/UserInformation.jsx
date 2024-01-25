@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useLoaderData, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -10,11 +10,27 @@ import cancel from "../assets/cancel.png";
 
 export default function UserInformation() {
   const { auth } = useOutletContext();
-  const { data } = useLoaderData();
-  const [updatedData, setUpdatedData] = useState(data);
-  const [isUpdated, setIsUpdated] = useState(false);
+  const [updatedData, setUpdatedData] = useState();
+  const [isUpdated, setIsUpdated] = useState(true);
   const [inputsValidated, setInputsValidated] = useState(false);
   moment.locale("fr");
+
+  useEffect(() => {
+    if (isUpdated) {
+      try {
+        axios
+          .get(`${import.meta.env.VITE_BACKEND_URL}/api/user/account`, {
+            headers: { Authorization: `Bearer ${auth.token}` },
+          })
+          .then((res) => {
+            setUpdatedData(res.data);
+            setIsUpdated(false);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [isUpdated]);
 
   const {
     register,
@@ -23,19 +39,7 @@ export default function UserInformation() {
     reset,
     resetField,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      firstname: updatedData.firstname,
-      lastname: updatedData.lastname,
-      birthdate: moment(updatedData.birthdate).format("YYYY-MM-DD"),
-      mail: updatedData.mail,
-      pseudo: updatedData.pseudo,
-      week_time_kitchen: updatedData.week_time_kitchen,
-      weight: updatedData.weight,
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  } = useForm();
 
   const visibleArray = [
     { id: 1, visible: false },
@@ -61,12 +65,24 @@ export default function UserInformation() {
     const index = arrayId - 1;
     setVisible(visible.toSpliced(index, 1, { id: arrayId, visible: false }));
   };
-
   const onSubmit = async (newData) => {
     setVisible(visibleArray);
+
+    Object.keys(newData).forEach((key) => {
+      if (newData[key] !== updatedData[key]) {
+        updatedData[key] = newData[key];
+      }
+    });
+
     try {
       await axios
-        .put(`${import.meta.env.VITE_BACKEND_URL}/api/user/`, newData)
+        .put(
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/account`,
+          updatedData,
+          {
+            headers: { Authorization: `Bearer ${auth.token}` },
+          }
+        )
         .then((res) => console.info(res.data))
         .then(setIsUpdated(true))
         .then(setInputsValidated(false));
@@ -75,21 +91,6 @@ export default function UserInformation() {
     }
     reset();
   };
-
-  useEffect(() => {
-    if (isUpdated) {
-      try {
-        axios
-          .get(`${import.meta.env.VITE_BACKEND_URL}/api/user/${auth.id}`)
-          .then((res) => {
-            setUpdatedData(res.data);
-            setIsUpdated(false);
-          });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, [isUpdated]);
 
   return (
     <div className="flex flex-col bg-orange rounded-2xl m-4 p-4 text-beige w-fit">
@@ -135,7 +136,7 @@ export default function UserInformation() {
           </div>
         ) : (
           <div className="flex flex-row gap-2">
-            <p className="text-2xl my-2">Pseudo : {updatedData.pseudo}</p>
+            <p className="text-2xl my-2">Pseudo : {updatedData?.pseudo}</p>
             <button type="button" onClick={() => handleFormVisible(1)}>
               <img src={edit} alt="crayon" className="w-6" />
             </button>
@@ -180,7 +181,7 @@ export default function UserInformation() {
           </div>
         ) : (
           <div className="flex flex-row gap-2">
-            <p className="text-2xl my-2">Prénom : {updatedData.firstname}</p>
+            <p className="text-2xl my-2">Prénom : {updatedData?.firstname}</p>
             <button type="button" onClick={() => handleFormVisible(2)}>
               <img src={edit} alt="crayon" className="w-6" />
             </button>
@@ -224,7 +225,7 @@ export default function UserInformation() {
           </div>
         ) : (
           <div className="flex flex-row gap-2">
-            <p className="text-2xl my-2">Nom : {updatedData.lastname}</p>
+            <p className="text-2xl my-2">Nom : {updatedData?.lastname}</p>
             <button type="button" onClick={() => handleFormVisible(3)}>
               <img src={edit} alt="crayon" className="w-6" />
             </button>
@@ -265,7 +266,7 @@ export default function UserInformation() {
           </div>
         ) : (
           <div className="flex flex-row gap-2">
-            <p className="text-2xl my-2">E-mail : {updatedData.mail}</p>
+            <p className="text-2xl my-2">E-mail : {updatedData?.mail}</p>
             <button type="button" onClick={() => handleFormVisible(4)}>
               <img src={edit} alt="crayon" className="w-6" />
             </button>
@@ -308,7 +309,7 @@ export default function UserInformation() {
         ) : (
           <div className="flex flex-row gap-2">
             <p className="text-2xl my-2">
-              Date de naissance : {moment(updatedData.birthdate).format("L")}
+              Date de naissance : {moment(updatedData?.birthdate).format("L")}
             </p>
             <button type="button" onClick={() => handleFormVisible(5)}>
               <img src={edit} alt="crayon" className="w-6" />
@@ -349,7 +350,7 @@ export default function UserInformation() {
           </div>
         ) : (
           <div className="flex flex-row gap-2">
-            <p className="text-2xl my-2">Poids : {updatedData.weight} kg</p>
+            <p className="text-2xl my-2">Poids : {updatedData?.weight} kg</p>
             <button type="button" onClick={() => handleFormVisible(6)}>
               <img src={edit} alt="crayon" className="w-6" />
             </button>
@@ -390,7 +391,7 @@ export default function UserInformation() {
         ) : (
           <div className="flex flex-row gap-2">
             <p className="text-2xl my-2">
-              Temps passé en cuisine (h/s) : {updatedData.week_time_kitchen}
+              Temps passé en cuisine (h/s) : {updatedData?.week_time_kitchen}
             </p>
             <button type="button" onClick={() => handleFormVisible(7)}>
               <img src={edit} alt="crayon" className="w-6" />
@@ -473,7 +474,7 @@ export default function UserInformation() {
 
         <p className="text-2xl my-2">
           Date de création du compte :{" "}
-          {moment(updatedData.registration_date).format("LLLL")}
+          {moment(updatedData?.registration_date).format("LLLL")}
         </p>
         <div className="flex flex-col items-center gap-2">
           {inputsValidated ? (

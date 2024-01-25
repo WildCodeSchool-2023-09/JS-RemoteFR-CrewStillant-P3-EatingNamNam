@@ -14,14 +14,9 @@ const login = async (req, res, next) => {
         message: "Combinaison e-mail / mot-de-passe invalide",
       });
     }
-
     const verified = await argon2.verify(user.password, password);
 
-    const userVerified = {
-      id: user.id,
-      pseudo: user.pseudo,
-      role: user.role_id,
-    };
+    const { id, pseudo, role, mail: email } = user;
 
     if (!verified) {
       res.status(403).json({
@@ -29,13 +24,13 @@ const login = async (req, res, next) => {
       });
     } else {
       const token = await jwt.sign(
-        { sub: user.id, isAdmin: user.isAdmin },
+        { sub: id, mail: email, isAdmin: role },
         process.env.APP_SECRET,
         {
           expiresIn: "2h",
         }
       );
-      res.status(200).json({ token, userVerified });
+      res.status(200).json({ token, email, role, pseudo });
     }
   } catch (error) {
     next(error);

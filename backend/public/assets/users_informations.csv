@@ -1,7 +1,5 @@
 "sep=,"
-id,firstname,lastname,birthdate,pseudo,mail,week_time_kitchen,weight,registration_date,role_id
-1,Pierre,Arnaudet,1989-06-11T22:00:00.000Z,Toto,pierre.arnaudet44@gmail.com,5,64,2024-01-05T18:54:10.000Z,1
-2,toto,toto,2024-01-10T23:00:00.000Z,toto,toto@toto.fr,5,45,2024-01-07T17:07:37.000Z,1
-3,Faiza,Fehri,1991-09-10T22:00:00.000Z,Fafaizou,fafa@fafa.fr,5,50,2024-01-07T17:23:24.000Z,1
-4,P,Arnaudet,1989-06-10T22:00:00.000Z,toto,pierre.arnaudet44@gmail.com,5,64,2024-01-08T15:08:11.000Z,1
-6,Arthur,Jolie,1990-06-14T22:00:00.000Z,La Poule,arthur.jolie@gmail.com,5,85,2024-01-08T21:18:07.000Z,1
+id,firstname,lastname,birthdate,pseudo,mail,week_time_kitchen,weight,registration_date,role_id,role
+1,anonymous,anonymous,1899-12-31T23:50:39.000Z,anonymous,anonymous1@anonymous.fr,999,999,2024-01-23T19:15:40.000Z,1,member
+2,Pierre,Arnaudet,1989-06-11T22:00:00.000Z,Le meilleur des Pruneaux,pierre.arnaudet44@gmail.com,7,65,2024-01-24T15:52:06.000Z,1,member
+3,Toto,Toto,1988-12-31T23:00:00.000Z,Toto,toto@toto.fr,5,55,2024-01-24T19:46:12.000Z,2,admin

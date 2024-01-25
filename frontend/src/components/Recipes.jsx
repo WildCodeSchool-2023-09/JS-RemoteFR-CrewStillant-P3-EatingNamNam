@@ -10,7 +10,6 @@ import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
 
 function Recipes({ recipe, notation }) {
   const { auth } = useOutletContext();
-
   const { infos, comments, steps } = recipe;
   const [recipeNote, setRecipeNote] = useState(notation);
   const [isNoted, setIsNoted] = useState(false);
@@ -18,31 +17,30 @@ function Recipes({ recipe, notation }) {
     switch (difficulty) {
       case 1:
         return (
-          <div>
-            <img className="h-7 w-7" src={difficult} alt={difficult} />
-          </div>
+          <>
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={diffNone} alt="" width={32} />
+            <img src={diffNone} alt="" width={32} />
+          </>
         );
       case 2:
         return (
           <>
-            <img className="h-7 w-7" src={difficult} alt={difficult} />
-            <img className="h-7 w-7" src={difficult} alt={diffNone} />
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={diffNone} alt="" width={32} />
           </>
         );
       case 3:
         return (
           <>
-            <img className="h-7 w-7" src={difficult} alt={difficult} />
-            <img className="h-7 w-7" src={difficult} alt={difficult} />
-            <img className="h-7 w-7" src={difficult} alt={difficult} />
+            <img src={difficult} alt="" width={32} />
+            <img src={difficult} alt="" width={32} />
+            <img src={difficult} alt="" width={32} />
           </>
         );
       default:
-        return (
-          <div>
-            <img className="h-7 w-7" src={diffNone} alt={diffNone} />
-          </div>
-        );
+        return <img src={diffNone} alt="" width={32} />;
     }
   };
 
@@ -71,11 +69,16 @@ function Recipes({ recipe, notation }) {
   // Récupère la notation de l'utilisateur et la post en base de donnée
   const ratingChanged = (newRating) => {
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
-        note: newRating,
-        recipeID: recipe.infos.id,
-        userID: auth.id,
-      })
+      .post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/note`,
+        {
+          note: newRating,
+          recipeID: recipe.infos.id,
+        },
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      )
       .then((res) => console.info(res.data))
       .then(setIsNoted(true));
   };
@@ -93,46 +96,50 @@ function Recipes({ recipe, notation }) {
   return (
     <div className="m-5 text-xl">
       <div>
-        <h1 className="text-4xl text-center p-10 m-5">{infos.title}</h1>
+        <h1 className="text-4xl text-center m-5">{infos.title}</h1>
         {recipeNote.average_note && (
-          <p>
-            Note moyenne des utilisateurs : <br />
-            {Math.round(recipeNote.average_note * 100) / 100}/5 sur{" "}
-            {recipeNote.total_note}{" "}
-            {recipeNote.total_note === 1 ? "vote" : "votes"}
-          </p>
+          <div className="flex sm:flex-row flex-col justify-center">
+            <p>Note moyenne des utilisateurs : </p>
+            <p>
+              {Math.round(recipeNote.average_note * 100) / 100}/5 sur{" "}
+              {recipeNote.total_note}{" "}
+              {recipeNote.total_note === 1 ? "vote" : "votes"}
+            </p>
+          </div>
         )}
       </div>
       <div className={!auth.token ? "blur-sm" : null}>
-        <div className="flex flex-row justify-between m-3">
-          <img
-            src={infos.image}
-            alt={infos.title}
-            className={
-              !auth
-                ? "blur-md flex flex-col w-full h-96 rounded-3xl"
-                : "flex flex-col h-96 w- rounded-3xl"
-            }
-          />
-          <div className="flex flex-row justify-center gap-4 mb-2 text-2xl">
-            <p>Noter la recette :</p>
-            <ReactStars onChange={ratingChanged} size={32} half={false} />
+        <div className="flex flex-col sm:flex-row justify-around items-center m-3">
+          <div>
+            <img
+              src={infos.image}
+              alt={infos.title}
+              className={
+                !auth
+                  ? "blur-md flex flex-col w-full h-96 rounded-3xl"
+                  : "flex flex-col h-96 w- rounded-3xl"
+              }
+            />
+            <div className="flex sm:flex-row flex-col items-center sm:justify-center sm:gap-4 mb-2 text-2xl">
+              <p>Noter la recette :</p>
+              <ReactStars onChange={ratingChanged} size={32} half={false} />
+            </div>
           </div>
           <div className="flex flex-col">
-            <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-8 justify-center text-beige bg-orange">
-              <div className="text-center text-lg">
-                <p>Temps de préparation</p>
+            <div className="rounded-2xl flex flex-col justify-center text-lg mb-3 p-2 sm:w-112 text-beige bg-orange">
+              <div className="flex flex-row justify-between px-2">
+                <p>Temps de préparation :</p>
                 <p>{infos.preparation_time} minutes</p>
               </div>
-              <div className="text-center text-lg">
-                <p>Temps de cuisson</p>
+              <div className="flex flex-row justify-between px-2">
+                <p>Temps de cuisson :</p>
                 <p>{infos.cooking_time} minutes</p>
               </div>
-              <div className="text-center text-lg">
-                <p>Difficulté</p>
-                <p className="flex sm:flex-row flex-col gap-2 items-center">
+              <div className="flex flex-row justify-between px-2">
+                <p>Difficulté :</p>
+                <div className="flex flex-row  items-center">
                   {difficultyEmoji(infos.difficulty)}
-                </p>
+                </div>
               </div>
             </div>
             <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-3 justify-center text-beige bg-orange">
@@ -153,7 +160,7 @@ function Recipes({ recipe, notation }) {
                 <p>{totalProteins}g</p>
               </div>
             </div>
-            <div className="rounded-2xl p-2 h-52 text-beige text-lg mt-5 bg-orange">
+            <div className="rounded-2xl p-2 h-fit text-beige text-lg mt-5 bg-orange">
               <p>Liste des ingrédients :</p>
               <ul className="sm:columns-3 columns-2">
                 {ingredientList.map((i) => (
@@ -166,7 +173,7 @@ function Recipes({ recipe, notation }) {
           </div>
         </div>
         <p className="text-orange mb-3">Etapes de préparation:</p>
-        <div className="border-green h-28 flex flex-col border-4 rounded-2xl p-3 bg-slate-200 mb-4 gap-4">
+        <div className="border-green h-fit flex flex-col border-4 rounded-2xl p-3 bg-slate-200 mb-4 gap-4">
           {steps.map((s, index) => (
             <p key={s.id}>
               Etape {index + 1} : {s.text}
@@ -174,7 +181,7 @@ function Recipes({ recipe, notation }) {
           ))}
         </div>
         <p className="text-orange mt-5 mb-3">Commentaires:</p>
-        <div className="border-green h-28 flex flex-col gap-4 border-4 rounded-2xl p-3 bg-slate-200">
+        <div className="border-green h-fit flex flex-col gap-4 border-4 rounded-2xl p-3 bg-slate-200">
           {comments.map((c) => (
             <div className="flex flex-col gap-1" key={c.id}>
               <p>{c.pseudo} :</p>
