@@ -41,7 +41,10 @@ const router = createBrowserRouter([
           const notation = await axios
             .get(`${apiUrl}/api/note/${id}`)
             .then((res) => res.data);
-          return { recipe, notation };
+          const favorite = await axios
+            .get(`${apiUrl}/api/favorite/${id}`)
+            .then((res) => res.data);
+          return { recipe, notation, favorite };
         },
       },
       {

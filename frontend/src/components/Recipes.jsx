@@ -10,7 +10,7 @@ import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
 import redHeart from "../assets/logo_fav/red-heart.png";
 import heartNone from "../assets/logo_fav/heart-none.png";
 
-function Recipes({ recipe, notation }) {
+function Recipes({ recipe, notation, favorite }) {
   const { auth } = useOutletContext();
 
   const { infos, comments, steps } = recipe;
@@ -19,31 +19,40 @@ function Recipes({ recipe, notation }) {
 
   // ajoutez / enlevez les recettes favorites
 
-  const [favList, setFavList] = useState();
+  const [favList, setFavList] = useState(favorite);
   const [isTrue, setIsTrue] = useState(false);
-  const isFav = favList?.userList?.includes(`${auth.id}`);
+  const isFav = favList?.userList ? favList.userList?.includes(`1`) : null;
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`)
-      .then((res) => setFavList(res.data));
-    setIsTrue(false);
+    if (isTrue) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`)
+        .then((res) => setFavList(res.data));
+      setIsTrue(false);
+    }
   }, [isTrue]);
 
   const handleClick = async () => {
     const data = { userID: 1, recipeID: infos.id };
     await axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/favorite`, data)
-      .then((res) => console.info(res.data))
-      .then(setIsTrue(true));
+      .then((res) => console.info(res.data));
+    setIsTrue(true);
   };
 
   const handleClickSupp = async () => {
-    const ID = 1;
+    const arrayIdList = favList.idList.split(",");
+
+    const arrayUserList = favList.userList.split(",");
+
+    const index = arrayUserList.findIndex((e) => e === 1);
+
+    const ID = arrayIdList[index];
+
     await axios
       .delete(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${ID}`)
-      .then((res) => console.info(res.data))
-      .then(setIsTrue(true));
+      .then((res) => console.info(res.data));
+    setIsTrue(true);
   };
 
   const difficultyEmoji = (difficulty) => {
@@ -136,7 +145,7 @@ function Recipes({ recipe, notation }) {
         )}
       </div>
 
-      {isFav && isFav ? (
+      {!isFav ? (
         <button type="button" onClick={handleClick}>
           <img className="h-7" src={redHeart} alt={redHeart} />
           Ajoutez à vos favoris
@@ -234,6 +243,7 @@ function Recipes({ recipe, notation }) {
 Recipes.propTypes = {
   recipe: PropTypes.shape().isRequired,
   notation: PropTypes.shape().isRequired,
+  favorite: PropTypes.shape().isRequired,
 };
 
 export default Recipes;
