@@ -43,32 +43,33 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
     setImageRecipe(newimageurl.imageUrl);
   };
   return (
-    <div className="border rounded-2xl items-center mb-3 p-3 text-black bg-orange">
+    <div className="border rounded-2xl items-center mb-3 p-3 bg-orange">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-row justify-center">
-          <div className="gap-4">
-            <img src={imageRecipe} alt="" />
-            <label htmlFor="type">Choisissez votre type de recette</label>
-            <select
-              name="type"
-              {...register("type", {
-                required: "Ce champ est obligatoire ",
-              })}
-              onChange={handleImageUrlChange}
-            >
-              {imageArray.map((i) => (
-                <option key={i.id} value={i.name}>
-                  {i.name}
-                </option>
-              ))}
-            </select>
+          <div className="flex flex-col gap-2">
+            <div>
+              <label htmlFor="type">Choisissez votre type de recette</label>
+              <select
+                name="type"
+                {...register("type", {
+                  required: "Ce champ est obligatoire ",
+                })}
+                onChange={handleImageUrlChange}
+              >
+                {imageArray.map((i) => (
+                  <option key={i.id} value={i.name}>
+                    {i.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <img src={imageRecipe} alt="plat" />
             <input type="hidden" value={imageRecipe} {...register("image")} />
           </div>
-          <div className="justify-center p-4 gap-4">
-            <div className="flex gap-4 mb-3">
+          <div className="flex flex-col items-start p-4 gap-4">
+            <div className="flex flex-col gap-1">
               <label htmlFor="title">Titre de votre recette</label>
               <input
-                placeholder="Le titre de votre recette"
                 type="text"
                 {...register("title", {
                   required: "ce champ est obligatoire",
@@ -88,13 +89,12 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                 </span>
               )}
             </div>
-
-            <div className="flex flex-col gap-4 mb-3">
+            <div className="flex flex-col gap-1">
               <label htmlFor="cookingTime">
                 Temps de cuisson en minutes de votre recette
               </label>
               <input
-                className="w-48"
+                className="w-24"
                 placeholder="ex : 40"
                 type="number"
                 min="0"
@@ -118,11 +118,13 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                   {errors.cookingTime?.message}
                 </span>
               )}
+            </div>
+            <div className="flex flex-col gap-1">
               <label htmlFor="preparationTime">
                 Temps de préparation en minutes de votre recette{" "}
               </label>
               <input
-                className="w-48"
+                className="w-24"
                 placeholder="ex : 30"
                 type="number"
                 min="0"
@@ -147,9 +149,10 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                 </span>
               )}
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
               <label htmlFor="difficulty"> Difficulté de votre recette </label>
               <select
+                className="w-24"
                 {...register("difficulty", {
                   required: "Ce champ est obligatoire ",
                   valueAsNumber: "Un nombre est obligatoire",
@@ -167,12 +170,15 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
             </div>
             {formIsValidated ? (
               <p>
-                Bravo, vous venez de valider la première étape de votre recette
-                🥕🥕🥕
+                Vos informations sont enregistrées. Maintenant, ajoutez les
+                ingrédients nécessaires
               </p>
             ) : (
-              <button className="" type="submit">
-                Validez les informations de votre recette ici ! 🥕🥕🥕
+              <button
+                className="border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
+                type="submit"
+              >
+                Validez ces informations
               </button>
             )}
           </div>

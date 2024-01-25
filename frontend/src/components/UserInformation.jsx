@@ -3,6 +3,7 @@ import { useLoaderData, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import moment from "moment/min/moment-with-locales";
 import userImg from "../assets/defaultimg.png";
 import edit from "../assets/iconEdit.png";
@@ -10,6 +11,7 @@ import cancel from "../assets/cancel.png";
 
 export default function UserInformation() {
   const { auth } = useOutletContext();
+  const decoded = auth && jwtDecode(auth.token);
   const { data } = useLoaderData();
   const [updatedData, setUpdatedData] = useState(data);
   const [isUpdated, setIsUpdated] = useState(false);
@@ -80,7 +82,7 @@ export default function UserInformation() {
     if (isUpdated) {
       try {
         axios
-          .get(`${import.meta.env.VITE_BACKEND_URL}/api/user/${auth.id}`)
+          .get(`${import.meta.env.VITE_BACKEND_URL}/api/user/${decoded.sub}`)
           .then((res) => {
             setUpdatedData(res.data);
             setIsUpdated(false);

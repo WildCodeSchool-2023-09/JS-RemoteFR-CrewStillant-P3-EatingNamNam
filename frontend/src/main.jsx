@@ -3,16 +3,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import HomePage from "./pages/HomePage";
 import Contact from "./pages/ContactPage";
+import HomePage from "./pages/HomePage";
 import CreateRecipePage from "./pages/CreateRecipePage";
-import Conditions from "./pages/ConditionPage";
 import RecipesPage from "./pages/RecipesPage";
 import UserPage from "./pages/UserPage";
 import UserInformation from "./components/UserInformation";
 import AdminPage from "./pages/AdminPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import LoginPage from "./pages/LoginPage";
+import ConditionsPage from "./pages/ConditionPage";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -95,7 +95,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/Conditions",
-        element: <Conditions />,
+        element: <ConditionsPage />,
       },
       {
         path: "*",

@@ -1,7 +1,9 @@
 import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
+
 import Carousel from "../components/carousel/Carousel";
-// import timer from "../assets/timer/minuteur.png";
+import timer from "../assets/timer/minuteur.png";
 import difficult from "../assets/logo_difficulty/diff-chef.png";
 import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
 
@@ -9,6 +11,7 @@ import Access from "../components/Access";
 
 function HomePage() {
   const { auth } = useOutletContext();
+  const decoded = auth && jwtDecode(auth.token);
   const recipes = useLoaderData();
   const [accessVisible, setAccessVisible] = useState(
     localStorage.getItem("accessVisible")
@@ -17,24 +20,31 @@ function HomePage() {
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
       case 1:
-        return <img className="h-8 w-8" src={difficult} alt={difficult} />;
+        return (
+          <>
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={diffNone} alt="" width={32} />
+            <img src={diffNone} alt="" width={32} />
+          </>
+        );
       case 2:
         return (
           <>
-            <img className="h-8 w-8" src={difficult} alt={difficult} />
-            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={diffNone} alt="" width={32} />
           </>
         );
       case 3:
         return (
           <>
-            <img className="h-8 w-8" src={difficult} alt="" />
-            <img className="h-8 w-8" src={difficult} alt="" />
-            <img className="h-8 w-8" src={difficult} alt="" />
+            <img src={difficult} alt="" width={32} />
+            <img src={difficult} alt="" width={32} />
+            <img src={difficult} alt="" width={32} />
           </>
         );
       default:
-        return <img className="h-8 w-8" src={diffNone} alt="" />;
+        return <img src={diffNone} alt="" width={32} />;
     }
   };
 
@@ -95,7 +105,7 @@ function HomePage() {
   };
 
   return (
-    <div className="m-20">
+    <div>
       <div>
         {accessVisible ? (
           ""
@@ -105,34 +115,38 @@ function HomePage() {
             accessVisible={accessVisible}
           />
         )}
-
+        {decoded ? (
+          <h1 className="text-center text-4xl my-2">
+            Bienvenu {decoded.name} !
+          </h1>
+        ) : null}
         <Carousel recipes={recipes} />
         <div className="border-solid border-y-4 border-orange m-10">
           <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-16"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("All")}
             >
               All
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-28"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("healthy")}
             >
               Healthy
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-28"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("light")}
             >
               Light
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-28"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("fat")}
             >
               Fat
@@ -175,11 +189,7 @@ function HomePage() {
           </div>
         </div>
         <div>
-          {auth.token ? (
-            <h1 className="text-center text-4xl">Bienvenue {auth.pseudo} !</h1>
-          ) : null}
-          <div className={!auth.token ? "blur-sm" : null}>
-            {/* // blur-sm */}
+          <div className={!decoded ? "blur-sm" : null}>
             <ul className="flex flex-row justify-center flex-wrap gap-16">
               <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
                 <h1 className="text-beige text-2xl">Créer ma recette</h1>
@@ -197,14 +207,20 @@ function HomePage() {
               {filteredRecipes.map((r) => (
                 <li
                   key={r.id}
-                  className="rounded-2xl w-72 h-80 p-0 bg-green text-center"
+                  className="rounded-2xl w-72 h-max-80 p-0 bg-green text-center"
                 >
                   <h1 className="text-beige text-lg m-2 uppercase">
                     {r.title}
                   </h1>
-                  <div className="flex flex-row justify-between m-2">
-                    <div className="flex flex-row h-6 w-7">
-                      {difficultyEmoji(r.difficulty)}
+                  <div className="flex flex-col justify-between m-2">
+                    <div className="flex flex-row justify-between">
+                      <div className="flex flex-row">
+                        {difficultyEmoji(r.difficulty)}
+                      </div>
+                      <div className="flex flex-row text-2xl">
+                        <img src={timer} alt="timer" width={32} />
+                        <p>{r.preparation_time}'</p>
+                      </div>
                     </div>
                     <img
                       src={r.image}

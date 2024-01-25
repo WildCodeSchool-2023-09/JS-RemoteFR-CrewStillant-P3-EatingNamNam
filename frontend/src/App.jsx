@@ -11,7 +11,7 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [auth, setAuth] = useState({ token: "" });
+  const [auth, setAuth] = useState();
   return (
     <div className="bg-beige">
       <Navbar auth={auth} />

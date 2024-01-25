@@ -16,10 +16,10 @@ class IngredientRecipeManager extends AbstractManager {
     return rows;
   }
 
-  async create(commentID, userID, recipeID) {
+  async create(recipeID, ingredient) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (comment_id, user_id, recipe_id) VALUES (?,?,?)`,
-      [commentID, userID, recipeID]
+      `INSERT INTO ${this.table} (quantity, mesure_unit_recipe, recipe_id, ingredient_id) VALUES (?,?,?,?)`,
+      [ingredient.quantity, ingredient.mesure_unit, recipeID, ingredient.id]
     );
     return result.insertId;
   }

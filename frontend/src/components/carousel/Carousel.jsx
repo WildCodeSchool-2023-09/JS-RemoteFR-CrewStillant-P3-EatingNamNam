@@ -21,7 +21,8 @@ function Carousel({ recipes }) {
           gap: 10,
           breakpoints: {
             640: {
-              perPage: 1,
+              perPage: 2,
+              gap: 25,
             },
           },
         }}

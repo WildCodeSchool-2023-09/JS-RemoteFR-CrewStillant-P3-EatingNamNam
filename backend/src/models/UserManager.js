@@ -35,7 +35,6 @@ class UserManager extends AbstractManager {
     );
     return rows;
   }
-  // , COUNT(rc.recipe_id) AS total_recipe JOIN recipe_comment AS rc ON rc.user_id=u.id
 
   async read(id) {
     const [rows] = await this.database.query(
