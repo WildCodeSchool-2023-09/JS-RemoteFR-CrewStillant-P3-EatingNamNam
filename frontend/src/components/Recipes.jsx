@@ -10,7 +10,7 @@ import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
 import redHeart from "../assets/logo_fav/red-heart.png";
 import heartNone from "../assets/logo_fav/heart-none.png";
 
-function Recipes({ recipe, notation, favorite }) {
+function Recipes({ recipe, notation }) {
   const { auth } = useOutletContext();
 
   const { infos, comments, steps } = recipe;
@@ -19,40 +19,36 @@ function Recipes({ recipe, notation, favorite }) {
 
   // ajoutez / enlevez les recettes favorites
 
-  const [favList, setFavList] = useState(favorite);
-  const [isTrue, setIsTrue] = useState(false);
-  const isFav = favList?.userList ? favList.userList?.includes(`1`) : null;
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (isTrue) {
-      axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`)
-        .then((res) => setFavList(res.data));
-      setIsTrue(false);
-    }
-  }, [isTrue]);
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`)
+      .then((res) => setIsFavorite(res.data && true));
+  }, []);
 
   const handleClick = async () => {
     const data = { userID: 1, recipeID: infos.id };
-    await axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}/api/favorite`, data)
-      .then((res) => console.info(res.data));
-    setIsTrue(true);
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/favorite`,
+        data
+      );
+      setIsFavorite(true);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleClickSupp = async () => {
-    const arrayIdList = favList.idList.split(",");
-
-    const arrayUserList = favList.userList.split(",");
-
-    const index = arrayUserList.findIndex((e) => e === 1);
-
-    const ID = arrayIdList[index];
-
-    await axios
-      .delete(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${ID}`)
-      .then((res) => console.info(res.data));
-    setIsTrue(true);
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`
+      );
+      setIsFavorite(false);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const difficultyEmoji = (difficulty) => {
@@ -145,18 +141,16 @@ function Recipes({ recipe, notation, favorite }) {
         )}
       </div>
 
-      {!isFav ? (
-        <button type="button" onClick={handleClick}>
-          <img className="h-7" src={redHeart} alt={redHeart} />
-          Ajoutez à vos favoris
-        </button>
-      ) : (
-        <button type="button" onClick={handleClickSupp}>
-          <img className="h-7" src={heartNone} alt={heartNone} />
-          supprimer de vos favoris
-        </button>
-      )}
       <div className={!auth.token ? "" : null}>
+        {!isFavorite ? (
+          <button type="button" onClick={handleClick}>
+            <img className="h-7 ml-32 mt-32" src={redHeart} alt={redHeart} />
+          </button>
+        ) : (
+          <button type="button" onClick={handleClickSupp}>
+            <img className="h-7" src={heartNone} alt={heartNone} />
+          </button>
+        )}
         <div className="flex flex-row justify-between m-3">
           <img
             src={infos.image}
@@ -167,6 +161,7 @@ function Recipes({ recipe, notation, favorite }) {
                 : "flex flex-col h-96 w- rounded-3xl"
             }
           />
+
           <div className="flex flex-col">
             <div className="rounded-2xl flex flex-row mb-3 p-2 sm:gap-10 gap-8 justify-center text-beige bg-orange">
               <div className="text-center text-lg">
@@ -243,7 +238,6 @@ function Recipes({ recipe, notation, favorite }) {
 Recipes.propTypes = {
   recipe: PropTypes.shape().isRequired,
   notation: PropTypes.shape().isRequired,
-  favorite: PropTypes.shape().isRequired,
 };
 
 export default Recipes;

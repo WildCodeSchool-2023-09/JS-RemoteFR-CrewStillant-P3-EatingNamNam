@@ -22,14 +22,14 @@ const browse = async (req, res, next) => {
 const read = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const favorite = await tables.favoriteRecipe_user.readById(
-      parseInt(id, 10)
-    );
+    try {
+      const favorite = await tables.favoriteRecipe_user.readById(
+        parseInt(id, 10)
+      );
 
-    if (favorite == null) {
-      res.sendStatus(404);
-    } else {
       res.status(200).json(favorite);
+    } catch (e) {
+      next(e);
     }
   } catch (err) {
     next(err);
@@ -60,7 +60,7 @@ const add = async (req, res, next) => {
 const edit = async (req, res, next) => {
   try {
     const favorite = req.body;
-    const updatedFavorite = await tables.favorite.update(
+    const updatedFavorite = await tables.favoriteRecipe_user.update(
       favorite,
       parseInt(req.params.id, 10)
     );
