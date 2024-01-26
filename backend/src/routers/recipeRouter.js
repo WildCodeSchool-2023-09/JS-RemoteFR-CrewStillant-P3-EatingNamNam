@@ -1,6 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
+const { verifyToken } = require("../services/verifyToken");
 
 const {
   browse,
@@ -8,13 +9,21 @@ const {
   edit,
   add,
   destroy,
-} = require("../controllers/recipeControlers");
+} = require("../controllers/recipeControllers");
+
+const {
+  tableIngredientRecipeValidation,
+} = require("../middlewares/postRecipeValidation");
 
 router.get("/", browse);
 
-router.post("/", add);
+router.post("/", tableIngredientRecipeValidation, add);
 
 router.get("/:id", read);
+
+router.use(verifyToken);
+
+router.post("/", verifyToken, add);
 
 router.put("/:id", edit);
 

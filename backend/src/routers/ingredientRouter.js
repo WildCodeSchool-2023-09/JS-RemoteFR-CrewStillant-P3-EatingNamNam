@@ -4,17 +4,18 @@ const router = express.Router();
 
 const {
   browse,
-  read,
+  // read,
   edit,
   add,
   destroy,
 } = require("../controllers/ingredientControllers");
+const { verifyToken } = require("../services/verifyToken");
 
 router.get("/", browse);
 
-router.post("/", add);
+router.post("/", verifyToken, add);
 
-router.get("/:id", read);
+// router.get("/:id", read);
 
 router.put("/:id", edit);
 

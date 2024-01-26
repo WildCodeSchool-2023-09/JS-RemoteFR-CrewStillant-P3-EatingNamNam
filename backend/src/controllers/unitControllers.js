@@ -22,11 +22,10 @@ const browse = async (req, res, next) => {
 const read = async (req, res, next) => {
   try {
     const unit = await tables.unit.read(parseInt(req.params.id, 10));
-
     if (unit == null) {
       res.sendStatus(404);
     } else {
-      res.send(200).json(unit);
+      res.status(200).json(unit);
     }
   } catch (err) {
     next(err);

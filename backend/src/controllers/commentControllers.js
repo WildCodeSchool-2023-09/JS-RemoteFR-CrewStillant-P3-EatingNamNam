@@ -20,7 +20,9 @@ const browse = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const comment = await tables.comment.read(parseInt(req.params.id, 10));
+    const comment = await tables.comment.readByRecipe(
+      parseInt(req.params.id, 10)
+    );
 
     if (comment == null) {
       res.sendStatus(404);
@@ -56,13 +58,24 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const comment = req.body;
-    const newComment = await tables.comment.create(comment);
+    const { recipe_id: recipeID, user_id: userID, content } = req.body;
 
-    if (newComment == null) {
+    const newCommentID = await tables.comment.create(content);
+
+    if (newCommentID == null) {
+      res.sendStatus(404);
+    }
+
+    const newRefComment = await tables.recipe_comment.create(
+      newCommentID,
+      userID,
+      recipeID
+    );
+
+    if (newRefComment == null) {
       res.sendStatus(404);
     } else {
-      res.status(201).json({ message: "comment created successfully" });
+      res.status(201).json({ message: "Commentaire posté" });
     }
   } catch (err) {
     next(err);
