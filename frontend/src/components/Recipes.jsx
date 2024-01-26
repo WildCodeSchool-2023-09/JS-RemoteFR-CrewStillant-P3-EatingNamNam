@@ -7,12 +7,49 @@ import { sum, stringToNumberArray } from "../services/calculator";
 
 import difficult from "../assets/logo_difficulty/diff-chef.png";
 import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
+import redHeart from "../assets/logo_fav/red-heart.png";
+import heartNone from "../assets/logo_fav/heart-none.png";
 
 function Recipes({ recipe, notation }) {
   const { auth } = useOutletContext();
   const { infos, comments, steps } = recipe;
   const [recipeNote, setRecipeNote] = useState(notation);
   const [isNoted, setIsNoted] = useState(false);
+
+  // ajoutez / enlevez les recettes favorites
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`)
+      .then((res) => setIsFavorite(res.data && true));
+  }, []);
+
+  const handleClick = async () => {
+    const data = { userID: 1, recipeID: infos.id };
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/favorite`,
+        data
+      );
+      setIsFavorite(true);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleClickSupp = async () => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`
+      );
+      setIsFavorite(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
       case 1:
@@ -109,6 +146,15 @@ function Recipes({ recipe, notation }) {
         )}
       </div>
       <div className={!auth.token ? "blur-sm" : null}>
+        {!isFavorite ? (
+          <button type="button" onClick={handleClick}>
+            <img className="h-7 ml-32 mt-32" src={redHeart} alt={redHeart} />
+          </button>
+        ) : (
+          <button type="button" onClick={handleClickSupp}>
+            <img className="h-7" src={heartNone} alt={heartNone} />
+          </button>
+        )}
         <div className="flex flex-col sm:flex-row justify-around items-center m-3">
           <div>
             <img
@@ -171,6 +217,10 @@ function Recipes({ recipe, notation }) {
               </ul>
             </div>
           </div>
+        </div>
+        <div className="flex flex-row justify-center gap-2 text-2xl">
+          <p>Noter la recette :</p>
+          <ReactStars onChange={ratingChanged} size={32} half={false} />
         </div>
         <p className="text-orange mb-3">Etapes de préparation:</p>
         <div className="border-green h-fit flex flex-col border-4 rounded-2xl p-3 bg-slate-200 mb-4 gap-4">

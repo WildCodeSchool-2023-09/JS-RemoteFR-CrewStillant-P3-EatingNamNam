@@ -12,6 +12,7 @@ const unitRouter = require("./routers/unitRouter");
 const authRouter = require("./routers/authRouter");
 const notationRouter = require("./routers/NotationRouter");
 const contactRouter = require("./routers/contactRouter");
+const favRecipeRouter = require("./routers/favRecipeRouter");
 
 router.use("/user", userRouter);
 router.use("/comment", commentRouter);
@@ -23,5 +24,6 @@ router.use("/unit", unitRouter);
 router.use("/auth", authRouter);
 router.use("/note", notationRouter);
 router.use("/contact", contactRouter);
+router.use("/favorite", favRecipeRouter);
 
 module.exports = router;

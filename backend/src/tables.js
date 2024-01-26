@@ -3,6 +3,7 @@
 /* ************************************************************************* */
 
 // Import the manager modules responsible for handling data operations on the tables
+const FavRecipeManager = require("./models/FavRecipeManager");
 const CommentManager = require("./models/CommentManager");
 const IngredientManager = require("./models/IngredientManager");
 const RecipeManager = require("./models/RecipeManager");
@@ -18,6 +19,7 @@ const NotationManager = require("./models/NotationManager");
 const RecipeUserManager = require("./models/RecipeUserManager");
 
 const managers = [
+  FavRecipeManager,
   CommentManager,
   IngredientManager,
   RecipeManager,

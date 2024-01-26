@@ -5,7 +5,7 @@ import Recipes from "../components/Recipes";
 import CommentForm from "../components/CommentForm";
 
 function RecipesPage() {
-  const { recipe, notation } = useLoaderData();
+  const { recipe, notation, favorite } = useLoaderData();
   // States pour générer un nouvel affichage de la recette avec le commentaire juste posté
 
   const [isValidated, setIsValidated] = useState(false);
@@ -24,7 +24,7 @@ function RecipesPage() {
 
   return (
     <div>
-      <Recipes recipe={updatedData} notation={notation} />
+      <Recipes recipe={updatedData} notation={notation} favorite={favorite} />
       <CommentForm
         recipeID={updatedData.infos.id}
         isValidated={isValidated}
