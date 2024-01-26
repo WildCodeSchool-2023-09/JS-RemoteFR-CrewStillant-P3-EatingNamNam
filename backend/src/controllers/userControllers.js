@@ -94,7 +94,6 @@ const readRecipe = async (req, res, next) => {
     const { sub } = req.auth;
 
     const recipes = await tables.recipe_user.readByUserID(Number(sub));
-
     if (recipes == null) {
       res.sendStatus(404);
     } else {

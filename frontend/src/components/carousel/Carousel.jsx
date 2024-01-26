@@ -49,11 +49,7 @@ function Carousel({ recipes }) {
 }
 
 Carousel.propTypes = {
-  recipes: PropTypes.arrayOf({
-    id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default Carousel;

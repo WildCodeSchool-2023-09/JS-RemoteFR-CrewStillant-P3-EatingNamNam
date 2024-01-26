@@ -3,7 +3,7 @@ import { useOutletContext, NavLink } from "react-router-dom";
 import axios from "axios";
 
 export default function UserComments() {
-  const { auth } = useOutletContext;
+  const { auth } = useOutletContext();
   const [commentRecipe, setCommentRecipe] = useState();
 
   useEffect(() => {
@@ -19,21 +19,24 @@ export default function UserComments() {
   });
 
   return (
-    <section>
+    <section className="flex flex-col items-start text-2xl p-2 gap-4 mb-6">
       {!commentRecipe ? (
         <h1>Vous n'avez commenté aucune recette pour le moment !</h1>
       ) : (
         <>
-          <h1>Mes commentaires postés</h1>
+          <h1 className="border-b-4 border-green px-4">
+            Mes commentaires postés
+          </h1>
 
           {commentRecipe &&
             commentRecipe.map((r) => (
-              <>
-                <NavLink to={`/recipe/${r.recipe_id}`} key={r.id}>
-                  {r.title}
-                </NavLink>
+              <div
+                className="flex flex-col gap-2 pb-4 border-b-2 border-green text-xl"
+                key={r.id}
+              >
+                <NavLink to={`/recipe/${r.recipe_id}`}>{r.title}</NavLink>
                 <p>{r.comment}</p>
-              </>
+              </div>
             ))}
         </>
       )}

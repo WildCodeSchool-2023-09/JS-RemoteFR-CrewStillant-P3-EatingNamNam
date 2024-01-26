@@ -9,7 +9,7 @@ class RecipeCommentManager extends AbstractManager {
 
   async readByUserID(id) {
     const [rows] = await this.database.query(
-      `SELECT rc.id, r.title, c.content AS comment FROM {this.database} JOIN recipe AS r ON r.id = rc.recipe_id JOIN comment AS c ON c.id = rc.comment_id WHERE rc.user_id=?`,
+      `SELECT rc.id, rc.recipe_id, r.title, c.content AS comment FROM ${this.table} AS rc JOIN recipe AS r ON r.id = rc.recipe_id JOIN comment AS c ON c.id = rc.comment_id WHERE rc.user_id=?`,
       [id]
     );
     return rows;
