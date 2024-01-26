@@ -31,7 +31,7 @@ class UserManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `SELECT u.*, r.type AS role FROM ${this.table} AS u JOIN role AS r ON r.id = u.role_id`
+      `SELECT u.*, r.type AS role, COUNT(DISTINCT ru.recipe_id) AS total_recipe FROM ${this.table} AS u JOIN recipe_user AS ru ON ru.user_id=u.id JOIN role AS r ON r.id = u.role_id GROUP BY u.id`
     );
     return rows;
   }

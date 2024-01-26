@@ -11,7 +11,7 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState({});
 
   return (
     <div className="bg-beige">
