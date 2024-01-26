@@ -1,7 +1,7 @@
 // import RecipeCreation from "../components/RecipeCreation";
 import React, { useState } from "react";
 import axios from "axios";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
 import IngredientsForm from "../components/IngredientsForm";
 import RecipeStepForm from "../components/RecipeStepForm";
 import RecipeInformationForm from "../components/RecipeInformationForm";
@@ -9,6 +9,9 @@ import CreateIngredient from "../components/CreateIngredient";
 
 function CreateRecipePage() {
   const navigate = useNavigate();
+
+  const { auth } = useOutletContext();
+
   const { ingredients, unit } = useLoaderData();
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [selectedSteps, setSelectedSteps] = useState([]);
@@ -20,6 +23,7 @@ function CreateRecipePage() {
       info: selectedInformations,
       ingredients: selectedIngredients,
       steps: selectedSteps,
+      user_id: auth.userVerified.id,
     };
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/recipe`, data)

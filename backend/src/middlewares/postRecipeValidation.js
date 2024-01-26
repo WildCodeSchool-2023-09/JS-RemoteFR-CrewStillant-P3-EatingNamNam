@@ -39,12 +39,17 @@ const stepsRecipeSchema = z.object({
   step: z.string().min(10).max(1000),
 });
 
+const useridSchema = z.object({
+  user_id: z.number(),
+});
+
 const tableIngredientRecipeValidation = (req, res, next) => {
   try {
-    const { info, ingredients, steps } = req.body;
+    const { info, ingredients, steps, userId } = req.body;
     informationRecipeSchema.parse(info);
     ingredients.forEach((i) => ingredientRecipeSchema.parse(i));
     steps.forEach((s) => stepsRecipeSchema.parse(s));
+    useridSchema.parse(userId);
     next();
   } catch (error) {
     next(error);

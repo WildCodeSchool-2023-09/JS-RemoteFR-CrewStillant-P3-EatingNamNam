@@ -112,8 +112,8 @@ CREATE TABLE success (
 -- Table: success_user
 CREATE TABLE success_user (
     id int  NOT NULL AUTO_INCREMENT,
-    User_id int  NOT NULL,
-    Success_id int  NOT NULL,
+    user_id int  NOT NULL,
+    success_id int  NOT NULL,
     CONSTRAINT success_user_pk PRIMARY KEY (id)
 );
 
@@ -142,12 +142,13 @@ CREATE TABLE user (
 );
 
 -- foreign keys
--- Reference: Table_13_Success (table: success_user)
-ALTER TABLE success_user ADD CONSTRAINT Table_13_Success FOREIGN KEY Table_13_Success (Success_id)
+
+-- Reference: success_user-Success (table: success_user)
+ALTER TABLE success_user ADD CONSTRAINT success_user_Success FOREIGN KEY success_user_Success (Success_id)
     REFERENCES success (id);
 
--- Reference: Table_13_User (table: success_user)
-ALTER TABLE success_user ADD CONSTRAINT Table_13_User FOREIGN KEY Table_13_User (User_id)
+-- Reference: success_user-User (table: success_user)
+ALTER TABLE success_user ADD CONSTRAINT success_user_user FOREIGN KEY success_user_user (user_id)
     REFERENCES user (id);
 
 -- Reference: User_Role (table: user)

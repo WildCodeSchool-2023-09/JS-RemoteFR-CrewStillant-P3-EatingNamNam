@@ -61,7 +61,7 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const { info, ingredients, steps } = req.body;
+    const { info, ingredients, steps, userId } = req.body;
     const newRecipeInformation = await tables.recipe.create(info);
     if (newRecipeInformation == null) {
       res.sendStatus(404);
@@ -72,6 +72,7 @@ const add = async (req, res, next) => {
       for (let i = 0; i < steps.length; i += 1) {
         tables.step.create(steps[i].step, newRecipeInformation);
       }
+      tables.recipe_user.create(userId, newRecipeInformation);
       res
         .status(200)
         .json({ id: newRecipeInformation, message: `Recipe created` });
