@@ -1,7 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
-/* eslint-disable react/jsx-props-no-spreading */
 
 export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
   const {
@@ -21,26 +21,26 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
     setSelectedSteps(selectedSteps.toSpliced(index, 1));
   };
   return (
-    <div className="flex flex-col border rounded-2xl items-center mb-3 p-3 text-black bg-orange">
-      <div className="flex flex-col gap-4 mb-3">
-        <ul>
-          {selectedSteps.map((s, index) => (
-            <li className="bg-green w-64" key={selectedSteps.indexOf(s)}>
-              {" "}
-              Etape {index + 1} : {s.step}
-              <button type="button" onClick={() => handleDeleteStep(s)}>
-                Supprimer cette étape
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="step">
-          Pensez à détailler votre recette par étape :{" "}
-        </label>
+    <div className="flex flex-col rounded-2xl items-center mb-4 p-3 bg-orange">
+      <h2>Détaillez, ici, les étapes de réalisation de votre recette</h2>
+      <ul className="flex flex-col gap-4 my-2">
+        {selectedSteps.map((s, index) => (
+          <li className="flex flex-row gap-4" key={selectedSteps.indexOf(s)}>
+            {" "}
+            Etape {index + 1} : {s.step}
+            <button type="button" onClick={() => handleDeleteStep(s)}>
+              Supprimer cette étape
+            </button>
+          </li>
+        ))}
+      </ul>
+      <form
+        className="flex flex-col items-center gap-2 w-[50rem]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <textarea
-          className=" bg-red-700"
+          className="w-full"
+          placeholder="Etape :"
           name="step"
           {...register("step", {
             required: "ce champ est obligatoire",
@@ -61,7 +61,12 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
             {errors.step?.message}
           </span>
         )}
-        <button type="submit">J'envoie mon étape de recette 🥕🥕🥕</button>
+        <button
+          className="shadow-lg border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
+          type="submit"
+        >
+          Valider cette étape
+        </button>
       </form>
     </div>
   );

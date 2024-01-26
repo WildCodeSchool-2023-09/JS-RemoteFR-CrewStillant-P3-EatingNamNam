@@ -41,12 +41,13 @@ const read = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const { note, recipeID, userID } = req.body;
+    const { sub } = req.auth;
+    const { note, recipeID } = req.body;
 
     const newNoteID = await tables.notation.create(
       Number(note),
       Number(recipeID),
-      Number(userID)
+      Number(sub)
     );
 
     if (newNoteID == null) {

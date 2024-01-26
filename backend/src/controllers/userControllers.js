@@ -25,36 +25,46 @@ const browse = async (req, res, next) => {
 
 const download = async (req, res, next) => {
   try {
-    const users = await tables.user.readAll();
+    const { isAdmin } = req.auth;
 
-    if (users == null) {
-      res.sendStatus(404);
-    } else {
-      users.forEach((e) => {
-        delete e.password;
-      });
+    if (isAdmin === "admin") {
+      const users = await tables.user.readAll();
 
-      // cette ligne de code pour pouvoir générer une lecture propre avec Excel des données utilisateurs
-      const test = [{ "sep=,": "" }];
-
-      // je transforme mes 2 données JSON en CSV
-      const initFile = Papa.unparse(test);
-      const parsUsers = Papa.unparse(users);
-
-      // j'écris dans un nouveau fichier les données CSV
-      await fs.writeFile("./public/assets/users_informations.csv", initFile);
-      await fs.writeFile("./public/assets/users_informations.csv", parsUsers, {
-        flag: "a",
-      });
-
-      // Download function provided by express, je télécharge ce nouveau fichier vers le front
-      res
-        .status(200)
-        .download("./public/assets/users_informations.csv", (err) => {
-          if (err) {
-            console.error(err);
-          }
+      if (users == null) {
+        res.sendStatus(404);
+      } else {
+        users.forEach((e) => {
+          delete e.password;
         });
+
+        // cette ligne de code pour pouvoir générer une lecture propre avec Excel des données utilisateurs
+        const test = [{ "sep=,": "" }];
+
+        // je transforme mes 2 données JSON en CSV
+        const initFile = Papa.unparse(test);
+        const parsUsers = Papa.unparse(users);
+
+        // j'écris dans un nouveau fichier les données CSV
+        await fs.writeFile("./public/assets/users_informations.csv", initFile);
+        await fs.writeFile(
+          "./public/assets/users_informations.csv",
+          parsUsers,
+          {
+            flag: "a",
+          }
+        );
+
+        // Download function provided by express, je télécharge ce nouveau fichier vers le front
+        res
+          .status(200)
+          .download("./public/assets/users_informations.csv", (err) => {
+            if (err) {
+              console.error(err);
+            }
+          });
+      }
+    } else {
+      res.sendStatus(403);
     }
   } catch (err) {
     next(err);
@@ -65,14 +75,45 @@ const download = async (req, res, next) => {
 
 const read = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await tables.user.read(parseInt(id, 10));
+    const { mail } = req.auth;
+    const user = await tables.user.readByEmail(mail);
 
     if (user == null) {
       res.sendStatus(404);
     } else {
       delete user.password;
       res.status(200).json(user);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const readRecipe = async (req, res, next) => {
+  try {
+    const { sub } = req.auth;
+
+    const recipes = await tables.recipe_user.readByUserID(Number(sub));
+    if (recipes == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(recipes);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const readComment = async (req, res, next) => {
+  try {
+    const { sub } = req.auth;
+
+    const recipes = await tables.recipe_comment.readByUserID(Number(sub));
+
+    if (recipes == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(recipes);
     }
   } catch (error) {
     next(error);
@@ -94,7 +135,7 @@ const edit = async (req, res, next) => {
   } = req.body;
 
   try {
-    const user = await tables.user.readByEmail(req.body.mail);
+    const user = await tables.user.readByEmail(mail);
 
     if (user == null) {
       res.sendStatus(422);
@@ -103,14 +144,14 @@ const edit = async (req, res, next) => {
     const verified = await argon2.verify(user.password, req.body.password);
     if (verified) {
       delete req.body.password;
-      const id = parseInt(req.params.id, 10);
+      const id = parseInt(user.id, 10);
       const userUpdated = await tables.user.update(
         firstname,
         lastname,
         mail,
         pseudo,
         hashedPassword,
-        birthdate,
+        birthdate.split("T")[0],
         weight,
         weekTimeKitchen,
         id
@@ -122,6 +163,51 @@ const edit = async (req, res, next) => {
       }
     } else {
       res.sendStatus(422);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const editRole = async (req, res, next) => {
+  try {
+    const { isAdmin } = req.auth;
+
+    if (isAdmin === "admin") {
+      const { id, role_id: roleID } = req.body;
+
+      const newUserRole = await tables.user.updateRole(
+        Number(id),
+        Number(roleID)
+      );
+
+      if (newUserRole === 0) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json({ message: "Role updated" });
+      }
+    } else {
+      res.sendStatus(403);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const editAnonymous = async (req, res, next) => {
+  try {
+    const { isAdmin } = req.auth;
+
+    if (isAdmin === "admin") {
+      const { id } = req.params;
+      const anonymousUser = await tables.user.updateAnonymous(Number(id));
+      if (anonymousUser === 0) {
+        res.sendStatus(404);
+      } else {
+        res.status(200).json({ message: "Role updated" });
+      }
+    } else {
+      res.sendStatus(403);
     }
   } catch (error) {
     next(error);
@@ -165,7 +251,11 @@ const destroy = async (req, res, next) => {
 module.exports = {
   browse,
   read,
+  readRecipe,
+  readComment,
   edit,
+  editRole,
+  editAnonymous,
   add,
   destroy,
   download,

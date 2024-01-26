@@ -4,6 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function CommentForm({ recipeID, setIsValidated }) {
   const { auth } = useOutletContext();
@@ -16,7 +17,6 @@ export default function CommentForm({ recipeID, setIsValidated }) {
   } = useForm({
     defaultValues: {
       recipe_id: recipeID,
-      user_id: auth.userVerified.id,
     },
   });
 
@@ -26,7 +26,7 @@ export default function CommentForm({ recipeID, setIsValidated }) {
         .post(`${import.meta.env.VITE_BACKEND_URL}/api/comment`, data, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => console.info(res.data));
+        .then((res) => toast.success(res.data.message));
       setIsValidated(true);
       setIsCreated(true);
       reset();
@@ -52,7 +52,7 @@ export default function CommentForm({ recipeID, setIsValidated }) {
           >
             <textarea
               name="comment"
-              className="h-16 px-1 text-xl bg-slate-200 rounded-2xl w-full"
+              className="h-16 px-2 text-xl bg-slate-100 rounded-2xl w-full"
               {...register("content", {
                 required: "Ce champs est obligatoire",
                 minLength: {

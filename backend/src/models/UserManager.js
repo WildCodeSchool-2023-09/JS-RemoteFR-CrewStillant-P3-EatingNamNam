@@ -30,7 +30,9 @@ class UserManager extends AbstractManager {
   // The Rs of CRUD - Read operations
 
   async readAll() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    const [rows] = await this.database.query(
+      `SELECT u.*, r.type AS role, COUNT(DISTINCT ru.recipe_id) AS total_recipe FROM ${this.table} AS u JOIN recipe_user AS ru ON ru.user_id=u.id JOIN role AS r ON r.id = u.role_id GROUP BY u.id`
+    );
     return rows;
   }
 
@@ -44,7 +46,7 @@ class UserManager extends AbstractManager {
 
   async readByEmail(mail) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE mail = ?`,
+      `SELECT u.*, r.type AS role FROM ${this.table} AS u JOIN role AS r ON r.id = u.role_id WHERE mail = ?`,
       [mail]
     );
     return rows[0];
@@ -78,6 +80,23 @@ class UserManager extends AbstractManager {
     );
     return result.affectedRows;
   }
+
+  async updateRole(id, roleID) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET role_id=? WHERE id=?`,
+      [roleID, id]
+    );
+    return result.affectedRows;
+  }
+
+  async updateAnonymous(id) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET firstname= 'anonymous', lastname= 'anonymous', birthdate = '1900-01-01', pseudo= 'anonymous', mail= ?, password='anonymous', week_time_kitchen='999', weight='999', role_id=3 WHERE id=?`,
+      [`anonymous${id}@anonymous.fr`, id]
+    );
+    return result.affectedRows;
+  }
+
   // The D of CRUD - Delete operation
 
   async delete(id) {

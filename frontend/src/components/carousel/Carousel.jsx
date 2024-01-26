@@ -7,20 +7,22 @@ import PropTypes from "prop-types";
 function Carousel({ recipes }) {
   const navigate = useNavigate();
   // create new array for Store the first 5 pieces of data (methode slice?)
-  const card = recipes.slice(0, 5);
+  const card = recipes.slice(0, 10);
   return (
     <div>
       <Splide
         options={{
           type: "loop",
           focus: "center",
-          rewind: true,
+          start: 3,
+          pagination: false,
           perMove: 1,
           perPage: 5,
           gap: 10,
           breakpoints: {
             640: {
-              perPage: 1,
+              perPage: 2,
+              gap: 25,
             },
           },
         }}
@@ -47,11 +49,7 @@ function Carousel({ recipes }) {
 }
 
 Carousel.propTypes = {
-  recipes: PropTypes.arrayOf({
-    id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
+  recipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default Carousel;

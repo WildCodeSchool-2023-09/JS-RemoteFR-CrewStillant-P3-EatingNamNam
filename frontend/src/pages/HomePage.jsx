@@ -1,6 +1,7 @@
 import { NavLink, useLoaderData, useOutletContext } from "react-router-dom";
 import { useState } from "react";
 
+import Carousel from "../components/carousel/Carousel";
 import timer from "../assets/timer/minuteur.png";
 import difficult from "../assets/logo_difficulty/diff-chef.png";
 import diffNone from "../assets/logo_difficulty/diff-chef-none.png";
@@ -17,24 +18,31 @@ function HomePage() {
   const difficultyEmoji = (difficulty) => {
     switch (difficulty) {
       case 1:
-        return <img className="h-8 w-8" src={difficult} alt={difficult} />;
+        return (
+          <>
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={diffNone} alt="" width={32} />
+            <img src={diffNone} alt="" width={32} />
+          </>
+        );
       case 2:
         return (
           <>
-            <img className="h-8 w-8" src={difficult} alt={difficult} />
-            <img className="h-8 w-8" src={difficult} alt={difficult} />
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={difficult} alt={difficult} width={32} />
+            <img src={diffNone} alt="" width={32} />
           </>
         );
       case 3:
         return (
           <>
-            <img className="h-8 w-8" src={difficult} alt="" />
-            <img className="h-8 w-8" src={difficult} alt="" />
-            <img className="h-8 w-8" src={difficult} alt="" />
+            <img src={difficult} alt="" width={32} />
+            <img src={difficult} alt="" width={32} />
+            <img src={difficult} alt="" width={32} />
           </>
         );
       default:
-        return <img className="h-8 w-8" src={diffNone} alt="" />;
+        return <img src={diffNone} alt="" width={32} />;
     }
   };
 
@@ -96,41 +104,47 @@ function HomePage() {
 
   return (
     <div>
-      {accessVisible ? (
-        ""
-      ) : (
-        <Access
-          setAccessVisible={setAccessVisible}
-          accessVisible={accessVisible}
-        />
-      )}
-      <div className="m-20">
-        <div className="border-solid border-y-4 border-green m-10">
+      <div>
+        {accessVisible ? (
+          ""
+        ) : (
+          <Access
+            setAccessVisible={setAccessVisible}
+            accessVisible={accessVisible}
+          />
+        )}
+        {auth?.pseudo ? (
+          <h1 className="text-center text-4xl my-2">
+            Bienvenu {auth.pseudo} !
+          </h1>
+        ) : null}
+        <Carousel recipes={recipes} />
+        <div className="border-solid border-y-4 border-orange m-10">
           <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
             <button
               type="button"
-              className="bg-green text-beige p-4 rounded-2xl border border-beige w-16"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("All")}
             >
               All
             </button>
             <button
               type="button"
-              className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("healthy")}
             >
               Healthy
             </button>
             <button
               type="button"
-              className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("light")}
             >
               Light
             </button>
             <button
               type="button"
-              className="bg-green text-beige p-4 rounded-2xl border border-beige w-28"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
               onClick={() => handleAllFilters("fat")}
             >
               Fat
@@ -139,29 +153,29 @@ function HomePage() {
               <input
                 type="input"
                 placeholder="rechercher par nom"
-                className="bg-green text-beige p-4 rounded-2xl"
+                className="bg-orange text-beige p-4 rounded-2xl"
                 value={searchText}
                 onChange={handleSearch}
               />
             </div>
           </div>
           <div className="m-10 flex flex-row justify-center text-xl gap-6">
-            <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
+            <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
               Difficulté:
               <select
-                className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
+                className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1"
                 onChange={difficultyFiltered}
               >
                 <option value="">Tous</option>
-                <option value="1">🧑🏻‍🍳</option>
-                <option value="2">🧑🏻‍🍳🧑🏻‍🍳</option>
-                <option value="3">🧑🏻‍🍳🧑🏻‍🍳🧑🏻‍🍳</option>
+                <option value="1">facile</option>
+                <option value="2">moyen</option>
+                <option value="3">difficile</option>
               </select>
             </label>
-            <label className="bg-green text-beige p-2 rounded-2xl border border-beige">
+            <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
               Temps:
               <select
-                className="bg-green text-beige p-2 rounded-2xl border border-beige m-1"
+                className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1"
                 onChange={handleTimeFilter}
               >
                 <option value="">Tous</option>
@@ -173,17 +187,11 @@ function HomePage() {
           </div>
         </div>
         <div>
-          {auth.token ? (
-            <h1 className="text-center text-4xl">
-              Bienvenue {auth.userVerified.pseudo} !
-            </h1>
-          ) : null}
-
-          <div className={!auth.token ? "blur-sm" : null}>
+          <div className={!auth?.pseudo ? "blur-sm" : null}>
             <ul className="flex flex-row justify-center flex-wrap gap-16">
               <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
                 <h1 className="text-beige text-2xl">Créer ma recette</h1>
-                <NavLink to="/new-recipe">
+                <NavLink to="/createrecipe">
                   <div className="flex flex-col items-center justify-center mt-16">
                     <button
                       type="button"
@@ -197,28 +205,34 @@ function HomePage() {
               {filteredRecipes.map((r) => (
                 <li
                   key={r.id}
-                  className="rounded-2xl w-72 h-80 p-0 bg-green text-center"
+                  className="rounded-2xl w-72 h-max-80 p-0 bg-green text-center"
                 >
-                  <h1 className="text-beige text-2xl m-2 uppercase">
+                  <h1 className="text-beige text-lg m-2 uppercase">
                     {r.title}
                   </h1>
-                  <div className="flex flex-row justify-around m-5">
-                    <div>{difficultyEmoji(r.difficulty)}</div>
-                    <img className="h-8 w-8 ml-32" src={timer} alt="" />
-                    <p className="text-beige">: {r.preparation_time}min</p>
-                  </div>
-                  <img
-                    src={r.image}
-                    alt={r.image}
-                    className="rounded-2xl mt-4 object-cover"
-                  />
-                  <div className="flex flex-col items-center justify-center">
-                    <NavLink
-                      to={`/recipe/${r.id}`}
-                      className="rounded-xl mb-16 bg-green text-beige p-1.5 absolute"
-                    >
-                      En savoir plus
-                    </NavLink>
+                  <div className="flex flex-col justify-between m-2">
+                    <div className="flex flex-row justify-between">
+                      <div className="flex flex-row">
+                        {difficultyEmoji(r.difficulty)}
+                      </div>
+                      <div className="flex flex-row text-2xl">
+                        <img src={timer} alt="timer" width={32} />
+                        <p>{r.preparation_time}'</p>
+                      </div>
+                    </div>
+                    <img
+                      src={r.image}
+                      alt={r.image}
+                      className="rounded-2xl mt-4 object-cover"
+                    />
+                    <div className="flex flex-col items-center justify-center">
+                      <NavLink
+                        to={`/recipe/${r.id}`}
+                        className="rounded-xl mb-16 bg-green text-beige p-1.5 absolute"
+                      >
+                        En savoir plus
+                      </NavLink>
+                    </div>
                   </div>
                 </li>
               ))}

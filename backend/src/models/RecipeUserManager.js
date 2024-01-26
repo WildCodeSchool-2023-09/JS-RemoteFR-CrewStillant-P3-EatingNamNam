@@ -1,21 +1,27 @@
 const AbstractManager = require("./AbstractManager");
 
-class RecipeManager extends AbstractManager {
+class RecipeUserManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
-    // and pass the table name "item" as configuration
+    // and pass the table name "comments" as configuration
     super({ table: "recipe_user" });
   }
 
-  // The C of CRUD - Create operation
+  async readByUserID(id) {
+    const [rows] = await this.database.query(
+      `SELECT ru.id, ru.recipe_id , r.title FROM ${this.table} AS ru JOIN recipe AS r ON r.id = ru.recipe_id WHERE ru.user_id=?`,
+      [id]
+    );
+    return rows;
+  }
 
-  async create(recipeuser) {
+  async create(recipeID, userID) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (user_id, recipe_id) VALUES (?, ?)`,
-      [recipeuser.user_id, recipeuser.recipe_id]
+      `INSERT INTO ${this.table} (user_id, recipe_id) VALUES (?,?)`,
+      [userID, recipeID]
     );
     return result.insertId;
   }
 }
 
-module.exports = RecipeManager;
+module.exports = RecipeUserManager;
