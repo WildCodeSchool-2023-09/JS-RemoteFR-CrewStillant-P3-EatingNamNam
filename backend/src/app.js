@@ -81,21 +81,6 @@ app.use(express.json());
 
 /* ************************************************************************* */
 
-// Don't change these lines:
-app.use("/public/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../", req.originalUrl));
-});
-
-app.use("*", (req, res) => {
-  if (req.originalUrl.includes("assets")) {
-    res.sendFile(
-      path.resolve(__dirname, `../../frontend/dist/${req.originalUrl}`)
-    );
-  } else {
-    res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
-  }
-});
-
 // Import the API routes from the router module
 const router = require("./router");
 
@@ -134,6 +119,16 @@ app.get("*", (req, res) => {
 */
 
 /* ************************************************************************* */
+
+app.use("*", (req, res) => {
+  if (req.originalUrl.includes("assets")) {
+    res.sendFile(
+      path.resolve(__dirname, `../../frontend/dist/${req.originalUrl}`)
+    );
+  } else {
+    res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
+  }
+});
 
 // Middleware for Error Logging (Uncomment to enable)
 // Important: Error-handling middleware should be defined last, after other app.use() and routes calls.
