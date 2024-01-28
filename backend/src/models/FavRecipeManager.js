@@ -17,20 +17,28 @@ class FavRecipeManager extends AbstractManager {
     return result.insertId;
   }
 
-  async delete(ID) {
+  async delete(recipeID, userID) {
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE recipe_id=? AND user_id=?`,
-      [ID, 1]
+      [recipeID, userID]
     );
     return result.affectedRows;
   }
 
-  async readById(ID) {
+  async readById(recipeID, userID) {
     const [rows] = await this.database.query(
       `SELECT id, user_id  FROM ${this.table} WHERE recipe_id=? AND user_id=?`,
-      [ID, 1]
+      [recipeID, userID]
     );
     return rows[0];
+  }
+
+  async readByUserID(userID) {
+    const [rows] = await this.database.query(
+      `SELECT fr.id, fr.recipe_id, r.title FROM ${this.table} AS fr JOIN recipe AS r ON r.id = fr.recipe_id WHERE fr.user_id=?`,
+      [userID]
+    );
+    return rows;
   }
 }
 
