@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import IngredientsForm from "../components/IngredientsForm";
 import RecipeStepForm from "../components/RecipeStepForm";
 import RecipeInformationForm from "../components/RecipeInformationForm";
@@ -26,7 +28,10 @@ function CreateRecipePage() {
       .post(`${import.meta.env.VITE_BACKEND_URL}/api/recipe`, data, {
         headers: { Authorization: `Bearer ${auth.token}` },
       })
-      .then((res) => navigate(`/recipe/${res.data.id}`));
+      .then((res) => {
+        toast.success(res.data.message);
+        navigate(`/recipe/${res.data.id}`);
+      });
   };
 
   return (

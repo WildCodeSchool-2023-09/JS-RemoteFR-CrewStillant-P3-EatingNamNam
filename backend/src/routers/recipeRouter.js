@@ -17,13 +17,11 @@ const {
 
 router.get("/", browse);
 
-router.post("/", tableIngredientRecipeValidation, add);
-
 router.get("/:id", read);
 
 router.use(verifyToken);
 
-router.post("/", verifyToken, add);
+router.post("/", tableIngredientRecipeValidation, add);
 
 router.put("/:id", edit);
 
