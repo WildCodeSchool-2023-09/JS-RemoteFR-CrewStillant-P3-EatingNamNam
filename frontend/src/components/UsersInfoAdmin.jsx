@@ -76,23 +76,25 @@ export default function UsersInfoAdmin({ users }) {
         </thead>
         <tbody>
           <tr className="border-b-2 border-orange text-xl">
-            <td>Prénom</td>
-            <td>Nom</td>
-            <td>Email</td>
-            <td>Inscris le</td>
-            <td>Nb Recettes</td>
-            <td>Role</td>
+            <td className="p-2">Prénom</td>
+            <td className="pl-6">Nom</td>
+            <td className="hidden sm:table-cell pr-28 pl-28">Email</td>
+            <td className="hidden sm:table-cell pr-16 pl-6">Inscris</td>
+            <td className="hidden sm:table-cell pr-4 pl-4">Recettes</td>
+            <td className="pl-4 pr-6"> Role</td>
             <td>Actions</td>
           </tr>
           {updatedUsers
             .filter((u) => u.firstname !== "anonymous")
             .map((u) => (
-              <tr key={u.id} className="text-center">
+              <tr key={u.id} className="text-center ml-3">
                 <td>{u.firstname}</td>
                 <td>{u.lastname}</td>
-                <td>{u.mail}</td>
-                <td>{moment(u.registration_date).format("LL")}</td>
-                <td>{u.total_recipe}</td>
+                <td className="hidden sm:table-cell">{u.mail}</td>
+                <td className="hidden sm:table-cell">
+                  {moment(u.registration_date).format("LL")}
+                </td>
+                <td className="hidden sm:table-cell">{u.total_recipe}</td>
                 <td>{u.role}</td>
                 <td className="flex flex-row">
                   <button
