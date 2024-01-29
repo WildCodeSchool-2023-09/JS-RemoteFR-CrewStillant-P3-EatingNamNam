@@ -3,6 +3,7 @@
 const express = require("express");
 
 const app = express();
+const path = require("path");
 
 // Configure it
 
@@ -118,6 +119,16 @@ app.get("*", (req, res) => {
 */
 
 /* ************************************************************************* */
+
+app.use("*", (req, res) => {
+  if (req.originalUrl.includes("assets")) {
+    res.sendFile(
+      path.resolve(__dirname, `../../frontend/dist/${req.originalUrl}`)
+    );
+  } else {
+    res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
+  }
+});
 
 // Middleware for Error Logging (Uncomment to enable)
 // Important: Error-handling middleware should be defined last, after other app.use() and routes calls.
