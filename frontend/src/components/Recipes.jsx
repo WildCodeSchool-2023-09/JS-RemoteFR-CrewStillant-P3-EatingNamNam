@@ -95,12 +95,20 @@ function Recipes({ recipe, notation }) {
   const quantityArray = infos.quantity.split(",");
   const ingredientList = [];
 
-  for (let i = 0; i < ingredientArray.length; i += 1) {
+  if (ingredientArray.length === 1) {
     ingredientList.push({
-      id: (i += 1),
-      ingredient: ingredientArray[i],
-      quantity: parseInt(quantityArray[i], 10),
+      id: 1,
+      ingredient: ingredientArray[0],
+      quantity: parseInt(quantityArray[0], 10),
     });
+  } else {
+    for (let i = 0; i < ingredientArray.length; i += 1) {
+      ingredientList.push({
+        id: (i += 1),
+        ingredient: ingredientArray[i],
+        quantity: parseInt(quantityArray[i], 10),
+      });
+    }
   }
 
   // Récupère la notation de l'utilisateur et la post en base de donnée
