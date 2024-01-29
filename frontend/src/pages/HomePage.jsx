@@ -114,56 +114,54 @@ function HomePage() {
           />
         )}
         {auth?.pseudo ? (
-          <h1 className="text-center text-4xl my-2">
+          <h1 className="text-center text-5xl mt-8 text-orange">
             Bienvenu {auth.pseudo} !
           </h1>
         ) : null}
         <Carousel recipes={recipes} />
         <div className="border-solid border-y-4 border-orange m-10">
-          <div className="m-10 flex flex-row justify-center text-xl gap-6 ">
+          <div className="m-10 flex flex-col md:flex-row justify-center align-center text-xl gap-2 md:gap-6">
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige md:w-32"
               onClick={() => handleAllFilters("All")}
             >
               All
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige md:w-32"
               onClick={() => handleAllFilters("healthy")}
             >
               Healthy
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige  md:w-32"
               onClick={() => handleAllFilters("light")}
             >
               Light
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige w-fit"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige  md:w-32"
               onClick={() => handleAllFilters("fat")}
             >
               Fat
             </button>
-            <div>
-              <input
-                type="input"
-                placeholder="rechercher par nom"
-                className="bg-orange text-beige p-4 rounded-2xl"
-                value={searchText}
-                onChange={handleSearch}
-              />
-            </div>
+            <input
+              type="input"
+              placeholder="rechercher par nom"
+              className="bg-orange text-beige p-4 rounded-2xl"
+              value={searchText}
+              onChange={handleSearch}
+            />
           </div>
           <div className="m-10 flex flex-row justify-center text-xl gap-6">
-            <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
+            <label className="bg-orange text-beige p-2 rounded-2xl border border-beige w-36 md:w-52">
               Difficulté:
               <select
-                className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1"
+                className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1 w-28 md:w-36"
                 onChange={difficultyFiltered}
               >
                 <option value="">Tous</option>
@@ -172,10 +170,10 @@ function HomePage() {
                 <option value="3">difficile</option>
               </select>
             </label>
-            <label className="bg-orange text-beige p-2 rounded-2xl border border-beige">
+            <label className="bg-orange text-beige p-2 rounded-2xl border border-beige w-36 md:w-52">
               Temps:
               <select
-                className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1"
+                className="bg-orange text-beige p-2 rounded-2xl border border-beige m-1  w-28  md:w-36"
                 onChange={handleTimeFilter}
               >
                 <option value="">Tous</option>
