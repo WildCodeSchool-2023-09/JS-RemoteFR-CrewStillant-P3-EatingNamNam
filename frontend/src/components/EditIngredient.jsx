@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import { toast } from "react-toastify";
 
-function EditIngredient({ unit }) {
+function EditIngredient() {
   // ce state sert à filtrer les ingrédients quand on tape son nom dans l'input
   const [editIngredient, setEditIngredient] = useState([]);
   // ce state sert à afficher un ingrédient quand on le selectionne dans l'option
@@ -65,11 +65,6 @@ function EditIngredient({ unit }) {
     );
   };
 
-  const solid = unit[0].mesure_unit;
-  const arraysolid = solid.split(" ");
-  const liquid = unit[1].mesure_unit;
-  const arrayliquid = liquid.split(" ");
-
   // fonction pour selectionner un ingredient et le modifier ensuite
   const handleEditIngredient = (e) => {
     const selectedIngredientName = e.target.value;
@@ -82,8 +77,10 @@ function EditIngredient({ unit }) {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mt-16">Modifier les ingredients</h1>
-      <div className="bg-orange p-3 rounded-2xl">
+      <h1 className="text-2xl font-bold mt-16 border-orange border-b-2">
+        Modifier les ingredients
+      </h1>
+      <div className="border-ttop-solid p-3 rounded-2xl">
         <div className="mb-6 mt-2">
           <input
             type="text"
@@ -147,29 +144,22 @@ function EditIngredient({ unit }) {
                 {errors.quantity?.message}
               </span>
             )}
+            <label htmlFor="unit_id">Liquide ou solide : </label>
             <select
-              name="mesure_unit"
+              name="unit_id"
               // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register("mesure_unit", {
+              {...register("unit_id", {
                 required: "Ce champ est obligatoire",
+                valueAsNumber: "Un nombre est obligatoire",
               })}
             >
-              <option value="">Choisir l'unité de mesure</option>
-              {selectedIngredient.unit_id === 1
-                ? arraysolid.map((a) => (
-                    <option value={a} key={arraysolid.indexOf(a)}>
-                      {a}
-                    </option>
-                  ))
-                : arrayliquid.map((a) => (
-                    <option value={a} key={arrayliquid.indexOf(a)}>
-                      {a}
-                    </option>
-                  ))}
+              <option value="">---</option>
+              <option value="2">Liquide</option>
+              <option value="1">Solide</option>
             </select>
-            {errors.mesure_unit && (
+            {errors.unit_id && (
               <span className="bg-red-600 text-white py-1 px-4" role="alert">
-                {errors.mesure_unit?.message}
+                {errors.unit_id?.message}
               </span>
             )}
             <div className="flex flex-col md:flex-row mt-6">

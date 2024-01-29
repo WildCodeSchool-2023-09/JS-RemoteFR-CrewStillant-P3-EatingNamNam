@@ -144,7 +144,7 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
           <span className="text-red-500">{errors.protein?.message}</span>
         )}
       </div>
-      <div className="flex flex-rox gap-8">
+      <div className="flex flex-row gap-8">
         <label htmlFor="unit_id">Liquide ou solide : </label>
         <select
           name="unit_id"
