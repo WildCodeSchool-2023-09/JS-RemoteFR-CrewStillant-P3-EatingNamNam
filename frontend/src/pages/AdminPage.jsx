@@ -1,5 +1,6 @@
 import { saveAs } from "file-saver";
 import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
 import EditIngredient from "../components/EditIngredient";
 import UsersInfoAdmin from "../components/UsersInfoAdmin";
 
@@ -7,10 +8,6 @@ export default function AdminPage() {
   const { unit, users } = useLoaderData();
   const { auth } = useOutletContext();
   const navigate = useNavigate();
-
-  if (auth && auth.role !== "admin") {
-    navigate("/");
-  }
 
   const handleClick = async () => {
     try {
@@ -26,6 +23,12 @@ export default function AdminPage() {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (auth.role !== "admin") {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="m-2 flex flex-col items-center p-2">
