@@ -4,7 +4,6 @@ const verifyToken = (req, res, next) => {
   try {
     // Vérifier la présence de l'en-tête "Authorization" dans la requête
     const authorizationHeader = req.get("Authorization");
-
     if (authorizationHeader == null) {
       throw new Error("Authorization header is missing");
     }

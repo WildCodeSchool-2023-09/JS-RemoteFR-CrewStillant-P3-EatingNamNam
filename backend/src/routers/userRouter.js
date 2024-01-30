@@ -11,6 +11,7 @@ const {
   read,
   readRecipe,
   readComment,
+  readFavorite,
   edit,
   editRole,
   editAnonymous,
@@ -25,17 +26,21 @@ router.post("/", userValidation, hash, add);
 
 router.get("/dl", userValidation, download);
 
-router.get("/recipe", verifyToken, readRecipe);
+router.use(verifyToken);
 
-router.get("/comment", verifyToken, readComment);
+router.get("/recipe", readRecipe);
 
-router.get("/account", verifyToken, read);
+router.get("/comment", readComment);
 
-router.put("/account", verifyToken, userValidation, hash, edit);
+router.get("/favorite", readFavorite);
 
-router.put("/role/", verifyToken, editRole);
+router.get("/account", read);
 
-router.put("/anonymous/:id", verifyToken, editAnonymous);
+router.put("/account", userValidation, hash, edit);
+
+router.put("/role/", editRole);
+
+router.put("/anonymous/:id", editAnonymous);
 
 router.delete("/:id", destroy);
 

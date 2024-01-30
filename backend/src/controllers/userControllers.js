@@ -120,6 +120,22 @@ const readComment = async (req, res, next) => {
   }
 };
 
+const readFavorite = async (req, res, next) => {
+  try {
+    const { sub } = req.auth;
+
+    const recipes = await tables.favoriteRecipe_user.readByUserID(Number(sub));
+
+    if (recipes == null) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(recipes);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 // The E of BREAD - Edit (Update) operation
 
 const edit = async (req, res, next) => {
@@ -253,6 +269,7 @@ module.exports = {
   read,
   readRecipe,
   readComment,
+  readFavorite,
   edit,
   editRole,
   editAnonymous,

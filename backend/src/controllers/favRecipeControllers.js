@@ -22,9 +22,12 @@ const browse = async (req, res, next) => {
 const read = async (req, res, next) => {
   try {
     const { id } = req.params;
+    const { sub } = req.auth;
+
     try {
       const favorite = await tables.favoriteRecipe_user.readById(
-        parseInt(id, 10)
+        parseInt(id, 10),
+        parseInt(sub, 10)
       );
 
       res.status(200).json(favorite);
@@ -40,9 +43,10 @@ const read = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const { userID, recipeID } = req.body;
+    const { sub } = req.auth;
+    const { recipeID } = req.body;
     const favorite = await tables.favoriteRecipe_user.create(
-      parseInt(userID, 10),
+      parseInt(sub, 10),
       parseInt(recipeID, 10)
     );
     if (favorite === null) {
@@ -80,8 +84,11 @@ const edit = async (req, res, next) => {
 const destroy = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const favorite = await tables.favoriteRecipe_user.delete(parseInt(id, 10));
-
+    const { sub } = req.auth;
+    const favorite = await tables.favoriteRecipe_user.delete(
+      parseInt(id, 10),
+      parseInt(sub, 10)
+    );
     if (favorite == null) {
       res.sendStatus(404);
     } else {

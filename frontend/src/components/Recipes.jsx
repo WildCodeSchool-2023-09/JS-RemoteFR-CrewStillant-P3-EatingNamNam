@@ -22,16 +22,20 @@ function Recipes({ recipe, notation }) {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`)
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
       .then((res) => setIsFavorite(res.data && true));
   }, []);
-
   const handleClick = async () => {
-    const data = { userID: 1, recipeID: infos.id };
+    const data = { recipeID: infos.id };
     try {
       await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/favorite`,
-        data
+        data,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
       );
       setIsFavorite(true);
     } catch (e) {
@@ -42,7 +46,10 @@ function Recipes({ recipe, notation }) {
   const handleClickSupp = async () => {
     try {
       await axios.delete(
-        `${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/favorite/${infos.id}`,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
       );
       setIsFavorite(false);
     } catch (e) {
@@ -95,12 +102,20 @@ function Recipes({ recipe, notation }) {
   const quantityArray = infos.quantity.split(",");
   const ingredientList = [];
 
-  for (let i = 0; i < ingredientArray.length; i += 1) {
+  if (ingredientArray.length === 1) {
     ingredientList.push({
-      id: (i += 1),
-      ingredient: ingredientArray[i],
-      quantity: parseInt(quantityArray[i], 10),
+      id: 1,
+      ingredient: ingredientArray[0],
+      quantity: parseInt(quantityArray[0], 10),
     });
+  } else {
+    for (let i = 0; i < ingredientArray.length; i += 1) {
+      ingredientList.push({
+        id: (i += 1),
+        ingredient: ingredientArray[i],
+        quantity: parseInt(quantityArray[i], 10),
+      });
+    }
   }
 
   // Récupère la notation de l'utilisateur et la post en base de donnée
@@ -146,12 +161,12 @@ function Recipes({ recipe, notation }) {
         )}
       </div>
       <div className={!auth.token ? "blur-sm" : null}>
-        {!isFavorite ? (
-          <button type="button" onClick={handleClick}>
-            <img className="h-7 ml-32 mt-32" src={redHeart} alt={redHeart} />
+        {isFavorite ? (
+          <button type="button" onClick={handleClickSupp}>
+            <img className="h-7" src={redHeart} alt={redHeart} />
           </button>
         ) : (
-          <button type="button" onClick={handleClickSupp}>
+          <button type="button" onClick={handleClick}>
             <img className="h-7" src={heartNone} alt={heartNone} />
           </button>
         )}
@@ -217,10 +232,6 @@ function Recipes({ recipe, notation }) {
               </ul>
             </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-center gap-2 text-2xl">
-          <p>Noter la recette :</p>
-          <ReactStars onChange={ratingChanged} size={32} half={false} />
         </div>
         <p className="text-orange mb-3">Etapes de préparation:</p>
         <div className="border-green h-fit flex flex-col border-4 rounded-2xl p-3 bg-slate-200 mb-4 gap-4">
