@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-function EditIngredient({ unit }) {
+import { toast } from "react-toastify";
+
+function EditIngredient() {
   // ce state sert à filtrer les ingrédients quand on tape son nom dans l'input
   const [editIngredient, setEditIngredient] = useState([]);
   // ce state sert à afficher un ingrédient quand on le selectionne dans l'option
@@ -19,20 +21,32 @@ function EditIngredient({ unit }) {
   } = useForm();
 
   const handleDeleteIngredient = async () => {
-    await axios.delete(
-      `${import.meta.env.VITE_BACKEND_URL}/api/ingredient/${
-        selectedIngredient.id
-      }`
-    );
-    setIsNotDeleted(true);
-    // afin de vider le champ de selection
-    setSelectedIngredient({});
-    reset();
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/ingredient/${
+          selectedIngredient.id
+        }`
+      );
+      setIsNotDeleted(true);
+      // afin de vider le champ de selection
+      setSelectedIngredient({});
+      reset();
+
+      toast.success("ingrédient a bien été supprimé!");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleCancelIngredient = () => {
-    setSelectedIngredient({});
-    reset();
+    if (selectedIngredient) {
+      setSelectedIngredient({});
+      reset();
+
+      toast.success("ingredient a été  modifié");
+    } else {
+      toast.info("une erreur est survenue");
+    }
   };
 
   useEffect(() => {
@@ -51,11 +65,6 @@ function EditIngredient({ unit }) {
     );
   };
 
-  const solid = unit[0].mesure_unit;
-  const arraysolid = solid.split(" ");
-  const liquid = unit[1].mesure_unit;
-  const arrayliquid = liquid.split(" ");
-
   // fonction pour selectionner un ingredient et le modifier ensuite
   const handleEditIngredient = (e) => {
     const selectedIngredientName = e.target.value;
@@ -68,92 +77,56 @@ function EditIngredient({ unit }) {
 
   return (
     <div>
-      <h1>Modifier les ingredients</h1>
-      <input
-        type="text"
-        placeholder="modifier l'ingredient"
-        onChange={handleIngredientChange}
-      />
-      <select className="w-48" name="" onChange={handleEditIngredient}>
-        <option value="">Liste des ingrédients</option>
-        {editIngredient.map((i) => (
-          <option key={i.id} value={i.name} id={i.id}>
-            {i.name}
-          </option>
-        ))}
-      </select>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="hidden"
-            name="id"
-            value={selectedIngredient.id}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("id", { valueAsNumber: "Un nombre est obligatoire" })}
-          />
+      <h1 className="text-2xl font-bold mt-16 border-orange border-b-2">
+        Modifier les ingredients
+      </h1>
+      <div className="border-ttop-solid p-3 rounded-2xl">
+        <div className="mb-6 mt-2">
           <input
             type="text"
-            name="ingredient"
-            value={selectedIngredient.name}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("ingredient")}
+            className="mb-2"
+            placeholder="rechercher l'ingredient"
+            onChange={handleIngredientChange}
           />
-          <input
-            type="number"
-            name="quantity"
-            min={0}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("quantity", {
-              required: "Ce champ est obligatoire",
-              valueAsNumber: "Un nombre est obligatoire",
-              pattern: {
-                value: /^[0-9]+$/,
-                message: "Vous ne pouvez mettre que des chiffres",
-              },
-              min: {
-                value: 1,
-                message: "Vous devez au moins mettre une quantité de 1",
-              },
-            })}
-          />
-          {errors.quantity && (
-            <span className="bg-red-600 text-white py-1 px-4" role="alert">
-              {errors.quantity?.message}
-            </span>
-          )}
           <select
-            name="mesure_unit"
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...register("mesure_unit", {
-              required: "Ce champ est obligatoire",
-            })}
+            className="w-46 h-6 md:ml-2"
+            name=""
+            onChange={handleEditIngredient}
           >
-            <option value="">Choissisez voter unité de mesure</option>
-            {selectedIngredient.unit_id === 1
-              ? arraysolid.map((a) => (
-                  <option value={a} key={arraysolid.indexOf(a)}>
-                    {a}
-                  </option>
-                ))
-              : arrayliquid.map((a) => (
-                  <option value={a} key={arrayliquid.indexOf(a)}>
-                    {a}
-                  </option>
-                ))}
+            <option value="">Liste des ingrédients</option>
+            {editIngredient.map((i) => (
+              <option key={i.id} value={i.name} id={i.id}>
+                {i.name}
+              </option>
+            ))}
           </select>
-          {errors.mesure_unit && (
-            <span className="bg-red-600 text-white py-1 px-4" role="alert">
-              {errors.mesure_unit?.message}
-            </span>
-          )}
-          <label>
-            Calories:
+        </div>
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              type="hidden"
+              name="id"
+              value={selectedIngredient.id}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...register("id", {
+                valueAsNumber: "Un nombre est obligatoire",
+              })}
+            />
+            <input
+              type="text"
+              className="w-32 mr-4"
+              name="ingredient"
+              value={selectedIngredient.name}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...register("ingredient")}
+            />
             <input
               type="number"
-              name="calories"
-              placeholder={selectedIngredient.calories}
+              className="w-28 ml-2 mr-4"
+              name="quantity"
+              min={0}
               // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register("calories", {
+              {...register("quantity", {
                 required: "Ce champ est obligatoire",
                 valueAsNumber: "Un nombre est obligatoire",
                 pattern: {
@@ -166,93 +139,149 @@ function EditIngredient({ unit }) {
                 },
               })}
             />
-            {errors.calories && (
-              <span className="text-red-500">{errors.calories?.message}</span>
+            {errors.quantity && (
+              <span className="bg-red-600 text-white py-1 px-4" role="alert">
+                {errors.quantity?.message}
+              </span>
             )}
-          </label>
+            <label htmlFor="unit_id">Liquide ou solide : </label>
+            <select
+              name="unit_id"
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...register("unit_id", {
+                required: "Ce champ est obligatoire",
+                valueAsNumber: "Un nombre est obligatoire",
+              })}
+            >
+              <option value="">---</option>
+              <option value="2">Liquide</option>
+              <option value="1">Solide</option>
+            </select>
+            {errors.unit_id && (
+              <span className="bg-red-600 text-white py-1 px-4" role="alert">
+                {errors.unit_id?.message}
+              </span>
+            )}
+            <div className="flex flex-col md:flex-row mt-6">
+              <label>
+                <div>Calories:</div>
+                <input
+                  className="w-28 ml-2 mr-2"
+                  type="number"
+                  name="calories"
+                  placeholder={selectedIngredient.calories}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...register("calories", {
+                    required: "Ce champ est obligatoire",
+                    valueAsNumber: "Un nombre est obligatoire",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Vous ne pouvez mettre que des chiffres",
+                    },
+                    min: {
+                      value: 1,
+                      message: "Vous devez au moins mettre une quantité de 1",
+                    },
+                  })}
+                />
+                {errors.calories && (
+                  <span className="text-red-500">
+                    {errors.calories?.message}
+                  </span>
+                )}
+              </label>
 
-          <label>
-            Fat:
-            <input
-              type="number"
-              name="fat"
-              placeholder={selectedIngredient.fat}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register("fat", {
-                required: "Ce champ est obligatoire",
-                valueAsNumber: "Un nombre est obligatoire",
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Vous ne pouvez mettre que des chiffres",
-                },
-                min: {
-                  value: 1,
-                  message: "Vous devez au moins mettre une quantité de 1",
-                },
-              })}
-            />
-            {errors.fat && (
-              <span className="text-red-500">{errors.fat?.message}</span>
-            )}
-          </label>
+              <label>
+                <div>Fat:</div>
+                <input
+                  className="w-28 ml-2 mr-2"
+                  type="number"
+                  name="fat"
+                  placeholder={selectedIngredient.fat}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...register("fat", {
+                    required: "Ce champ est obligatoire",
+                    valueAsNumber: "Un nombre est obligatoire",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Vous ne pouvez mettre que des chiffres",
+                    },
+                    min: {
+                      value: 1,
+                      message: "Vous devez au moins mettre une quantité de 1",
+                    },
+                  })}
+                />
+                {errors.fat && (
+                  <span className="text-red-500">{errors.fat?.message}</span>
+                )}
+              </label>
 
-          <label>
-            Sucre:
-            <input
-              type="number"
-              name="sugar"
-              placeholder={selectedIngredient.sugar}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register("sugar", {
-                required: "Ce champ est obligatoire",
-                valueAsNumber: "Un nombre est obligatoire",
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Vous ne pouvez mettre que des chiffres",
-                },
-                min: {
-                  value: 1,
-                  message: "Vous devez au moins mettre une quantité de 1",
-                },
-              })}
-            />
-            {errors.sugar && (
-              <span className="text-red-500">{errors.sugar?.message}</span>
-            )}
-          </label>
+              <label>
+                <div>Sucre:</div>
+                <input
+                  className="w-28 ml-2 mr-2"
+                  type="number"
+                  name="sugar"
+                  placeholder={selectedIngredient.sugar}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...register("sugar", {
+                    required: "Ce champ est obligatoire",
+                    valueAsNumber: "Un nombre est obligatoire",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Vous ne pouvez mettre que des chiffres",
+                    },
+                    min: {
+                      value: 1,
+                      message: "Vous devez au moins mettre une quantité de 1",
+                    },
+                  })}
+                />
+                {errors.sugar && (
+                  <span className="text-red-500">{errors.sugar?.message}</span>
+                )}
+              </label>
 
-          <label>
-            Protein:
-            <input
-              type="number"
-              name="protein"
-              placeholder={selectedIngredient.protein}
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register("protein", {
-                required: "Ce champ est obligatoire",
-                valueAsNumber: "Un nombre est obligatoire",
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: "Vous ne pouvez mettre que des chiffres",
-                },
-                min: {
-                  value: 1,
-                  message: "Vous devez au moins mettre une quantité de 1",
-                },
-              })}
-            />
-            {errors.protein && (
-              <span className="text-red-500">{errors.protein?.message}</span>
-            )}
-          </label>
-          <button type="submit">Je modifie mon ingrédient 🥕</button>
-          <button type="button" onClick={handleDeleteIngredient}>
-            Je supprime mon ingrédient 🥕
-          </button>
-          <button type="button" onClick={handleCancelIngredient}>
-            J'annule mon ingrédient 🥕
-          </button>
-        </form>
+              <label>
+                <div>Protein:</div>
+                <input
+                  className="w-28 ml-2 mr-2"
+                  type="number"
+                  name="protein"
+                  placeholder={selectedIngredient.protein}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...register("protein", {
+                    required: "Ce champ est obligatoire",
+                    valueAsNumber: "Un nombre est obligatoire",
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "Vous ne pouvez mettre que des chiffres",
+                    },
+                    min: {
+                      value: 1,
+                      message: "Vous devez au moins mettre une quantité de 1",
+                    },
+                  })}
+                />
+                {errors.protein && (
+                  <span className="text-red-500">
+                    {errors.protein?.message}
+                  </span>
+                )}
+              </label>
+            </div>
+            <div className="flex flex-col mt-6">
+              <button type="button">Modifier un ingrédient 🥕</button>
+              <button type="button" onClick={handleDeleteIngredient}>
+                Supprimer un ingrédient 🥕
+              </button>
+              <button type="button" onClick={handleCancelIngredient}>
+                Annuler un ingrédient 🥕
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
