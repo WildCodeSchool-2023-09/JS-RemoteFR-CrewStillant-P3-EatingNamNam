@@ -21,7 +21,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="bg-orange text-beige p-6 rounded-xl m-2 w-fit border-2 border-green">
+    <div className="bg-orange text-beige p-6 rounded-xl m-2 w-fit border-2 ">
       <h1 className="text-center my-5 text-3xl font-bold">
         Renseignez les champs suivants
       </h1>
@@ -34,7 +34,7 @@ export default function RegistrationForm() {
             Prénom
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="firstname"
             type="text"
             placeholder="John"
@@ -61,7 +61,7 @@ export default function RegistrationForm() {
             Nom
           </label>
           <input
-            className="bg-green text-beige placeholder:text-beige rounded p-1 ps-3"
+            className="bg-beige text-beige placeholder:text-beige rounded p-1 ps-3"
             name="lastname"
             type="text"
             placeholder="Doe"
@@ -88,7 +88,7 @@ export default function RegistrationForm() {
             Pseudo
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="pseudo"
             type="text"
             placeholder="JohnDoe99"
@@ -111,7 +111,7 @@ export default function RegistrationForm() {
             Email
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="email"
             type="email"
             placeholder="johndoe99@doe.fr"
@@ -135,7 +135,7 @@ export default function RegistrationForm() {
             Confimer email
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="confirm-email"
             type="email"
             placeholder="johndoe99@doe.fr"
@@ -156,7 +156,7 @@ export default function RegistrationForm() {
             Mot de passe
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="password"
             type="password"
             placeholder="**********"
@@ -180,7 +180,7 @@ export default function RegistrationForm() {
             Confirmer mot de passe
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="confirm-password"
             type="password"
             placeholder="**********"
@@ -201,7 +201,7 @@ export default function RegistrationForm() {
             Date de naissance
           </label>
           <input
-            className="bg-green text-beige rounded p-1 ps-3"
+            className="bg-beige text-beige rounded p-1 ps-3"
             name="birthdate"
             type="date"
             {...register("birthdate", {
@@ -226,7 +226,7 @@ export default function RegistrationForm() {
             Votre poids (en kg)
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="weight"
             type="number"
             min={0}
@@ -251,7 +251,7 @@ export default function RegistrationForm() {
             Temps passé en cuisine par semaine (en h)
           </label>
           <input
-            className="bg-green placeholder:text-beige text-beige rounded p-1 ps-3"
+            className="bg-beige placeholder:text-beige text-beige rounded p-1 ps-3"
             name="week-time"
             type="number"
             min={0}
