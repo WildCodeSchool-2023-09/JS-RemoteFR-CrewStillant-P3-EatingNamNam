@@ -162,8 +162,8 @@ function Recipes({ recipe, notation }) {
               alt={infos.title}
               className={
                 !auth
-                  ? "blur-md flex flex-col w-full h-96 rounded-3xl"
-                  : "flex flex-col h-96 w- rounded-3xl"
+                  ? "blur-md flex flex-col w-full h-96 rounded-3xl  border-4 border-orange"
+                  : "flex flex-col h-96 w- rounded-3xl border-4 border-orange"
               }
             />
             <div className="flex sm:flex-row flex-col items-center sm:justify-center sm:gap-4 mb-2 text-2xl">

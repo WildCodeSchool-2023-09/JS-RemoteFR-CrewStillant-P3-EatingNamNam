@@ -30,25 +30,23 @@ function CreateRecipePage() {
   };
 
   return (
-    <div>
+    <section>
       <h1 className="text-green font-bold text-5xl text-center mt-10 p-7">
         Créez votre recette ici !
       </h1>
-      <div className="text-2xl flex flex-col items-center gap-5 mt-20 text-black">
-        <div className="flex flex-col items-end gap-5">
-          <RecipeInformationForm
-            selectedInformations={selectedInformations}
-            setSelectedInformations={setSelectedInformations}
+      <div className="text-2xl flex flex-col gap-12 mt-10 text-black items-center">
+        <RecipeInformationForm
+          selectedInformations={selectedInformations}
+          setSelectedInformations={setSelectedInformations}
+        />
+        {selectedInformations && (
+          <IngredientsForm
+            ingredients={ingredients.data}
+            unit={unit.data}
+            selectedIngredients={selectedIngredients}
+            setSelectedIngredients={setSelectedIngredients}
           />
-          {selectedInformations && (
-            <IngredientsForm
-              ingredients={ingredients.data}
-              unit={unit.data}
-              selectedIngredients={selectedIngredients}
-              setSelectedIngredients={setSelectedIngredients}
-            />
-          )}
-        </div>
+        )}
         {selectedIngredients[0] && (
           <RecipeStepForm
             selectedSteps={selectedSteps}
@@ -68,7 +66,7 @@ function CreateRecipePage() {
         </div>
         <br />
       </div>
-    </div>
+    </section>
   );
 }
 

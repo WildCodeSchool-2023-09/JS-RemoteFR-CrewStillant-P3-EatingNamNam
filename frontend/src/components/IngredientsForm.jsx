@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import PropTypes from "prop-types";
 import CreateIngredient from "./CreateIngredient";
+import closeCross from "../assets/bouton-fermer.png";
 
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -70,8 +71,8 @@ export default function IngredientsForm({
   const arrayliquid = liquid.split(" ");
 
   return (
-    <div className="flex flex-col gap-4 text-beige rounded-2xl items-center w-full h-content bg-orange">
-      <div className="flex flex-row m-5 gap-8">
+    <div className="flex flex-col gap-8 text-beige rounded-2xl pt-8 mx-4 p-4 items-center sm:w-[95rem] h-content bg-orange">
+      <div className="flex sm:flex-row flex-col items-center gap-8 sm:gap-4">
         {isVisible ? (
           <CreateIngredient
             setIsCreatedIngredient={setIsCreatedIngredient}
@@ -79,8 +80,11 @@ export default function IngredientsForm({
           />
         ) : (
           <>
+            <label htmlFor="searchIngredient" className="text-3xl">
+              Recherchez votre ingrédient
+            </label>
             <input
-              className="text-black"
+              className="text-black px-2"
               type="text"
               name="searchIngredient"
               placeholder="Rechercher un ingredient"
@@ -100,10 +104,11 @@ export default function IngredientsForm({
                 </option>
               ))}
             </select>
+            <p className="text-3xl">ou</p>
             <button
               type="button"
               onClick={() => setIsVisible(true)}
-              className="bg-green rounded-3xl p-1 hover:text-orange hover:font-semibold"
+              className="text-3xl bg-green rounded-2xl px-3 py-1 hover:text-orange hover:font-semibold"
             >
               Créer un ingrédient
             </button>
@@ -192,17 +197,28 @@ export default function IngredientsForm({
       ) : (
         ""
       )}
-      <div className="flex flex-col gap-4 w-contain p-2 font-semibold text-xl">
+      <div className="text-center flex flex-col gap-6 sm:gap-4 items-center sm:px-16 py-4 text-3xl border-t-4 border-green">
         <h3>Vos ingrédients sélectionnés : </h3>
-        <ul className="flex flex-col p-5">
+        <ul className="flex flex-col text-3xl gap-4">
           {selectedIngredients &&
             selectedIngredients.map((s) => (
-              <li key={s.ingredient}>
-                {s.ingredient}&nbsp;{s.quantity}&nbsp;{s.mesure_unit}
-                &nbsp;&nbsp;&nbsp;
-                <button type="button" onClick={() => handleDeleteIngredient(s)}>
-                  Supprimer cet ingrédient
-                </button>
+              <li
+                key={s.ingredient}
+                className="flex sm:flex-row flex-col items-center justify-start sm:gap-2"
+              >
+                <p>{s.ingredient}</p>
+                <span className="flex flex-row">
+                  <p>{s.quantity}</p>
+                  <p>{s.mesure_unit}</p>
+                  <button
+                    className="w-6 ml-4"
+                    type="button"
+                    title="Retirer l'ingrédient"
+                    onClick={() => handleDeleteIngredient(s)}
+                  >
+                    <img src={closeCross} alt="supprimer" />
+                  </button>
+                </span>
               </li>
             ))}
         </ul>

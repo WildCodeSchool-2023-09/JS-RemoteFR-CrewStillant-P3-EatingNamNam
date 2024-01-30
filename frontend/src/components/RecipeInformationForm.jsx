@@ -44,19 +44,22 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
     setImageRecipe(newimageurl.imageUrl);
   };
   return (
-    <div className="border rounded-2xl text-center mb-3 p-3">
+    <div className="flex flex-row justify-center border rounded-2xl text-center mb-3 p-3 text-3xl">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-row gap-32">
-          <img className="rounded-3xl" src={imageRecipe} alt="plat" />
+        <div className="flex sm:flex-row flex-col sm:justify-center gap-6 w-screen sm:gap-16">
+          <img
+            className="rounded-3xl border-4 border-orange mx-4"
+            src={imageRecipe}
+            alt="plat"
+          />
           <input type="hidden" value={imageRecipe} {...register("image")} />
-          <div className="flex flex-col items-center gap-2 text-beige p-5 bg-orange rounded-3xl">
-            <div className="text-black">
+          <div className="flex flex-col items-center gap-6 text-beige p-5 bg-orange rounded-3xl mx-4">
+            <div className="text-black flex flex-col gap-4">
               <label className="text-beige" htmlFor="title">
                 Titre de votre recette :
               </label>
-              <br />
               <input
-                className="mt-4 justify-center"
+                className="px-2"
                 type="text"
                 {...register("title", {
                   required: "ce champ est obligatoire",
@@ -76,11 +79,10 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                 </span>
               )}
             </div>
-            <div>
+            <div className="flex flex-col gap-4">
               <label htmlFor="type">Choisissez votre type de recette</label>
-              <br />
               <select
-                className="mt-4 text-black"
+                className="text-black px-2"
                 name="type"
                 {...register("type", {
                   required: "Ce champ est obligatoire ",
@@ -94,11 +96,11 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                 ))}
               </select>
             </div>
-            <div className="flex flex-row justify-center mb-3 p-2 gap-8 sm:w-112 text-beige">
-              <div className="flex flex-col items-center gap-1">
-                <label htmlFor="preparationTime">Temps de préparation :</label>
+            <div className="flex sm:flex-row flex-col items-end gap-6 p-2 sm:w-112 text-beige">
+              <div className="flex flex-col items-center gap-4">
+                <label htmlFor="preparationTime">Temps de préparation</label>
                 <input
-                  className="w-24 mt-2 text-black"
+                  className="w-16 text-black px-2"
                   placeholder="ex : 30"
                   type="number"
                   min="0"
@@ -126,31 +128,29 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="cookingTime">
-                  Temps de cuisson :
-                  <br />
-                  <input
-                    className="w-24 mt-3 text-black"
-                    placeholder="ex : 40"
-                    type="number"
-                    min="0"
-                    {...register("cooking_time", {
-                      required: "Ce champ est obligatoire",
-                      valueAsNumber: "Un nombre est obligatoire",
-                      min: {
-                        value: 1,
-                        message:
-                          "Votre recette doit au moins prendre 1 minute à cuire",
-                      },
-                      max: {
-                        value: 720,
-                        message:
-                          "Votre recette ne peux pas prendre plus de 12h de cuisson",
-                      },
-                    })}
-                  />
-                </label>
+              <div className="flex flex-col gap-4 items-center">
+                <label htmlFor="cookingTime">Temps de cuisson</label>
+                <input
+                  className="w-16 px-2 text-black"
+                  placeholder="ex : 40"
+                  type="number"
+                  min="0"
+                  {...register("cooking_time", {
+                    required: "Ce champ est obligatoire",
+                    valueAsNumber: "Un nombre est obligatoire",
+                    min: {
+                      value: 1,
+                      message:
+                        "Votre recette doit au moins prendre 1 minute à cuire",
+                    },
+                    max: {
+                      value: 720,
+                      message:
+                        "Votre recette ne peux pas prendre plus de 12h de cuisson",
+                    },
+                  })}
+                />
+
                 {errors.cookingTime && (
                   <span
                     className="bg-red-600 text-white py-1 px-4"
@@ -160,10 +160,10 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="difficulty">Difficulté :</label>
+              <div className="flex flex-col gap-4 items-center">
+                <label htmlFor="difficulty">Difficulté</label>
                 <select
-                  className="w-24 mt-2 text-black"
+                  className="w-28 px-2 text-black"
                   {...register("difficulty", {
                     required: "Ce champ est obligatoire ",
                     valueAsNumber: "Un nombre est obligatoire",
