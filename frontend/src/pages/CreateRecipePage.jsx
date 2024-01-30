@@ -1,5 +1,5 @@
 // import RecipeCreation from "../components/RecipeCreation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -33,6 +33,12 @@ function CreateRecipePage() {
         navigate(`/recipe/${res.data.id}`);
       });
   };
+
+  useEffect(() => {
+    if (!auth.token) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="text-2xl text-black">
