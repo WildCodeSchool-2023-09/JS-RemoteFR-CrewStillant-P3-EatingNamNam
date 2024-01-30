@@ -53,7 +53,9 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
           </div>
           <div className="flex flex-col items-center gap-2 text-beige bg-orange rounded-3xl">
             <div className="m-5 text-black">
-              <label htmlFor="title">Titre de votre recette :</label>
+              <label className="text-beige" htmlFor="title">
+                Titre de votre recette :
+              </label>
               <br />
               <input
                 className="mt-4 justify-center"
@@ -190,7 +192,7 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
               </p>
             ) : (
               <button
-                className="border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
+                className="bg-green text-beige m-2 p-2 rounded-3xl hover:text-orange hover:semi-bold"
                 type="submit"
               >
                 Validez ces informations

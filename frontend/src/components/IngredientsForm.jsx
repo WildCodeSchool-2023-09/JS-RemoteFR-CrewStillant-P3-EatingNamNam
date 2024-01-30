@@ -103,7 +103,7 @@ export default function IngredientsForm({
             <button
               type="button"
               onClick={() => setIsVisible(true)}
-              className="shadow-lg border-2 border-green rounded-md p-1"
+              className="text-beige bg-green rounded-3xl p-2 hover:text-orange font-semibold"
             >
               Créer un ingrédient
             </button>
@@ -115,7 +115,7 @@ export default function IngredientsForm({
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center gap-2"
         >
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col text-black gap-2">
             <input
               type="hidden"
               name="id"
@@ -125,7 +125,7 @@ export default function IngredientsForm({
               })}
             />
             <input
-              className="w-38 m-2"
+              className="w-38 m-2 text-black "
               type="text"
               name="ingredient"
               value={ingredient.name}
@@ -182,7 +182,10 @@ export default function IngredientsForm({
               </span>
             )}
           </div>
-          <button type="submit" className="bg-green rounded-3xl h-12 w-72 m-5">
+          <button
+            type="submit"
+            className="bg-green rounded-3xl h-12 w-76 m-5 p-2 hover:text-orange font-semibold"
+          >
             Valider cet ingrédient 🥕
           </button>
         </form>
