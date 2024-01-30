@@ -125,7 +125,7 @@ export default function IngredientsForm({
               })}
             />
             <input
-              className="w-38 m-2"
+              className="w-38 m-2 text-black "
               type="text"
               name="ingredient"
               value={ingredient.name}
