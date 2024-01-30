@@ -31,11 +31,11 @@ function CreateRecipePage() {
 
   return (
     <div>
-      <h1 className="text-green font-bold text-3xl text-center p-4">
+      <h1 className="text-green font-bold text-5xl text-center mt-10 p-7">
         Créez votre recette ici !
       </h1>
-      <div className="text-2xl flex flex-col items-center gap-4 text-black">
-        <div className="flex flex-col items-end">
+      <div className="text-2xl flex flex-col items-center gap-5 mt-20 text-black">
+        <div className="flex flex-col items-end gap-5">
           <RecipeInformationForm
             selectedInformations={selectedInformations}
             setSelectedInformations={setSelectedInformations}
@@ -58,7 +58,7 @@ function CreateRecipePage() {
         <div className="flex flex-row justify-center">
           {selectedSteps[0] && (
             <button
-              className="rounded-2xl mb-3 p-3 bg-green text-beige hover:text-orange"
+              className="rounded-2xl mb-3 p-3 bg-green text-beige hover:text-orange font-semibold"
               type="button"
               onClick={handleForm}
             >
@@ -66,6 +66,7 @@ function CreateRecipePage() {
             </button>
           )}
         </div>
+        <br />
       </div>
     </div>
   );

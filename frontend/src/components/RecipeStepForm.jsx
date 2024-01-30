@@ -22,9 +22,11 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
   };
   return (
     <div className="border-green font-semibold h-fit flex flex-col items-center gap-4 border-4 rounded-2xl p-3 bg-slate-200 m-5">
-      <h2 className="text-green ">
+      <br />
+      <h2 className="text-green text-3xl">
         Détaillez, ici, les étapes de réalisation de votre recette
       </h2>
+      <br />
       <ul className="flex flex-col gap-4 my-2">
         {selectedSteps.map((s, index) => (
           <li className="flex flex-row gap-4" key={selectedSteps.indexOf(s)}>
@@ -66,13 +68,15 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
             {errors.step?.message}
           </span>
         )}
+        <br />
         <button
-          className="bg-green text-beige rounded-md p-2 hover:bg-green hover:text-orange"
+          className="bg-green text-beige rounded-3xl p-2 hover:bg-green hover:text-orange"
           type="submit"
         >
           Valider cette étape
         </button>
       </form>
+      <br />
     </div>
   );
 }

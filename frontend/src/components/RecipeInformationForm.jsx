@@ -190,7 +190,7 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
               </p>
             ) : (
               <button
-                className="border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
+                className="bg-green rounded-3xl p-3 hover:text-orange font-semibold"
                 type="submit"
               >
                 Validez ces informations

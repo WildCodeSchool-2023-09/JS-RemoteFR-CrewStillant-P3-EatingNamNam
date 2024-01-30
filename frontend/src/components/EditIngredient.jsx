@@ -170,7 +170,6 @@ function EditIngredient({ unit }) {
               <span className="text-red-500">{errors.calories?.message}</span>
             )}
           </label>
-
           <label>
             Fat:
             <input
@@ -195,7 +194,6 @@ function EditIngredient({ unit }) {
               <span className="text-red-500">{errors.fat?.message}</span>
             )}
           </label>
-
           <label>
             Sucre:
             <input
@@ -220,7 +218,6 @@ function EditIngredient({ unit }) {
               <span className="text-red-500">{errors.sugar?.message}</span>
             )}
           </label>
-
           <label>
             Protein:
             <input

@@ -25,16 +25,17 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
   };
 
   return (
-    <div className="flex items-end">
+    <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center gap-2 w-48"
+        className="flex flex-col items-center gap-5 w-full"
       >
-        <div className="flex flex-col justify-center">
-          <p>
+        <div className="flex flex-col text-2xl justify-center">
+          <p className="p-5">
             Pour créer un nouvel ingrédient, veuillez remplir les champs
             suivants :
           </p>
+          <br />
           <div className="flex flex-row gap-8">
             <label htmlFor="name">Nom de l'ingrédient : </label>
             <input
@@ -52,7 +53,8 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
               <span className="text-red-500">{errors.name?.message}</span>
             )}
           </div>
-          <div className="flex flex-rox gap-8">
+          <br />
+          <div className="flex flex-row gap-8">
             <label htmlFor="calories">Calories (pour 100g) : </label>
             <input
               className="h-10 w-48 text-black"
@@ -77,7 +79,8 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
               <span className="text-red-500">{errors.calories?.message}</span>
             )}
           </div>
-          <div className="flex flex-rox gap-8">
+          <br />
+          <div className="flex flex-row gap-8">
             <label htmlFor="fat">Lipides (pour 100g) : </label>
             <input
               className="h-10 w-48 text-black"
@@ -102,7 +105,8 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
               <span className="text-red-500">{errors.fat?.message}</span>
             )}
           </div>
-          <div className="flex flex-rox gap-8">
+          <br />
+          <div className="flex flex-row gap-8">
             <label htmlFor="sugar">Glucides (pour 100g) : </label>
             <input
               className="h-10 w-48 text-black"
@@ -127,7 +131,8 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
               <span className="text-red-500">{errors.sugar?.message}</span>
             )}
           </div>
-          <div className="flex flex-rox gap-8">
+          <br />
+          <div className="flex flex-row gap-8">
             <label htmlFor="protein">Protéines (pour 100g) : </label>
             <input
               className="h-10 w-48 text-black"
@@ -152,7 +157,8 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
               <span className="text-red-500">{errors.protein?.message}</span>
             )}
           </div>
-          <div className="flex flex-rox gap-8">
+          <br />
+          <div className="flex flex-row gap-8">
             <label htmlFor="unit_id">Liquide ou solide : </label>
             <select
               className="h-10 w-48 text-black"
@@ -176,11 +182,14 @@ function CreateIngredient({ setIsCreatedIngredient, setIsVisible }) {
           <button
             type="button"
             onClick={() => setIsVisible(false)}
-            className="bg-green rounded-3xl h-12 w-32"
+            className="bg-green rounded-3xl h-12 w-32 hover:text-orange font-semibold"
           >
             Annuler
           </button>
-          <button type="submit" className="bg-green rounded-3xl h-12 w-52">
+          <button
+            type="submit"
+            className="bg-green rounded-3xl h-12 w-52 hover:text-orange font-semibold"
+          >
             Créer l'ingrédient
           </button>
         </div>

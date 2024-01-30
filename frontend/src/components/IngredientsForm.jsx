@@ -70,8 +70,8 @@ export default function IngredientsForm({
   const arrayliquid = liquid.split(" ");
 
   return (
-    <div className="flex flex-col gap-4 text-beige rounded-2xl items-center m-5 w-96 h-content bg-orange">
-      <div className="flex flex-col m-5 gap-6">
+    <div className="flex flex-col gap-4 text-beige rounded-2xl items-center w-full h-content bg-orange">
+      <div className="flex flex-row m-5 gap-8">
         {isVisible ? (
           <CreateIngredient
             setIsCreatedIngredient={setIsCreatedIngredient}
@@ -192,13 +192,14 @@ export default function IngredientsForm({
       ) : (
         ""
       )}
-      <div className="flex flex-col gap-4 p-2 font-semibold text-xl">
+      <div className="flex flex-col gap-4 w-contain p-2 font-semibold text-xl">
         <h3>Vos ingrédients sélectionnés : </h3>
-        <ul className="flex flex-row">
+        <ul className="flex flex-col p-5">
           {selectedIngredients &&
             selectedIngredients.map((s) => (
               <li key={s.ingredient}>
-                {s.ingredient}&nbsp;{s.quantity}&nbsp;{s.mesure_unit}{" "}
+                {s.ingredient}&nbsp;{s.quantity}&nbsp;{s.mesure_unit}
+                &nbsp;&nbsp;&nbsp;
                 <button type="button" onClick={() => handleDeleteIngredient(s)}>
                   Supprimer cet ingrédient
                 </button>
