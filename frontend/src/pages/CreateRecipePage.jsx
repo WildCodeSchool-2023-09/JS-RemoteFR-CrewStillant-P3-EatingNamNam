@@ -55,7 +55,7 @@ function CreateRecipePage() {
       <div className="flex flex-row justify-center">
         {selectedSteps[0] && (
           <button
-            className="rounded-2xl mb-3 p-3 bg-orange"
+            className="rounded-2xl mb-3 p-3 bg-green text-beige hover:text-orange"
             type="button"
             onClick={handleForm}
           >

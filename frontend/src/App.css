@@ -5,3 +5,7 @@
   transform: scale(1.2);
   transition: transform 0.5s ease;
 }
+
+/* * {
+  outline: 1px solid red;
+} */

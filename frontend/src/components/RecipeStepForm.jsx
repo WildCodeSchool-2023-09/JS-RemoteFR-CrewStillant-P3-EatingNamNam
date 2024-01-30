@@ -21,14 +21,19 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
     setSelectedSteps(selectedSteps.toSpliced(index, 1));
   };
   return (
-    <div className="flex flex-col rounded-2xl items-center mb-4 p-3 bg-orange">
-      <h2>Détaillez, ici, les étapes de réalisation de votre recette</h2>
+    <div className="border-green font-semibold h-fit flex flex-col items-center gap-4 border-4 rounded-2xl p-3 bg-slate-200 m-5">
+      <h2 className="text-green ">
+        Détaillez, ici, les étapes de réalisation de votre recette
+      </h2>
       <ul className="flex flex-col gap-4 my-2">
         {selectedSteps.map((s, index) => (
           <li className="flex flex-row gap-4" key={selectedSteps.indexOf(s)}>
-            {" "}
             Etape {index + 1} : {s.step}
-            <button type="button" onClick={() => handleDeleteStep(s)}>
+            <button
+              className="text-green hover:text-orange"
+              type="button"
+              onClick={() => handleDeleteStep(s)}
+            >
               Supprimer cette étape
             </button>
           </li>
@@ -62,7 +67,7 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
           </span>
         )}
         <button
-          className="shadow-lg border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
+          className="bg-green text-beige rounded-md p-2 hover:bg-green hover:text-orange"
           type="submit"
         >
           Valider cette étape

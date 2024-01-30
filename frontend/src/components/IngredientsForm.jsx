@@ -70,8 +70,8 @@ export default function IngredientsForm({
   const arrayliquid = liquid.split(" ");
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl items-center p-3 mb-3 bg-orange">
-      <div className="flex flex-row gap-6">
+    <div className="flex flex-col gap-4 text-beige rounded-2xl items-center m-5 w-96 h-content bg-orange">
+      <div className="flex flex-col m-5 gap-6">
         {isVisible ? (
           <CreateIngredient
             setIsCreatedIngredient={setIsCreatedIngredient}
@@ -80,13 +80,20 @@ export default function IngredientsForm({
         ) : (
           <>
             <input
+              className="text-black"
               type="text"
               name="searchIngredient"
               placeholder="Rechercher un ingredient"
               onChange={handleInputIngredient}
             />
-            <select className="w-48" name="" onChange={handleIngredient}>
-              <option value="">Liste des ingrédients</option>
+            <select
+              className="w-48 text-black"
+              name=""
+              onChange={handleIngredient}
+            >
+              <option className="text-black" value="">
+                Liste des ingrédients
+              </option>
               {updatedData.map((i) => (
                 <option key={i.id} value={i.name} id={i.id}>
                   {i.name}
@@ -108,7 +115,7 @@ export default function IngredientsForm({
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center gap-2"
         >
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-col gap-2">
             <input
               type="hidden"
               name="id"
@@ -118,12 +125,14 @@ export default function IngredientsForm({
               })}
             />
             <input
+              className="w-38 m-2"
               type="text"
               name="ingredient"
               value={ingredient.name}
               {...register("ingredient")}
             />
             <input
+              className="w-20 m-2"
               type="number"
               name="quantity"
               min={0}
@@ -146,12 +155,15 @@ export default function IngredientsForm({
               </span>
             )}
             <select
+              className="w-52 m-2"
               name="mesure_unit"
               {...register("mesure_unit", {
                 required: "Ce champ est obligatoire",
               })}
             >
-              <option value="">Choissisez voter unité de mesure</option>
+              <option className="text-black" value="">
+                unité de mesure
+              </option>
               {ingredient.unit_id === 1
                 ? arraysolid.map((a) => (
                     <option value={a} key={arraysolid.indexOf(a)}>
@@ -170,10 +182,7 @@ export default function IngredientsForm({
               </span>
             )}
           </div>
-          <button
-            type="submit"
-            className="shadow-lg border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
-          >
+          <button type="submit" className="bg-green rounded-3xl h-12 w-72 m-5">
             Valider cet ingrédient 🥕
           </button>
         </form>
