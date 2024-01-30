@@ -30,38 +30,42 @@ function CreateRecipePage() {
   };
 
   return (
-    <div className="text-2xl text-black">
-      <h1 className="text-green font-bold text-3xl text-center p-2">
+    <div>
+      <h1 className="text-green font-bold text-3xl text-center p-4">
         Créez votre recette ici !
       </h1>
-      <RecipeInformationForm
-        selectedInformations={selectedInformations}
-        setSelectedInformations={setSelectedInformations}
-      />
-      {selectedInformations && (
-        <IngredientsForm
-          ingredients={ingredients.data}
-          unit={unit.data}
-          selectedIngredients={selectedIngredients}
-          setSelectedIngredients={setSelectedIngredients}
-        />
-      )}
-      {selectedIngredients[0] && (
-        <RecipeStepForm
-          selectedSteps={selectedSteps}
-          setSelectedSteps={setSelectedSteps}
-        />
-      )}
-      <div className="flex flex-row justify-center">
-        {selectedSteps[0] && (
-          <button
-            className="rounded-2xl mb-3 p-3 bg-green text-beige hover:text-orange"
-            type="button"
-            onClick={handleForm}
-          >
-            Validez votre recette ici ! 🥕🥕🥕
-          </button>
+      <div className="text-2xl flex flex-col items-center gap-4 text-black">
+        <div className="flex flex-col items-end">
+          <RecipeInformationForm
+            selectedInformations={selectedInformations}
+            setSelectedInformations={setSelectedInformations}
+          />
+          {selectedInformations && (
+            <IngredientsForm
+              ingredients={ingredients.data}
+              unit={unit.data}
+              selectedIngredients={selectedIngredients}
+              setSelectedIngredients={setSelectedIngredients}
+            />
+          )}
+        </div>
+        {selectedIngredients[0] && (
+          <RecipeStepForm
+            selectedSteps={selectedSteps}
+            setSelectedSteps={setSelectedSteps}
+          />
         )}
+        <div className="flex flex-row justify-center">
+          {selectedSteps[0] && (
+            <button
+              className="rounded-2xl mb-3 p-3 bg-green text-beige hover:text-orange"
+              type="button"
+              onClick={handleForm}
+            >
+              Validez votre recette ici ! 🥕🥕🥕
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -103,7 +103,7 @@ export default function IngredientsForm({
             <button
               type="button"
               onClick={() => setIsVisible(true)}
-              className="shadow-lg border-2 border-green rounded-md p-1"
+              className="bg-green rounded-3xl p-1 hover:text-orange hover:font-semibold"
             >
               Créer un ingrédient
             </button>
@@ -115,7 +115,7 @@ export default function IngredientsForm({
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center gap-2"
         >
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col text-black p-5 gap-2">
             <input
               type="hidden"
               name="id"
@@ -182,20 +182,23 @@ export default function IngredientsForm({
               </span>
             )}
           </div>
-          <button type="submit" className="bg-green rounded-3xl h-12 w-72 m-5">
+          <button
+            type="submit"
+            className="bg-green rounded-3xl h-12 w-72 m-5 hover:text-orange hover:font-semibold"
+          >
             Valider cet ingrédient 🥕
           </button>
         </form>
       ) : (
         ""
       )}
-      <div className="flex flex-row gap-4 text-xl">
+      <div className="flex flex-col gap-4 p-2 font-semibold text-xl">
         <h3>Vos ingrédients sélectionnés : </h3>
-        <ul className="flex flex-col">
+        <ul className="flex flex-row">
           {selectedIngredients &&
             selectedIngredients.map((s) => (
               <li key={s.ingredient}>
-                {s.ingredient},{s.quantity}, {s.mesure_unit}{" "}
+                {s.ingredient}&nbsp;{s.quantity}&nbsp;{s.mesure_unit}{" "}
                 <button type="button" onClick={() => handleDeleteIngredient(s)}>
                   Supprimer cet ingrédient
                 </button>

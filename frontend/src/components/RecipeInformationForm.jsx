@@ -44,16 +44,16 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
     setImageRecipe(newimageurl.imageUrl);
   };
   return (
-    <div className="border rounded-2xl items-center mb-3 p-3 bg-beige">
+    <div className="border rounded-2xl text-center mb-3 p-3">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-row justify-around">
-          <div className="flex flex-col gap-2">
-            <img src={imageRecipe} alt="plat" />
-            <input type="hidden" value={imageRecipe} {...register("image")} />
-          </div>
-          <div className="flex flex-col items-center gap-2 text-beige bg-orange rounded-3xl">
-            <div className="m-5 text-black">
-              <label htmlFor="title">Titre de votre recette :</label>
+        <div className="flex flex-row gap-32">
+          <img className="rounded-3xl" src={imageRecipe} alt="plat" />
+          <input type="hidden" value={imageRecipe} {...register("image")} />
+          <div className="flex flex-col items-center gap-2 text-beige p-5 bg-orange rounded-3xl">
+            <div className="text-black">
+              <label className="text-beige" htmlFor="title">
+                Titre de votre recette :
+              </label>
               <br />
               <input
                 className="mt-4 justify-center"
@@ -80,7 +80,7 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
               <label htmlFor="type">Choisissez votre type de recette</label>
               <br />
               <select
-                className="mt-4 items-center text-black"
+                className="mt-4 text-black"
                 name="type"
                 {...register("type", {
                   required: "Ce champ est obligatoire ",
@@ -95,10 +95,10 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
               </select>
             </div>
             <div className="flex flex-row justify-center mb-3 p-2 gap-8 sm:w-112 text-beige">
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col items-center gap-1">
                 <label htmlFor="preparationTime">Temps de préparation :</label>
                 <input
-                  className="w-24 text-black"
+                  className="w-24 mt-2 text-black"
                   placeholder="ex : 30"
                   type="number"
                   min="0"
@@ -131,7 +131,7 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
                   Temps de cuisson :
                   <br />
                   <input
-                    className="w-24 text-black"
+                    className="w-24 mt-3 text-black"
                     placeholder="ex : 40"
                     type="number"
                     min="0"
@@ -163,7 +163,7 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
               <div className="flex flex-col gap-1">
                 <label htmlFor="difficulty">Difficulté :</label>
                 <select
-                  className="w-24 text-black"
+                  className="w-24 mt-2 text-black"
                   {...register("difficulty", {
                     required: "Ce champ est obligatoire ",
                     valueAsNumber: "Un nombre est obligatoire",
@@ -185,8 +185,8 @@ export default function RecipeInformationForm({ setSelectedInformations }) {
             </div>
             {formIsValidated ? (
               <p>
-                Vos informations sont enregistrées. Maintenant, ajoutez les
-                ingrédients nécessaires
+                Vos informations sont enregistrées. <br />
+                Maintenant, ajoutez les ingrédients nécessaires
               </p>
             ) : (
               <button
