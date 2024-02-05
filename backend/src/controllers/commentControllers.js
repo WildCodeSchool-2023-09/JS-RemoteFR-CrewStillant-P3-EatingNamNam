@@ -58,8 +58,8 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res, next) => {
   try {
-    const { recipe_id: recipeID, user_id: userID, content } = req.body;
-
+    const { recipe_id: recipeID, content } = req.body;
+    const { sub } = req.auth;
     const newCommentID = await tables.comment.create(content);
 
     if (newCommentID == null) {
@@ -68,7 +68,7 @@ const add = async (req, res, next) => {
 
     const newRefComment = await tables.recipe_comment.create(
       newCommentID,
-      userID,
+      Number(sub),
       recipeID
     );
 

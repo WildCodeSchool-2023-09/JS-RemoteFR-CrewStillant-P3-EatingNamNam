@@ -6,7 +6,7 @@ import pictureinsta from "../assets/logo_nav_footer/img-insta.png";
 
 function Footer() {
   return (
-    <div>
+    <footer className="w-full">
       <div className="bg-orange grid grid-cols-2 gap-7">
         <div className="text-beige ml-2 grid grid-rows-3 p-2">
           <NavLink
@@ -47,7 +47,7 @@ function Footer() {
           <img className="h-10" src={pictureTwitch} alt="twitch" />
         </NavLink>
       </div>
-    </div>
+    </footer>
   );
 }
 

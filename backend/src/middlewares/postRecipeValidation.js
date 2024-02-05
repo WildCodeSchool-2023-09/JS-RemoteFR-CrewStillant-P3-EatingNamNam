@@ -31,7 +31,7 @@ const informationRecipeSchema = z.object({
     }),
   type: z
     .string()
-    .min(5)
+    .min(3)
     .regex(/[A-Za-z]+$/),
 });
 

@@ -30,7 +30,7 @@ function CreateRecipePage() {
       })
       .then((res) => {
         toast.success(res.data.message);
-        navigate(`/recipe/${res.data.id}`);
+        navigate("/");
       });
   };
 
@@ -42,7 +42,7 @@ function CreateRecipePage() {
 
   return (
     <section>
-      <h1 className="text-green font-bold text-5xl text-center mt-10 p-7">
+      <h1 className="text-green font-bold text-5xl text-center mt-10 p-6">
         Créez votre recette ici !
       </h1>
       <div className="text-2xl flex flex-col gap-12 mt-10 text-black items-center">
