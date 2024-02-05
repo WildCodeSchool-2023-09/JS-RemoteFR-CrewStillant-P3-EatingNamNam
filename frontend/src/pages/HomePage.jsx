@@ -185,6 +185,11 @@ function HomePage() {
           </div>
         </div>
         <div>
+          {!auth && (
+            <h2 className="text-center text-2xl mb-8">
+              Inscrivez-vous pour accéder au contenu
+            </h2>
+          )}
           <div className={!auth?.pseudo ? "blur-sm" : null}>
             <ul className="flex flex-row justify-center flex-wrap gap-16">
               <div className="rounded-2xl w-72 h-80 p-4 bg-green text-center">
