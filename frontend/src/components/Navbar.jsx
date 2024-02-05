@@ -6,7 +6,7 @@ import logo from "../assets/logo_nav_footer/logo1.png";
 
 function Navbar({ auth }) {
   return (
-    <div className="bg-orange flex flex-row justify-between">
+    <nav className="bg-orange flex flex-row justify-between w-full">
       <NavLink className="m-2" to="/">
         <img className="h-28 rounded-full" src={logo} alt="logo" />
       </NavLink>
@@ -51,7 +51,7 @@ function Navbar({ auth }) {
           </>
         )}
       </div>
-    </div>
+    </nav>
   );
 }
 

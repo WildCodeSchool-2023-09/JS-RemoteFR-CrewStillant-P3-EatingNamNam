@@ -30,7 +30,7 @@ function CreateRecipePage() {
       })
       .then((res) => {
         toast.success(res.data.message);
-        navigate(`/recipe/${res.data.id}`);
+        navigate("/");
       });
   };
 
