@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import PropTypes from "prop-types";
 
@@ -73,7 +74,26 @@ function EditIngredient() {
     );
   };
 
-  const onSubmit = () => {};
+  const { auth } = useOutletContext();
+
+  const onSubmit = async (data) => {
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/ingredient/${
+          selectedIngredient.id
+        }`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      );
+
+      reset();
+      toast.success("Ingrédient mis à jour avec succès");
+    } catch (error) {
+      toast.error("Erreur lors de la mise à jour de l'ingrédient");
+    }
+  };
 
   return (
     <div>
@@ -115,10 +135,10 @@ function EditIngredient() {
             <input
               type="text"
               className="w-32 mr-4"
-              name="ingredient"
+              name="name"
               value={selectedIngredient.name}
               // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register("ingredient")}
+              {...register("name")}
             />
             <input
               type="number"
@@ -272,7 +292,7 @@ function EditIngredient() {
               </label>
             </div>
             <div className="flex flex-col mt-6">
-              <button type="button">Modifier un ingrédient 🥕</button>
+              <button type="submit">Modifier un ingrédient 🥕</button>
               <button type="button" onClick={handleDeleteIngredient}>
                 Supprimer un ingrédient 🥕
               </button>
