@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import PropTypes from "prop-types";
 import CreateIngredient from "./CreateIngredient";
+import closeCross from "../assets/bouton-fermer.png";
 
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -70,8 +71,8 @@ export default function IngredientsForm({
   const arrayliquid = liquid.split(" ");
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl items-center p-3 mb-3 bg-orange">
-      <div className="flex flex-row gap-6">
+    <div className="flex flex-col gap-8 text-beige rounded-2xl pt-8 mx-4 p-4 items-center sm:w-[95rem] h-content bg-orange">
+      <div className="flex sm:flex-row flex-col items-center gap-8 sm:gap-4">
         {isVisible ? (
           <CreateIngredient
             setIsCreatedIngredient={setIsCreatedIngredient}
@@ -79,24 +80,35 @@ export default function IngredientsForm({
           />
         ) : (
           <>
+            <label htmlFor="searchIngredient" className="text-3xl">
+              Recherchez votre ingrédient
+            </label>
             <input
+              className="text-black px-2"
               type="text"
               name="searchIngredient"
               placeholder="Rechercher un ingredient"
               onChange={handleInputIngredient}
             />
-            <select className="w-48" name="" onChange={handleIngredient}>
-              <option value="">Liste des ingrédients</option>
+            <select
+              className="w-48 text-black"
+              name=""
+              onChange={handleIngredient}
+            >
+              <option className="text-black" value="">
+                Liste des ingrédients
+              </option>
               {updatedData.map((i) => (
                 <option key={i.id} value={i.name} id={i.id}>
                   {i.name}
                 </option>
               ))}
             </select>
+            <p className="text-3xl">ou</p>
             <button
               type="button"
               onClick={() => setIsVisible(true)}
-              className="shadow-lg border-2 border-green rounded-md p-1"
+              className="text-3xl bg-green rounded-2xl px-3 py-1 hover:text-orange hover:font-semibold"
             >
               Créer un ingrédient
             </button>
@@ -108,7 +120,7 @@ export default function IngredientsForm({
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center gap-2"
         >
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-col text-black p-5 gap-2">
             <input
               type="hidden"
               name="id"
@@ -118,12 +130,14 @@ export default function IngredientsForm({
               })}
             />
             <input
+              className="w-38 m-2 text-black "
               type="text"
               name="ingredient"
               value={ingredient.name}
               {...register("ingredient")}
             />
             <input
+              className="w-20 m-2"
               type="number"
               name="quantity"
               min={0}
@@ -146,12 +160,15 @@ export default function IngredientsForm({
               </span>
             )}
             <select
+              className="w-52 m-2"
               name="mesure_unit"
               {...register("mesure_unit", {
                 required: "Ce champ est obligatoire",
               })}
             >
-              <option value="">Choissisez voter unité de mesure</option>
+              <option className="text-black" value="">
+                unité de mesure
+              </option>
               {ingredient.unit_id === 1
                 ? arraysolid.map((a) => (
                     <option value={a} key={arraysolid.indexOf(a)}>
@@ -172,7 +189,7 @@ export default function IngredientsForm({
           </div>
           <button
             type="submit"
-            className="shadow-lg border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
+            className="bg-green rounded-3xl h-12 w-72 m-5 hover:text-orange hover:font-semibold"
           >
             Valider cet ingrédient 🥕
           </button>
@@ -180,16 +197,28 @@ export default function IngredientsForm({
       ) : (
         ""
       )}
-      <div className="flex flex-row gap-4 text-xl">
+      <div className="text-center flex flex-col gap-6 sm:gap-4 items-center sm:px-16 py-4 text-3xl border-t-4 border-green">
         <h3>Vos ingrédients sélectionnés : </h3>
-        <ul className="flex flex-col">
+        <ul className="flex flex-col text-3xl gap-4">
           {selectedIngredients &&
             selectedIngredients.map((s) => (
-              <li key={s.ingredient}>
-                {s.ingredient},{s.quantity}, {s.mesure_unit}{" "}
-                <button type="button" onClick={() => handleDeleteIngredient(s)}>
-                  Supprimer cet ingrédient
-                </button>
+              <li
+                key={s.ingredient}
+                className="flex sm:flex-row flex-col items-center justify-start sm:gap-2"
+              >
+                <p>{s.ingredient}</p>
+                <span className="flex flex-row">
+                  <p>{s.quantity}</p>
+                  <p>{s.mesure_unit}</p>
+                  <button
+                    className="w-6 ml-4"
+                    type="button"
+                    title="Retirer l'ingrédient"
+                    onClick={() => handleDeleteIngredient(s)}
+                  >
+                    <img src={closeCross} alt="supprimer" />
+                  </button>
+                </span>
               </li>
             ))}
         </ul>

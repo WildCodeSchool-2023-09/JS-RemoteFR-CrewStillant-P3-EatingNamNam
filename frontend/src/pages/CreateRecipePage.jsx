@@ -41,40 +41,43 @@ function CreateRecipePage() {
   }, []);
 
   return (
-    <div className="text-2xl text-black">
-      <h1 className="text-green font-bold text-3xl text-center p-2">
+    <section>
+      <h1 className="text-green font-bold text-5xl text-center mt-10 p-7">
         Créez votre recette ici !
       </h1>
-      <RecipeInformationForm
-        selectedInformations={selectedInformations}
-        setSelectedInformations={setSelectedInformations}
-      />
-      {selectedInformations && (
-        <IngredientsForm
-          ingredients={ingredients.data}
-          unit={unit.data}
-          selectedIngredients={selectedIngredients}
-          setSelectedIngredients={setSelectedIngredients}
+      <div className="text-2xl flex flex-col gap-12 mt-10 text-black items-center">
+        <RecipeInformationForm
+          selectedInformations={selectedInformations}
+          setSelectedInformations={setSelectedInformations}
         />
-      )}
-      {selectedIngredients[0] && (
-        <RecipeStepForm
-          selectedSteps={selectedSteps}
-          setSelectedSteps={setSelectedSteps}
-        />
-      )}
-      <div className="flex flex-row justify-center">
-        {selectedSteps[0] && (
-          <button
-            className="rounded-2xl mb-3 p-3 bg-orange"
-            type="button"
-            onClick={handleForm}
-          >
-            Validez votre recette ici ! 🥕🥕🥕
-          </button>
+        {selectedInformations && (
+          <IngredientsForm
+            ingredients={ingredients.data}
+            unit={unit.data}
+            selectedIngredients={selectedIngredients}
+            setSelectedIngredients={setSelectedIngredients}
+          />
         )}
+        {selectedIngredients[0] && (
+          <RecipeStepForm
+            selectedSteps={selectedSteps}
+            setSelectedSteps={setSelectedSteps}
+          />
+        )}
+        <div className="flex flex-row justify-center">
+          {selectedSteps[0] && (
+            <button
+              className="rounded-2xl mb-3 p-3 bg-green text-beige hover:text-orange font-semibold"
+              type="button"
+              onClick={handleForm}
+            >
+              Validez votre recette ici ! 🥕🥕🥕
+            </button>
+          )}
+        </div>
+        <br />
       </div>
-    </div>
+    </section>
   );
 }
 
