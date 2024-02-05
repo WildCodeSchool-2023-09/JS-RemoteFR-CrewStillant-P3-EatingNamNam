@@ -62,7 +62,7 @@ const edit = async (req, res, next) => {
 const add = async (req, res, next) => {
   try {
     const { info, ingredients, steps } = req.body;
-    const { mail } = req.auth;
+    const { sub } = req.auth;
     const newRecipeID = await tables.recipe.create(info);
     if (newRecipeID == null) {
       res.sendStatus(404);
@@ -73,10 +73,9 @@ const add = async (req, res, next) => {
       for (let i = 0; i < steps.length; i += 1) {
         tables.step.create(newRecipeID, steps[i].step);
       }
-      const { id } = await tables.user.readByEmail(mail);
-      tables.recipe_user.create(newRecipeID, Number(id));
+      tables.recipe_user.create(newRecipeID, Number(sub));
 
-      res.status(200).json({ id: newRecipeID, message: `Recipe created` });
+      res.status(200).json({ id: newRecipeID, message: `Recette ajoutée` });
     }
   } catch (error) {
     next(error);

@@ -2,6 +2,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import closeCross from "../assets/bouton-fermer.png";
 
 export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
   const {
@@ -21,25 +22,38 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
     setSelectedSteps(selectedSteps.toSpliced(index, 1));
   };
   return (
-    <div className="flex flex-col rounded-2xl items-center mb-4 p-3 bg-orange">
-      <h2>Détaillez, ici, les étapes de réalisation de votre recette</h2>
-      <ul className="flex flex-col gap-4 my-2">
+    <div className="border-green text-center mx-4 sm:w-[95rem] h-fit flex flex-col items-center gap-4 border-4 rounded-2xl p-4 bg-slate-200">
+      <h2 className="text-green text-4xl font-semibold p-8">
+        Détaillez les étapes de réalisation de votre recette
+      </h2>
+      <ul className="flex flex-col gap-8">
         {selectedSteps.map((s, index) => (
-          <li className="flex flex-row gap-4" key={selectedSteps.indexOf(s)}>
-            {" "}
-            Etape {index + 1} : {s.step}
-            <button type="button" onClick={() => handleDeleteStep(s)}>
-              Supprimer cette étape
-            </button>
+          <li
+            className="flex flex-col gap-4 items-start px-4"
+            key={selectedSteps.indexOf(s)}
+          >
+            <span className="flex flex-row gap-4">
+              <p className="underline underline-offset-4">
+                Etape {index + 1} :
+              </p>
+              <button
+                className="w-6"
+                type="button"
+                onClick={() => handleDeleteStep(s)}
+              >
+                <img src={closeCross} alt="Retirer l'étape" />
+              </button>
+            </span>
+            <p className="text-balance pl-4">{s.step}</p>
           </li>
         ))}
       </ul>
       <form
-        className="flex flex-col items-center gap-2 w-[50rem]"
+        className="flex flex-col items-center gap-2 pt-8 sm:w-[50rem]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <textarea
-          className="w-full"
+          className="w-80 sm:w-full"
           placeholder="Etape :"
           name="step"
           {...register("step", {
@@ -61,13 +75,15 @@ export default function RecipeStepForm({ selectedSteps, setSelectedSteps }) {
             {errors.step?.message}
           </span>
         )}
+        <br />
         <button
-          className="shadow-lg border-2 border-green rounded-md p-2 hover:bg-green hover:font-bold hover:text-orange"
+          className="bg-green text-beige rounded-2xl px-4 p-2 hover:bg-green hover:text-orange"
           type="submit"
         >
           Valider cette étape
         </button>
       </form>
+      <br />
     </div>
   );
 }

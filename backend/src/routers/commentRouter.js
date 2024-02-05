@@ -9,10 +9,11 @@ const {
   add,
   destroy,
 } = require("../controllers/commentControllers");
+const { verifyToken } = require("../services/verifyToken");
 
 router.get("/", browse);
 
-router.post("/", add);
+router.post("/", verifyToken, add);
 
 router.get("/:id", read);
 

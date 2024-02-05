@@ -1,8 +1,14 @@
-import { NavLink, Outlet, useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  NavLink,
+  Outlet,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
 
 export default function UserPage() {
   const { auth } = useOutletContext();
-
+  const navigate = useNavigate();
   const navUser = [
     {
       id: 1,
@@ -25,6 +31,12 @@ export default function UserPage() {
       name: "Mes commentaires",
     },
   ];
+
+  useEffect(() => {
+    if (!auth.token) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div>
       <div className="flex flex-row flex-wrap rounded-md py-2 bg-orange mx-6 my-12 gap-2 w-fit">

@@ -28,9 +28,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: async () => {
-          const recipes = await fetch(`${apiUrl}/api/recipe`).then((res) =>
-            res.json()
-          );
+          const recipes = await axios
+            .get(`${apiUrl}/api/recipe`)
+            .then((res) => res.data);
           return recipes;
         },
       },
@@ -45,10 +45,7 @@ const router = createBrowserRouter([
           const notation = await axios
             .get(`${apiUrl}/api/note/${id}`)
             .then((res) => res.data);
-          const favorite = await axios
-            .get(`${apiUrl}/api/favorite/${id}`)
-            .then((res) => res.data);
-          return { recipe, notation, favorite };
+          return { recipe, notation };
         },
       },
       {
