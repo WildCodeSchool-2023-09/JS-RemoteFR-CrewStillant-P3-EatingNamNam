@@ -89,7 +89,7 @@ function EditIngredient() {
       );
 
       reset();
-      toast.success("Ingrédient mis à jour avec succès!");
+      toast.success("Ingrédient mis à jour avec succès");
     } catch (error) {
       toast.error("Erreur lors de la mise à jour de l'ingrédient");
     }
