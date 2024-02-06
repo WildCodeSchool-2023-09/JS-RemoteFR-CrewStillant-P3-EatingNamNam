@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Recipes from "../components/Recipes";
@@ -6,6 +6,7 @@ import CommentForm from "../components/CommentForm";
 
 function RecipesPage() {
   const { recipe, notation } = useLoaderData();
+  const { auth } = useOutletContext();
   // States pour générer un nouvel affichage de la recette avec le commentaire juste posté
 
   const [isValidated, setIsValidated] = useState(false);
@@ -25,11 +26,13 @@ function RecipesPage() {
   return (
     <div>
       <Recipes recipe={updatedData} notation={notation} />
-      <CommentForm
-        recipeID={updatedData.infos.id}
-        isValidated={isValidated}
-        setIsValidated={setIsValidated}
-      />
+      {auth?.token && (
+        <CommentForm
+          recipeID={updatedData.infos.id}
+          isValidated={isValidated}
+          setIsValidated={setIsValidated}
+        />
+      )}
     </div>
   );
 }
