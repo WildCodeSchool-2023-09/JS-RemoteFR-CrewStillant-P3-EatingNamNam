@@ -66,7 +66,7 @@ function HomePage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
 
-  const filterRecipes = (text, type, difficulty, time) => {
+  const filterRecipes = (type, difficulty, time) => {
     const updatedRecipes = recipes.filter(
       (r) =>
         (type === "All" || r.type === type) &&
@@ -123,28 +123,28 @@ function HomePage() {
           <div className="m-10 flex flex-col md:flex-row justify-center align-center text-xl gap-2 md:gap-6">
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige md:w-32"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige md:w-32 focus:border-2 focus:border-orange focus:bg-green focus:text-orange focus:font-semibold"
               onClick={() => handleAllFilters("All")}
             >
               All
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige md:w-32"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige md:w-32 focus:border-2 focus:border-orange focus:bg-green focus:text-orange focus:font-semibold"
               onClick={() => handleAllFilters("healthy")}
             >
               Healthy
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige  md:w-32"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige  md:w-32 focus:border-2 focus:border-orange focus:bg-green focus:text-orange focus:font-semibold"
               onClick={() => handleAllFilters("light")}
             >
               Light
             </button>
             <button
               type="button"
-              className="bg-orange text-beige p-4 rounded-2xl border border-beige  md:w-32"
+              className="bg-orange text-beige p-4 rounded-2xl border border-beige  md:w-32 focus:border-2 focus:border-orange focus:bg-green focus:text-orange focus:font-semibold"
               onClick={() => handleAllFilters("fat")}
             >
               Fat

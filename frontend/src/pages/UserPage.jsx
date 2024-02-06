@@ -33,12 +33,12 @@ export default function UserPage() {
   ];
 
   useEffect(() => {
-    if (!auth.token) {
+    if (!auth?.token) {
       navigate("/");
     }
   }, []);
   return (
-    <div>
+    <div className="sm:h-screen px-8">
       <div className="flex flex-row flex-wrap rounded-md py-2 bg-orange mx-6 my-12 gap-2 w-fit">
         {navUser.map((n) => (
           <NavLink

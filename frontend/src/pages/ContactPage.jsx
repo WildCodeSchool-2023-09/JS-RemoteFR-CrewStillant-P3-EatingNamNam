@@ -34,18 +34,21 @@ function ContactPage() {
   };
 
   return (
-    <div className="p-4 m-20">
-      <h2 className="text-5xl text-orange font-bold mb-10 text-center">
+    <div className="p-8 h-screen text-orange text-2xl">
+      <h2 className="text-5xl text-orange font-bold text-center">
         Contactez-nous
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex mb-5">
-          <div className="w-1/2 mr-4">
-            <label htmlFor="name" className="block text-2xl text-orange">
-              Votre nom:
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col items-center mt-8 py-8 gap-4 bg-slate-200 border-4 border-green rounded-xl"
+      >
+        <div className="flex sm:flex-row flex-col gap-8">
+          <div className="flex sm:flex-row flex-col gap-2">
+            <label htmlFor="name" className="">
+              Votre nom
             </label>
             <input
-              className="w-full h-10 bg-orange text-beige"
+              className="bg-slate-100 text-beige rounded-md"
               type="text"
               name="name"
               {...register("name", {
@@ -57,19 +60,18 @@ function ContactPage() {
               <span className="text-red-500">{errors.name.message}</span>
             )}
           </div>
-
-          <div className="w-1/2">
-            <label htmlFor="email" className="block text-2xl text-orange">
-              Votre email:
+          <div className="flex sm:flex-row flex-col gap-2">
+            <label htmlFor="email" className="">
+              Votre email
             </label>
             <input
-              className="w-full h-10 bg-orange text-beige"
+              className="bg-slate-100 text-beige rounded-md"
               type="email"
               {...register("email", {
                 pattern: {
                   value: /[\w.%+-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}/,
                   message:
-                    "Merci d'entrer une adresse email valide comme nom@exemple.com",
+                    "Merci d'entrer une adresse email valide ex:nom@exemple.com",
                 },
                 required: "Ce champ est obligatoire",
               })}
@@ -79,13 +81,12 @@ function ContactPage() {
             )}
           </div>
         </div>
-
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-2xl text-orange">
-            Message:
+        <div className="flex sm:flex-row flex-col items-start gap-2">
+          <label htmlFor="message" className="block">
+            Votre message
           </label>
           <textarea
-            className="w-full h-40 bg-orange text-beige"
+            className="bg-slate-100 text-beige rounded-md sm:w-[36rem] h-48"
             {...register("message", {
               required: "Ce champ est obligatoire",
               minLength: { value: 7, message: "Minimum 7 caractères" },
@@ -97,7 +98,7 @@ function ContactPage() {
         </div>
         <button
           type="submit"
-          className="bg-green py-3 px-3 text-2xl text-beige"
+          className="bg-green px-3 py-2 text-beige rounded-md shadow"
         >
           Envoyer
         </button>

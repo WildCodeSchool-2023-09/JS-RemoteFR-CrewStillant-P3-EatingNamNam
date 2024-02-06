@@ -38,7 +38,7 @@ export default function Login() {
     >
       <label htmlFor="mail">Votre e-mail</label>
       <input
-        className="text-black pl-2 w-64 rounded-md"
+        className="text-black pl-2 w-64 bg-beige rounded-md"
         type="email"
         name="mail"
         {...register("mail", { required: "Veuillez renseigner votre mail" })}
@@ -50,7 +50,7 @@ export default function Login() {
       )}
       <label htmlFor="password">Votre mot-de-passe</label>
       <input
-        className="text-black pl-2 w-64 rounded-md"
+        className="text-black pl-2 w-64 rounded-md bg-beige"
         type="password"
         name="password"
         {...register("password", {
