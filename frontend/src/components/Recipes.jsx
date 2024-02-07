@@ -113,8 +113,9 @@ function Recipes({ recipe, notation }) {
     });
   } else {
     for (let i = 0; i < ingredientArray.length; i += 1) {
+      const idIngredient = i;
       ingredientList.push({
-        id: (i += 1),
+        id: idIngredient + 1,
         ingredient: ingredientArray[i],
         quantity: parseInt(quantityArray[i], 10),
       });
