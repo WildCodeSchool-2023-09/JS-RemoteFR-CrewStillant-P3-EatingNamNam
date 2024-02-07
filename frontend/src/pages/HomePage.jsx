@@ -87,19 +87,19 @@ function HomePage() {
 
   const handleAllFilters = (e) => {
     setSelectedType(e);
-    filterRecipes(searchText, selectedType, selectedDifficulty, selectedTime);
+    filterRecipes(selectedType, selectedDifficulty, selectedTime);
   };
 
   const difficultyFiltered = (e) => {
     const difficulty = e.target.value;
     setSelectedDifficulty(difficulty);
-    filterRecipes(searchText, selectedType, difficulty, selectedTime);
+    filterRecipes(selectedType, difficulty, selectedTime);
   };
 
   const handleTimeFilter = (e) => {
     const time = e.target.value;
     setSelectedTime(time);
-    filterRecipes(searchText, selectedType, selectedDifficulty, time);
+    filterRecipes(selectedType, selectedDifficulty, time);
   };
 
   return (
