@@ -288,6 +288,12 @@ INSERT INTO ingredient (name,calories,fat,sugar,protein,unit_id) VALUES
 	 ('Courgette',17,0,3,1,1);
 INSERT INTO ingredient (name,calories,fat,sugar,protein,unit_id) VALUES
 	 ('Sauce soja',61,0,10,6,2),
+	 ('Vin blanc', 0,0,0,0,2),
+	 ('Poudre curry',5,0,2,1,1),
+	 ('Viande de boeuf haché',126,10,0,20,1),
+	 ('Farine',344,1,71,10,1),
+	 ('Lait',47,2,5,3,2),
+	 ('Purée de tomate',27,0,5,1,1),
 	 ('Câpres',3,0,0,0,1);
 
 INSERT INTO recipe (registration_date,title,cooking_time,preparation_time,difficulty,image,`type`) VALUES
@@ -347,20 +353,31 @@ INSERT INTO recipe (registration_date,title,cooking_time,preparation_time,diffic
 	 ('2024-01-26 01:32:45','Poulet aux Herbes',55,30,2,'https://img.freepik.com/photos-gratuite/poulet-au-four-garni-asperges-herbes_2829-11074.jpg?size=626&ext=jpg&ga=GA1.2.2106550799.1701789518&semt=ais','healthy');
 
 INSERT INTO ingredient_recipe (quantity,mesure_unit_recipe,recipe_id,ingredient_id) VALUES
-	 (200,'g',1,1),
-	 (2,'pièce',2,2),
+	 (400, 'g', 1, 31),
+	 (200,'g',1,2),
+	 (5, 'g', 1, 47),
+	 (10, 'cL', 1, 52),
+	 (10, 'g', 1, 53),
+	 (500, 'g', 4,54),
+	 (2,'pièce',4,2),
+	 (80,'g',4,37),
+	 (80,'g',4,55),
+	 (1, 'L', 4,56),
+	 (150,'g',4,20),
+	 (400,'g', 4, 57),
+	 (250,'g',4,5),
 	 (2,'pièce',3,2),
 	 (50,'g',3,46),
 	 (2,'pièce',4,2),
 	 (50,'g',2,46),
-	 (2,'pièce',1,2),
-	 (50,'g',1,46),
+	 (2,'pièce',2,2),
+	 (50,'g',2,46),
 	 (120,'g',2,2),
 	 (250,'g',3,3);
 INSERT INTO ingredient_recipe (quantity,mesure_unit_recipe,recipe_id,ingredient_id) VALUES
-	 (1,'pièce',4,4),
+	 (1,'pièce',2,4),
 	 (1,'kg',5,5),
-	 (28,'g',4,9),
+	 (28,'g',2,9),
 	 (14,'cL',6,6),
 	 (28,'g',15,9),
 	 (1,'càc',7,7),
@@ -424,7 +441,7 @@ INSERT INTO ingredient_recipe (quantity,mesure_unit_recipe,recipe_id,ingredient_
 INSERT INTO recipe_user (recipe_id,user_id) VALUES
 	 (1,16),
 	 (2,14),
-	 (4,4),
+	 (4,1),
 	 (3,7),
 	 (5,11),
 	 (6,15),
@@ -478,9 +495,11 @@ INSERT INTO recipe_user (recipe_id,user_id) VALUES
 	 (50,16);
 
 INSERT INTO step (`text`,recipe_id) VALUES
-	 ('Couper le poulet en morceaux',1),
-	 ('Mélanger le curry avec le poulet',1),
-	 ('faire cuire le poulet pendant 12min. Servez-vous',1),
+	('Emincer les oignons et les réserver.',1 ),
+	 ('Couper le poulet en morceaux puis les rissoler dans une sauteuse.',1),
+	 ('Débarasser la viande puis faites revenir les oignons dans les sucs.',1),
+	 ('Déglacer un vin blanc, ajouter le poulet, le curry, le gingembre gratté et le lait de coco.',1),
+	 ('Laissez mijoter, à couvert, une dixaine de minutes en remuant régulièrement. Servez la viande accompagné, par exemple, d un riz pilaf !',1),
 	 ('Faire cuire le quinoa',2),
 	 ('Mettez les dans un bol',2),
 	 ('Coupez les légumes puis ajoutez les au bol',2),
@@ -492,13 +511,13 @@ INSERT INTO step (`text`,recipe_id) VALUES
 	 ('Ajouter un peu de farine puis faire mijoter dans 1L d/eau',3),
 	 ('attendre 10min puis mixer le tous',3),
 	 ('Servez-vous.',3),
-	 ('Couper les oignons en petit morceau',4),
-	 ('ajouter la viande hachée puis faire revenir pendant 10min',4),
-	 ('Ajouter des carottes, puis la purée de tomate',4),
-	 ('Faire la béchamel',4),
-	 ('Prendre un plat et alterner entre béchamel, sauce et les lasagnes jusqu/à épuisement des ingrédients',4),
-	 ('Mettre au four pendant 30min',4),
-	 ('Servez-vous',4);
+	 ('Ciselez les oignons et couper en brunoise les carottes puis les faire rissoler dans une sauteuse.',4),
+	 ('Ajouter la viande hachée, laissez mijoter 4/5min puis ajouter la	purée de tomate. Laissez cuire encore une dixaine de minutes',4),
+	 ('Dans une autre sauteuse, faire suer le beurre puis ajouter la farine et bien mélanger. Ajoutez-y le lait petit à petit pour réaliser la béchamel',4),
+	 ('Cuire les pâtes à lasagnes quelques minutes et les égouter.',4),
+	 ('Prendre un plat et alterner entre béchamel, viande et les lasagnes jusqu`à épuisement des ingrédients',4),
+	 ('Finir par une couche de pâte puis de béchamel et ajouter du fromage râpés par dessu. Mettre au four pendant 30min',4),
+	 ('Dégustez à la sortie du four !',4);
 INSERT INTO step (`text`,recipe_id) VALUES
 	 ('Griller le saumon après avoir préparé une marinade à base de jus de citron, d/huile d/olive et d/herbes',5),
 	 ('Laisser mariner le saumon pendant 30 minutes.',6),
