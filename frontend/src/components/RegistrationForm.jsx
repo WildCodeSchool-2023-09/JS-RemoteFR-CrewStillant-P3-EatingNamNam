@@ -191,9 +191,9 @@ export default function RegistrationForm() {
                   value === watch("password") || "Mots de passe non identiques",
               })}
             />
-            {errors.confirmpassword && (
+            {errors.confirmPassword && (
               <p role="alert" className="bg-red-600 text-beige text-sm p-0.5">
-                {errors.confirmpassword?.message}
+                {errors.confirmPassword?.message}
               </p>
             )}
           </div>

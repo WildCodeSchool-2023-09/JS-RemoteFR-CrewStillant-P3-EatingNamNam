@@ -35,7 +35,7 @@ function CreateRecipePage() {
   };
 
   return (
-    <section className="h-screen">
+    <section className="sm:min-h-screen">
       <h1 className="text-green font-bold text-5xl text-center mt-10 p-6">
         Créez votre recette ici !
       </h1>
