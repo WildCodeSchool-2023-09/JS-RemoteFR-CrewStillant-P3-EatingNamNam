@@ -25,27 +25,30 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    if (auth.role !== "admin") {
+    if (auth?.role !== "admin") {
       navigate("/");
     }
   }, []);
 
   return (
-    <div className="m-2 flex flex-col items-center p-2">
-      <h1 className="text-3xl text-green border-b-2 border-orange p-2 m-1 text-center">
-        Bienvenue sur votre page administrateur
-      </h1>
+    <div className="m-2 flex flex-col items-center p-2 sm:h-screen">
+      {auth && auth.role === "admin" ? (
+        <>
+          <h1 className="text-3xl text-green border-b-2 border-orange p-2 m-1 text-center">
+            Bienvenue sur votre page administrateur
+          </h1>
 
-      <UsersInfoAdmin users={users} />
-      <EditIngredient unit={unit.data} />
-
-      <button
-        type="button"
-        onClick={handleClick}
-        className="rounded-md text-xl border-2 mt-4 border-orange px-2 hover:text-beige hover:bg-orange active:bg-green"
-      >
-        Télécharger toutes les informations des utilisateurs
-      </button>
+          <UsersInfoAdmin users={users} />
+          <button
+            type="button"
+            onClick={handleClick}
+            className="rounded-md text-xl border-2 mt-12 border-orange px-2 hover:text-beige hover:bg-orange active:bg-green"
+          >
+            Télécharger toutes les informations des utilisateurs
+          </button>
+          <EditIngredient unit={unit.data} />
+        </>
+      ) : null}
     </div>
   );
 }
