@@ -31,7 +31,7 @@ export default function AdminPage() {
   }, []);
 
   return (
-    <div className="m-2 flex flex-col items-center p-2 sm:h-screen">
+    <div className="m-2 flex flex-col items-center p-2 sm:min-h-screen">
       {auth && auth.role === "admin" ? (
         <>
           <h1 className="text-3xl text-green border-b-2 border-orange p-2 m-1 text-center">

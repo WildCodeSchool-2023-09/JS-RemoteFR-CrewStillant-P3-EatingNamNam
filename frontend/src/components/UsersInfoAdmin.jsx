@@ -44,6 +44,7 @@ export default function UsersInfoAdmin({ users }) {
     try {
       await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/anonymous/${id}`,
+        { data: null },
         {
           headers: { Authorization: `Bearer ${auth.token}` },
         }
