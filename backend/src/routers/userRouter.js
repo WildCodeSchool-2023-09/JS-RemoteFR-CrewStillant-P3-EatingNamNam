@@ -24,9 +24,9 @@ router.get("/", browse);
 
 router.post("/", userValidation, hash, add);
 
-router.get("/dl", userValidation, download);
-
 router.use(verifyToken);
+
+router.get("/dl", download);
 
 router.get("/recipe", readRecipe);
 
